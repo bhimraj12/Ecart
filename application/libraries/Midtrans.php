@@ -1,4 +1,6 @@
 <?php
+#[\AllowDynamicProperties]
+
 class Midtrans
 {
     function __construct()

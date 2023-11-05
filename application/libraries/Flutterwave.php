@@ -7,6 +7,7 @@
     3. create_payment($data)
 
 */
+#[\AllowDynamicProperties]
 
 class Flutterwave
 {
