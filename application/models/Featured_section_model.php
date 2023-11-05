@@ -25,7 +25,8 @@ class Featured_section_model extends CI_Model
             'product_type' => $data['product_type'],
             'categories' => (isset($data['categories']) && !empty($data['categories'])) ? implode(',', $data['categories']) : null,
             'product_ids' => $product_ids,
-            'style' => $data['style']
+            'style' => $data['style'],
+            'status' => 1
         ];
         
         if (isset($data['edit_featured_section'])) {
@@ -105,6 +106,7 @@ class Featured_section_model extends CI_Model
             $tempRow['categories'] = $row['categories'];
             $tempRow['product_type'] = ucwords(str_replace('_', ' ', $row['product_type']));
             $tempRow['date'] = $row['date_added'];
+            $tempRow['status'] = $row['status'];
             $tempRow['operate'] = $operate;
             $rows[] = $tempRow;
         }
