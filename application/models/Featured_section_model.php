@@ -98,6 +98,11 @@ class Featured_section_model extends CI_Model
 
             $operate = ' <a href="javascript:void(0)" class="edit_btn action-btn btn btn-primary btn-xs ml-1 mr-1 mb-1" title="Edit" data-id="' . $row['id'] . '" data-url="admin/Featured_sections/"><i class="fa fa-pen"></i></a>';
             $operate .= ' <a  href="javascript:void(0)" class="btn btn-danger action-btn btn-xs mr-1 mb-1 ml-1" title="Delete" data-id="' . $row['id'] . '" id="delete-featured-section" ><i class="fa fa-trash"></i></a>';
+            if ($row['status'] == '1') {
+                $operate .= '<a class="btn btn-success btn-xs action-btn update_active_status mr-1 mb-1 ml-1" data-table="sections" title="Deactivate" href="javascript:void(0)" data-id="' . $row['id'] . '" data-status="' . $row['status'] . '" ><i class="fa fa-toggle-on"></i></a>';
+            } else {
+                $operate .= '<a class="btn btn-secondary mr-1 mb-1 ml-1 btn-xs update_active_status action-btn" data-table="sections" href="javascript:void(0)" title="Active" data-id="' . $row['id'] . '" data-status="' . $row['status'] . '" ><i class="fa fa-toggle-off"></i></a>';
+            }
             $tempRow['id'] = $row['id'];
             $tempRow['title'] = $row['title'];
             $tempRow['short_description'] = $row['short_description'];
@@ -106,7 +111,8 @@ class Featured_section_model extends CI_Model
             $tempRow['categories'] = $row['categories'];
             $tempRow['product_type'] = ucwords(str_replace('_', ' ', $row['product_type']));
             $tempRow['date'] = $row['date_added'];
-            $tempRow['status'] = $row['status'];
+            // $tempRow['status'] = $row['status'];
+            $tempRow['status'] = ($row['status'] == '1') ? '<a class="badge badge-success text-white" >Active</a>' : '<a class="badge badge-danger text-white" >Inactive</a>';
             $tempRow['operate'] = $operate;
             $rows[] = $tempRow;
         }

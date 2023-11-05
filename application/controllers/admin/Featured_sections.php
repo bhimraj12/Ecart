@@ -35,7 +35,6 @@ class Featured_sections extends CI_Controller
         }
     }
 
-
     public function add_featured_section()
     {
         if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
@@ -66,7 +65,7 @@ class Featured_sections extends CI_Controller
                 if (isset($_POST['edit_featured_section'])) {
 
                     if (is_exist(['title' => $_POST['title']], 'sections', $_POST['edit_featured_section'])) {
-                        $response["error"]   = true;
+                        $response["error"] = true;
                         $response['csrfName'] = $this->security->get_csrf_token_name();
                         $response['csrfHash'] = $this->security->get_csrf_hash();
                         $response["message"] = "Title Already Exists !";
@@ -76,7 +75,7 @@ class Featured_sections extends CI_Controller
                     }
                 } else {
                     if (is_exist(['title' => $_POST['title']], 'sections')) {
-                        $response["error"]   = true;
+                        $response["error"] = true;
                         $response['csrfName'] = $this->security->get_csrf_token_name();
                         $response['csrfHash'] = $this->security->get_csrf_hash();
                         $response["message"] = "Title Already Exists !";
@@ -132,7 +131,7 @@ class Featured_sections extends CI_Controller
             foreach ($_GET['section_id'] as $row) {
                 $temp[$row] = $i;
                 $data = [
-                    'row_order' => $i
+                    'row_order' => $i,
                 ];
                 $data = escape_array($data);
                 $this->db->where(['id' => $row])->update('sections', $data);
@@ -159,12 +158,51 @@ class Featured_sections extends CI_Controller
         }
     }
 
-
     public function get_section_list()
     {
 
         if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
             return $this->Featured_section_model->get_section_list();
+        } else {
+            redirect('admin/login', 'refresh');
+        }
+    }
+    public function update_status()
+    {
+        if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
+            if (defined('ALLOW_MODIFICATION') && ALLOW_MODIFICATION == 0) {
+                $this->response['error'] = true;
+                $this->response['message'] = DEMO_VERSION_MSG;
+                echo json_encode($this->response);
+                return false;
+                exit();
+            }
+            if ($_GET['status'] == '1') {
+                $_GET['status'] = 0;
+            } else if ($_GET['status'] == '2') {
+                $_GET['status'] = 1;
+            } else {
+                $_GET['status'] = 1;
+            }
+            $this->db->trans_start();
+            if ($_GET['table'] == 'sections') {
+                $this->db->set('active', $this->db->escape($_GET['status']));
+            } else {
+                $this->db->set('status', $this->db->escape($_GET['status']));
+            }
+
+            $this->db->where('id', $_GET['id'])->update($_GET['table']);
+            $this->db->trans_complete();
+            $error = false;
+            $message = str_replace('_', ' ', $_GET['table']);
+            if ($this->db->trans_status() === true) {
+                $error = true;
+            }
+            $response['error'] = $error;
+            $response['csrfName'] = $this->security->get_csrf_token_name();
+            $response['csrfHash'] = $this->security->get_csrf_hash();
+            $response['message'] = $message;
+            print_r(json_encode($response));
         } else {
             redirect('admin/login', 'refresh');
         }
@@ -184,7 +222,7 @@ class Featured_sections extends CI_Controller
                 return false;
                 exit();
             }
-            if (delete_details(['id' => $_GET['id']], 'sections') == TRUE) {
+            if (delete_details(['id' => $_GET['id']], 'sections') == true) {
                 $this->response['error'] = false;
                 $this->response['message'] = 'Deleted Succesfully';
                 print_r(json_encode($this->response));

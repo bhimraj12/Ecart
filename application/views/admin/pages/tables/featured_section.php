@@ -180,6 +180,7 @@
                                     <th data-field="product_ids" data-sortable="true">Product ids</th>
                                     <th data-field="product_type" data-sortable="true">Product Type</th>
                                     <th data-field="date" data-sortable="true">Date</th>
+                                    <th data-field="status" data-sortable="true">Status</th>
                                     <th data-field="operate">Actions</th>
                                 </tr>
                             </thead>
