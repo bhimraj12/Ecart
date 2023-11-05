@@ -183,7 +183,7 @@ $zipcodes = (isset($product_details[0]['deliverable_zipcodes']) && $product_deta
                                                 <select class='form-control shiprocket_type' name="pickup_location" id="pickup_location">
                                                     <option value=" ">Select Pickup Location</option>
                                                     <?php foreach ($shipping_data as $row) {
-    $pickup_location = (isset($product_details[0]['pickup_location']) && !empty($product_details[0]['pickup_location']) ? $product_details[0]['pickup_location'] : "")?>
+                                                    $pickup_location = (isset($product_details[0]['pickup_location']) && !empty($product_details[0]['pickup_location']) ? $product_details[0]['pickup_location'] : "")?>
 
                                                         <option <?php if ($row['pickup_location'] == $pickup_location) {?> selected <?php }?> value="<?php echo $row['pickup_location']; ?>"><?php echo $row['pickup_location']; ?></option>
                                                     <?php }?>
