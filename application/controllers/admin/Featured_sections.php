@@ -186,7 +186,7 @@ class Featured_sections extends CI_Controller
             }
             $this->db->trans_start();
             if ($_GET['table'] == 'sections') {
-                $this->db->set('active', $this->db->escape($_GET['status']));
+                $this->db->set('status', $this->db->escape($_GET['status']));
             } else {
                 $this->db->set('status', $this->db->escape($_GET['status']));
             }
