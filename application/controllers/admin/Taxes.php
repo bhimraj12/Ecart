@@ -11,7 +11,7 @@ class Taxes extends CI_Controller
         $this->load->database();
         $this->load->library(['ion_auth', 'form_validation', 'upload']);
         $this->load->helper(['url', 'language', 'file']);
-        $this->load->model('Tax_model','Cod_Advance_Payment_model');
+        $this->load->model('Tax_model');
 
         if (!has_permissions('read', 'tax')) {
             $this->session->set_flashdata('authorize_flag', PERMISSION_ERROR_MSG);
@@ -117,15 +117,6 @@ class Taxes extends CI_Controller
         }
     }
 
-    public function get_cod_advance_payment()
-    {
-
-        if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
-            return $this->Cod_Advance_Payment_model->get_cod_advance();
-        } else {
-            redirect('admin/login', 'refresh');
-        }
-    }
 
     public function delete_tax()
     {
@@ -134,12 +125,17 @@ class Taxes extends CI_Controller
                 return false;
             }
 
-            if (delete_details(['id' => $_GET['id']], 'taxes') == TRUE) {
-                $response['error'] = false;
-                $response['message'] = 'Deleted Succesfully';
-            } else {
+            if ($_GET['id'] == 1) {
                 $response['error'] = true;
-                $response['message'] = 'Something Went Wrong';
+                $response['message'] = "COD Advance Payment Can't be Delete";
+            } else {
+                if (delete_details(['id' => $_GET['id']], 'taxes') == TRUE) {
+                    $response['error'] = false;
+                    $response['message'] = 'Deleted Succesfully';
+                } else {
+                    $response['error'] = true;
+                    $response['message'] = 'Something Went Wrong';
+                }
             }
             print_r(json_encode($response));
         } else {
