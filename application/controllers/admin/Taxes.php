@@ -11,7 +11,7 @@ class Taxes extends CI_Controller
         $this->load->database();
         $this->load->library(['ion_auth', 'form_validation', 'upload']);
         $this->load->helper(['url', 'language', 'file']);
-        $this->load->model('Tax_model');
+        $this->load->model('Tax_model','Cod_Advance_Payment_model');
 
         if (!has_permissions('read', 'tax')) {
             $this->session->set_flashdata('authorize_flag', PERMISSION_ERROR_MSG);
@@ -112,6 +112,16 @@ class Taxes extends CI_Controller
 
         if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
             return $this->Tax_model->get_tax_list();
+        } else {
+            redirect('admin/login', 'refresh');
+        }
+    }
+
+    public function get_cod_advance_payment()
+    {
+
+        if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
+            return $this->Cod_Advance_Payment_model->get_cod_advance();
         } else {
             redirect('admin/login', 'refresh');
         }
