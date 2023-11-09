@@ -130,7 +130,7 @@ class Product extends CI_Controller
         $res['pre_selected_variants_ids'] = $variants;
         $response['csrfName'] = $this->security->get_csrf_token_name();
         $response['csrfHash'] = $this->security->get_csrf_hash();
-        $response['result'] = $res;
+        $response['result'] = $res; 
         print_r(json_encode($response));
     }
 

@@ -241,6 +241,17 @@ $doctor_brown_for_app = get_settings('doctor_brown'); ?>
                                     </a>
                                 </li>
                             <?php } ?>
+
+                            <?php if (has_permissions('read', 'cod_delivery_charges')) { ?>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('admin/cod/charges') ?>" class="nav-link">
+                                        <i class="icon-basket"></i>
+                                        <p>Cod Delivery Charge</p>
+                                    </a>
+                                </li>
+                            <?php } ?>
+
+       
                         </ul>
                     </li>
                 <?php } ?>
