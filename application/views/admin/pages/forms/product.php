@@ -77,15 +77,16 @@
                                                         <option value="0" selected> No Taxes Are Added </option>
                                                     <?php } ?>
                                                     <?php foreach ($taxes as $row) {
-                                                        if (isset($product_details[0]['tax']) && $product_details[0]['tax'] == $row['id']) {
-                                                            $selected = 'selected';
-                                                        } else {
-                                                            $selected = '';
+                                                        if ($row['id'] == 1) {
+                                                            // Skip the option with id 1
+                                                            continue;
                                                         }
+                                                        $selected = (isset($product_details[0]['tax']) && $product_details[0]['tax'] == $row['id']) ? 'selected' : '';
                                                     ?>
-                                                        <option value="<?= $row['id'] ?>" <?= $selected ?>><?= $row['title'] ?><?php echo "(" . $row['percentage'] . "%)" ?></option>
-                                                    <?php
-                                                    } ?>
+                                                        <option value="<?= $row['id'] ?>" <?= $selected ?>>
+                                                            <?= $row['title'] . ' (' . $row['percentage'] . '%)' ?>
+                                                        </option>
+                                                    <?php } ?>
                                                 </select>
 
                                             </div>
@@ -215,10 +216,15 @@
                                                     <option value='shipped' <?= (isset($product_details[0]['cancelable_till']) && $product_details[0]['cancelable_till'] == 'shipped') ? 'selected' : '' ?>>Shipped</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-5 cod_advance <?= (isset($product_details[0]['cod_allowed']) && $product_details[0]['cod_allowed'] != '1') ? 'd-none' : '' ?>">
-                                                <label for="cod_advance" class="col-form-label">Advance Payment on COD (%)</label>
-                                                <input type="number" class="col-md-12 form-control" name="cod_advance" min="10" value="<?= (isset($product_details[0]['cod_advance'])) ? $product_details[0]['cod_advance'] : 10; ?>" placeholder='Advance Payment on COD in %'>
+                                            <div class="col-md-4">
+                                                <label for="tax_details" class="col-form-label">COD Advance Payment Details</label>
+                                                <?php if (!empty($taxes) && isset($taxes[0]['id']) && $taxes[0]['id'] == 1) { ?>
+                                                    <input type="text" class="form-control" id="tax_details" name="tax_details" value="<?= $taxes[0]['title'] . ' (' . $taxes[0]['percentage'] . '%)' ?>" readonly>
+                                                <?php } else { ?>
+                                                    <input type="text" class="form-control" id="tax_details" name="tax_details" value="No Tax Details" readonly>
+                                                <?php } ?>
                                             </div>
+
                                         </div>
                                         <div class="row col mt-3">
 
@@ -767,244 +773,244 @@
                                     </div>
 
 
-     
+
                                     <div class="form-row">
-                                                    
-                                                    <div class="col-md-4 mb-3">
-                                                       
-                                                    </div>
-                                                    
-                                                    
-                                                </div>
-                                                
-                                               
-                                                <!--<div id="dynamic_field">-->
-                                                <!--    <div class="form-row">-->
-                                                <!--        <div class="col-md-4 mb-3">-->
-                                                <!--            <input type="text" class="form-control" name="key_attribute[]"  placeholder="custom key" value="" required="">-->
-                                                <!--        </div>-->
-                                                <!--        <div class="col-md-4 mb-3">-->
-                                                <!--            <input type="text" class="form-control" name="value_attribute[]"  placeholder="custom value" value="" required="">-->
-                                                <!--        </div>-->
-                                                <!--        <div class="col-md-4 mb-3">-->
-                                                <!--            <button type="button" name="add" id="add" class="btn btn-info">add custom attribute</button>-->
-                                                <!--        </div>            -->
-                                                <!--    </div>    -->
-                                                <!--</div>-->
-                                                </div>
-                                                
-                                                   <hr>
-                                                <div class="form-row">
-                                                    <div class="col-md-4 mb-3">
-                                                        <label for="validationCustom03">Unit</label>
-                                                        <!--<input type="text" class="form-control" name="unit"  placeholder="Unit" required="">-->
-                                                        <select class="custom-select input-sm" name="unit_id" id="unit_select" required>
-                                                                <!--<option value="">Open this select Unit</option>-->
-                                                                <?php
-                                                                foreach($unit as $u_list){
-                                                                    echo ' <option value="'.$u_list['unit_id'].'">'.$u_list['unit_name'].'</option>';
-                                                                }
-                                                                ?>
-                                                        </select>
-                                                        <div class="invalid-feedback">
-                                                            Please Enter Unit.
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 mb-3" id="select_units">
-                                                        <label for="validationCustom03">Net Weight / Content</label>
-                                                     <div class="input-group">
-                                                       <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" required>
-                                                       <select class="custom-select input-sm" name="set_unit" id="set_unit" required>
-                                                                <option value="">Open this select Unit</option>
-                                                                <?php
-                                                                foreach($unit as $u_list){
-                                                                    echo ' <option value="'.$u_list['unit_id'].'">'.$u_list['unit_name'].'</option>';
-                                                                }
-                                                                ?>
-                                                    </select>
-                                                     </div>
-                                                 </div>
-                                                </div>
-                                                    
-                                                <div class="form-row">
-                                                    <div class="col-md-2 mb-3">
-                                                        <label for="validationCustom04">Purchase Rate</label>
-                                                        <input type="text" class="form-control" name="Purchase_price" id="Purchase_price"  placeholder="Purchase Price" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid state.
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-md-2 mb-3">
-                                                        <label for="validationCustom03">MRP</label>
-                                                        <input type="text" class="form-control" name="mrp" id="mrp" placeholder="MRP" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid city.
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-md-2 mb-3">
-                                                        <label for="validationCustom04">Per Piece Price</label>
-                                                        <input type="text" class="form-control" name="piece_price" id="piece_price"  placeholder="Piece Price" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid state.
-                                                        </div>
-                                                    </div>
-                                                    
-                                                     <div class="col-md-2 mb-3">
-                                                        <label for="validationCustom04">Set Price</label>
-                                                        <input type="text" class="form-control" name="selling_price" id="selling_price"  placeholder="Set Price" readonly>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid state.
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <!--<div class="col-md-3 mb-3">-->
-                                                    <!--    <label for="validationCustom05">Weight</label>-->
-                                                    <!--    <input type="number" step="any" min="0" class="form-control" name="weight"  placeholder="Weight" required="">-->
-                                                    <!--    <div class="invalid-feedback">-->
-                                                    <!--        Please provide a valid zip.-->
-                                                    <!--    </div>-->
-                                                    <!--</div>-->
-                                                   
-                                                     <div class="col-md-2 mb-3">
-                                                        <label for="validationCustom05">Weight</label>
-                                                        <input type="text" step="any" min="0" class="form-control" name="weight"  placeholder="Weight" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid zip.
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-md-2 mb-3">
-                                                       <label for="validationCustom05">Minimum Quantity</label>
-                                                        <input type="number" class="form-control" name="min_qty" id="mini_quantity" placeholder="Min Qty" value="" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid state.
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <!--<div class="col-md-2 mb-3">-->
-                                                    <!--    <label for="validationCustom05">Maximum Quantity</label>-->
-                                                    <!--    <input type="number" class="form-control" name="max_qty"  placeholder="Max Qty" required="">-->
-                                                    <!--    <div class="invalid-feedback">-->
-                                                    <!--        Please provide a valid zip.-->
-                                                    <!--    </div>-->
-                                                    <!--</div>-->
-                                                    
-                                                    <!--<div class="col-md-2 mb-3">-->
-                                                    <!--    <label for="validationCustom05">Delivery 35 per Kg</label>-->
-                                                    <!--    <input type="text" class="form-control" name="delivery_amt"  placeholder="35" required="">-->
-                                                    <!--    <div class="invalid-feedback">-->
-                                                    <!--        Please provide a valid zip.-->
-                                                    <!--    </div>-->
-                                                    <!--</div>-->
-                                                </div>
-                                                   <hr>
-                                                <!--<p for="validationCustom03">Package weight & Shipment weight (KG)</p>-->
-                                                 <div class="form-row">
-                                                      <div class="col-md-2 mb-3">
-                                                        
-                                                        <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please Enter Unit.
-                                                        </div>
-                                                    </div>
-                                                      <div class="col-md-2 mb-3">
-                                                        <!--<label for="validationCustom05">GST</label>-->
-                                                        <input type="number" class="form-control" name="gst"  placeholder="GST" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid zip.
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2 mb-3">
-                                                       
-                                                       <div class="form-check">
-                                                          <input class="form-check-input" type="radio" name="gst_type" id="flexRadioDefault1" value="0">
-                                                          <label class="form-check-label" for="flexRadioDefault1">
-                                                            Inclusive GST
-                                                          </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                          <input class="form-check-input" type="radio" name="gst_type" id="flexRadioDefault2" value="1" checked>
-                                                          <label class="form-check-label" for="flexRadioDefault2">
-                                                            Exclusive GST
-                                                          </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2 mb-3">
-                                                       
-                                                       <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="0" id="invalidCheck2" name="allow_cod" >
-                                                        <label class="form-check-label" for="invalidCheck2">
-                                                            Allow To COD
-                                                        </label><br>
-                                                         <input class="form-check-input" type="checkbox" value="1" id="invalidCheck223"  name="live_product" >
-                                                        <label class="form-check-label" for="invalidCheck223">
-                                                            Allow To Live
-                                                        </label>
-                                                    </div>
-                                                    </div>
-                                                    <div class="col-md-2 mb-3">
-                                                       <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="0" id="invalidCheck22" name="allow_return" >
-                                                        <label class="form-check-label" for="invalidCheck22">
-                                                            Allow To Return
-                                                        </label>
-                                                    </div>
-                                                    </div>
-                                                    
-                                                    <!--<div class="col-md-2 mb-3">-->
-                                                    <!--   <div class="form-check">-->
-                                                    <!--    <input class="form-check-input" type="checkbox" value="1" id="invalidCheck223"  name="live_product" >-->
-                                                    <!--    <label class="form-check-label" for="invalidCheck223">-->
-                                                    <!--        Allow To Live-->
-                                                    <!--    </label>-->
-                                                    <!--</div>-->
-                                                    <!--</div>-->
-                                                    
-                                                    <div class="col-md-2 mb-3">
-                                                     
-                                                        <input type="number" class="form-control" name="return_period" id="returnperiod" placeholder="Return Period in days" >
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid zip.
-                                                        </div>
-                                                    </div>
-                                                 
-                                                </div>
+
+                                        <div class="col-md-4 mb-3">
+
+                                        </div>
 
 
-                                    
-                                    <div class="card-body pad">
-                                        <div class="form-group col-md-12">
-                                            <label for="pro_input_description">Description </label>
-                                            <div class="mb-3">
-                                                <textarea name="pro_input_description" class="textarea addr_editor" placeholder="Place some text here"><?= (isset($product_details[0]['id'])) ? output_escaping(str_replace('\r\n', '&#13;&#10;', $product_details[0]['description'])) : ''; ?></textarea>
-                                            </div>
-                                            <label for="pro_input_description">Extra Description </label>
-                                            <div class="mb-3">
-                                                <textarea name="extra_input_description" class="textarea addr_editor" placeholder="Place some text here"><?= (isset($product_details[0]['id'])) ? output_escaping(str_replace('\r\n', '&#13;&#10;', $product_details[0]['extra_description'])) : ''; ?></textarea>
-                                            </div>
-                                            <div class="d-flex justify-content-center">
-                                                <div class="form-group" id="error_box">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="reset" class="btn btn-warning">Reset</button>
-                                                <button type="submit" class="btn btn-success" id="submit_btn"><?= (isset($product_details[0]['id'])) ? 'Update Product' : 'Add Product' ?></button>
-                                            </div>
+                                    </div>
+
+
+                                    <!--<div id="dynamic_field">-->
+                                    <!--    <div class="form-row">-->
+                                    <!--        <div class="col-md-4 mb-3">-->
+                                    <!--            <input type="text" class="form-control" name="key_attribute[]"  placeholder="custom key" value="" required="">-->
+                                    <!--        </div>-->
+                                    <!--        <div class="col-md-4 mb-3">-->
+                                    <!--            <input type="text" class="form-control" name="value_attribute[]"  placeholder="custom value" value="" required="">-->
+                                    <!--        </div>-->
+                                    <!--        <div class="col-md-4 mb-3">-->
+                                    <!--            <button type="button" name="add" id="add" class="btn btn-info">add custom attribute</button>-->
+                                    <!--        </div>            -->
+                                    <!--    </div>    -->
+                                    <!--</div>-->
+                                </div>
+
+                                <hr>
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationCustom03">Unit</label>
+                                        <!--<input type="text" class="form-control" name="unit"  placeholder="Unit" required="">-->
+                                        <select class="custom-select input-sm" name="unit_id" id="unit_select" required>
+                                            <!--<option value="">Open this select Unit</option>-->
+                                            <?php
+                                            foreach ($unit as $u_list) {
+                                                echo ' <option value="' . $u_list['unit_id'] . '">' . $u_list['unit_name'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please Enter Unit.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3" id="select_units">
+                                        <label for="validationCustom03">Net Weight / Content</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" required>
+                                            <select class="custom-select input-sm" name="set_unit" id="set_unit" required>
+                                                <option value="">Open this select Unit</option>
+                                                <?php
+                                                foreach ($unit as $u_list) {
+                                                    echo ' <option value="' . $u_list['unit_id'] . '">' . $u_list['unit_name'] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-2 mb-3">
+                                        <label for="validationCustom04">Purchase Rate</label>
+                                        <input type="text" class="form-control" name="Purchase_price" id="Purchase_price" placeholder="Purchase Price" required="">
+                                        <div class="invalid-feedback">
+                                            Please provide a valid state.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 mb-3">
+                                        <label for="validationCustom03">MRP</label>
+                                        <input type="text" class="form-control" name="mrp" id="mrp" placeholder="MRP" required="">
+                                        <div class="invalid-feedback">
+                                            Please provide a valid city.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 mb-3">
+                                        <label for="validationCustom04">Per Piece Price</label>
+                                        <input type="text" class="form-control" name="piece_price" id="piece_price" placeholder="Piece Price" required="">
+                                        <div class="invalid-feedback">
+                                            Please provide a valid state.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 mb-3">
+                                        <label for="validationCustom04">Set Price</label>
+                                        <input type="text" class="form-control" name="selling_price" id="selling_price" placeholder="Set Price" readonly>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid state.
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="col-md-3 mb-3">-->
+                                    <!--    <label for="validationCustom05">Weight</label>-->
+                                    <!--    <input type="number" step="any" min="0" class="form-control" name="weight"  placeholder="Weight" required="">-->
+                                    <!--    <div class="invalid-feedback">-->
+                                    <!--        Please provide a valid zip.-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
+
+                                    <div class="col-md-2 mb-3">
+                                        <label for="validationCustom05">Weight</label>
+                                        <input type="text" step="any" min="0" class="form-control" name="weight" placeholder="Weight" required="">
+                                        <div class="invalid-feedback">
+                                            Please provide a valid zip.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 mb-3">
+                                        <label for="validationCustom05">Minimum Quantity</label>
+                                        <input type="number" class="form-control" name="min_qty" id="mini_quantity" placeholder="Min Qty" value="" required="">
+                                        <div class="invalid-feedback">
+                                            Please provide a valid state.
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="col-md-2 mb-3">-->
+                                    <!--    <label for="validationCustom05">Maximum Quantity</label>-->
+                                    <!--    <input type="number" class="form-control" name="max_qty"  placeholder="Max Qty" required="">-->
+                                    <!--    <div class="invalid-feedback">-->
+                                    <!--        Please provide a valid zip.-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="col-md-2 mb-3">-->
+                                    <!--    <label for="validationCustom05">Delivery 35 per Kg</label>-->
+                                    <!--    <input type="text" class="form-control" name="delivery_amt"  placeholder="35" required="">-->
+                                    <!--    <div class="invalid-feedback">-->
+                                    <!--        Please provide a valid zip.-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
+                                </div>
+                                <hr>
+                                <!--<p for="validationCustom03">Package weight & Shipment weight (KG)</p>-->
+                                <div class="form-row">
+                                    <div class="col-md-2 mb-3">
+
+                                        <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" required="">
+                                        <div class="invalid-feedback">
+                                            Please Enter Unit.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        <!--<label for="validationCustom05">GST</label>-->
+                                        <input type="number" class="form-control" name="gst" placeholder="GST" required="">
+                                        <div class="invalid-feedback">
+                                            Please provide a valid zip.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gst_type" id="flexRadioDefault1" value="0">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Inclusive GST
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gst_type" id="flexRadioDefault2" value="1" checked>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                Exclusive GST
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="0" id="invalidCheck2" name="allow_cod">
+                                            <label class="form-check-label" for="invalidCheck2">
+                                                Allow To COD
+                                            </label><br>
+                                            <input class="form-check-input" type="checkbox" value="1" id="invalidCheck223" name="live_product">
+                                            <label class="form-check-label" for="invalidCheck223">
+                                                Allow To Live
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="0" id="invalidCheck22" name="allow_return">
+                                            <label class="form-check-label" for="invalidCheck22">
+                                                Allow To Return
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="col-md-2 mb-3">-->
+                                    <!--   <div class="form-check">-->
+                                    <!--    <input class="form-check-input" type="checkbox" value="1" id="invalidCheck223"  name="live_product" >-->
+                                    <!--    <label class="form-check-label" for="invalidCheck223">-->
+                                    <!--        Allow To Live-->
+                                    <!--    </label>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+
+                                    <div class="col-md-2 mb-3">
+
+                                        <input type="number" class="form-control" name="return_period" id="returnperiod" placeholder="Return Period in days">
+                                        <div class="invalid-feedback">
+                                            Please provide a valid zip.
                                         </div>
                                     </div>
 
                                 </div>
+
+
+
+                                <div class="card-body pad">
+                                    <div class="form-group col-md-12">
+                                        <label for="pro_input_description">Description </label>
+                                        <div class="mb-3">
+                                            <textarea name="pro_input_description" class="textarea addr_editor" placeholder="Place some text here"><?= (isset($product_details[0]['id'])) ? output_escaping(str_replace('\r\n', '&#13;&#10;', $product_details[0]['description'])) : ''; ?></textarea>
+                                        </div>
+                                        <label for="pro_input_description">Extra Description </label>
+                                        <div class="mb-3">
+                                            <textarea name="extra_input_description" class="textarea addr_editor" placeholder="Place some text here"><?= (isset($product_details[0]['id'])) ? output_escaping(str_replace('\r\n', '&#13;&#10;', $product_details[0]['extra_description'])) : ''; ?></textarea>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <div class="form-group" id="error_box">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="reset" class="btn btn-warning">Reset</button>
+                                            <button type="submit" class="btn btn-success" id="submit_btn"><?= (isset($product_details[0]['id'])) ? 'Update Product' : 'Add Product' ?></button>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                        </form>
                     </div>
-                    <!--/.card-->
+                    </form>
                 </div>
-                <!--/.col-md-12-->
+                <!--/.card-->
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+            <!--/.col-md-12-->
+        </div>
+        <!-- /.row -->
+</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 </div>
