@@ -117,6 +117,7 @@ class Taxes extends CI_Controller
         }
     }
 
+
     public function delete_tax()
     {
         if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
@@ -124,12 +125,17 @@ class Taxes extends CI_Controller
                 return false;
             }
 
-            if (delete_details(['id' => $_GET['id']], 'taxes') == TRUE) {
-                $response['error'] = false;
-                $response['message'] = 'Deleted Succesfully';
-            } else {
+            if ($_GET['id'] == 1) {
                 $response['error'] = true;
-                $response['message'] = 'Something Went Wrong';
+                $response['message'] = "COD Advance Payment Can't be Delete";
+            } else {
+                if (delete_details(['id' => $_GET['id']], 'taxes') == TRUE) {
+                    $response['error'] = false;
+                    $response['message'] = 'Deleted Succesfully';
+                } else {
+                    $response['error'] = true;
+                    $response['message'] = 'Something Went Wrong';
+                }
             }
             print_r(json_encode($response));
         } else {
