@@ -236,6 +236,7 @@ class Product_model extends CI_Model
                     $variant_unit_set = (isset($data['unit_set'])) ? $data['unit_set'] : 0.0;
                     $variant_set_unit = (isset($data['set_unit'])) ? $data['set_unit'] : 0.0;
                     $variant_purchase_rate = (isset($data['purchase_rate'])) ? $data['purchase_rate'] : 0.0;
+                    $variant_purchase_rate = (isset($data['Selling_price'])) ? $data['Selling_price'] : 0.0;
 
                 } else {
                     $flag = "variant_level";
@@ -252,6 +253,7 @@ class Product_model extends CI_Model
                     $variant_unit_set = (isset($data['unit_set'])) ? $data['unit_set'] : 0.0;
                     $variant_set_unit = (isset($data['set_unit'])) ? $data['set_unit'] : 0.0;
                     $variant_purchase_rate = (isset($data['purchase_rate'])) ? $data['purchase_rate'] : 0.0;
+                    $variant_purchase_rate = (isset($data['Selling_price'])) ? $data['Selling_price'] : 0.0;
                 }
             } else {
 
@@ -265,6 +267,7 @@ class Product_model extends CI_Model
                 $variant_unit_set = (isset($data['unit_set'])) ? $data['unit_set'] : 0.0;
                 $variant_set_unit = (isset($data['set_unit'])) ? $data['set_unit'] : 0.0;
                 $variant_purchase_rate = (isset($data['purchase_rate'])) ? $data['purchase_rate'] : 0.0;
+                $variant_purchase_rate = (isset($data['Selling_price'])) ? $data['Selling_price'] : 0.0;
             }
 
             if (!empty($data['variants_ids'])) {
@@ -290,6 +293,7 @@ class Product_model extends CI_Model
                         $pro_variance_data['unit_set'] = $variant_unit_set[$i];
                         $pro_variance_data['set_unit'] = $variant_set_unit[$i];
                         $pro_variance_data['purchase_rate'] = $variant_purchase_rate[$i];
+                        $pro_variance_data['Selling_price'] = $variant_Selling_price[$i];
                         $pro_variance_data['sku'] = $variant_sku[$i];
                         $pro_variance_data['stock'] = $variant_total_stock[$i];
                         $pro_variance_data['availability'] = $variant_stock_status[$i];
@@ -304,6 +308,7 @@ class Product_model extends CI_Model
                         $pro_variance_data['unit_set'] = $variant_unit_set[$i];
                         $pro_variance_data['set_unit'] = $variant_set_unit[$i];
                         $pro_variance_data['purchase_rate'] = $variant_purchase_rate[$i];
+                        $pro_variance_data['Selling_price'] = $variant_Selling_price[$i];
                     }
 
                     if (isset($variant_images[$i]) && !empty($variant_images[$i])) {

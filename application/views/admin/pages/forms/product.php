@@ -609,14 +609,19 @@
                                                                     </div>
                                                                     <div id="product-general-settings">
                                                                         <div id="general_price_section" class="collapse">
-                                                                            <div class="form-group">
-                                                                                <label for="type" class="col-md-2">Price:</label>
-                                                                                <div class="col-md-12">
+                                                                            <div class="form-group" class="col-md-2">
+                                                                            <label for="type" class="col-md-2">Purchase Rate:</label>
+                                                                        <div class="col-md-12">
+                                                                            <input type="number" name="purchase_rate" class="form-control purchase_rate" value="" min='0' step="0.01">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group" class="col-md-2">
+                                                                        <label for="type" class="col-md-2">MRP:</label>
                                                                                     <input type="number" name="simple_price" class="form-control stock-simple-mustfill-field price" min='0' step="0.01">
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label for="type" class="col-md-2">Special Price:</label>
+                                                                            <div class="form-group" class="col-md-2">
+                                                                                <label for="type" class="col-md-2">Per Piece Price:</label>
                                                                                 <div class="col-md-12">
                                                                                     <input type="number" name="simple_special_price" class="form-control discounted_price" min='0' step="0.01">
                                                                                 </div>
