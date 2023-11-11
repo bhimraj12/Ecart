@@ -775,231 +775,230 @@
 
 
                                     <div class="form-row">
-
-                                        <div class="col-md-4 mb-3">
-
-                                        </div>
-
-
-                                    </div>
-
-
-                                    <!--<div id="dynamic_field">-->
-                                    <!--    <div class="form-row">-->
-                                    <!--        <div class="col-md-4 mb-3">-->
-                                    <!--            <input type="text" class="form-control" name="key_attribute[]"  placeholder="custom key" value="" required="">-->
-                                    <!--        </div>-->
-                                    <!--        <div class="col-md-4 mb-3">-->
-                                    <!--            <input type="text" class="form-control" name="value_attribute[]"  placeholder="custom value" value="" required="">-->
-                                    <!--        </div>-->
-                                    <!--        <div class="col-md-4 mb-3">-->
-                                    <!--            <button type="button" name="add" id="add" class="btn btn-info">add custom attribute</button>-->
-                                    <!--        </div>            -->
-                                    <!--    </div>    -->
-                                    <!--</div>-->
-                                </div>
-
-                                <hr>
-                                <div class="form-row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="validationCustom03">Unit</label>
-                                        <!--<input type="text" class="form-control" name="unit"  placeholder="Unit" required="">-->
-                                        <select class="custom-select input-sm" name="unit_id" id="unit_select" required>
-                                            <!--<option value="">Open this select Unit</option>-->
-                                            <?php
-                                            foreach ($unit as $u_list) {
-                                                echo ' <option value="' . $u_list['unit_id'] . '">' . $u_list['unit_name'] . '</option>';
-                                            }
-                                            ?>
-                                        </select>
-                                        <div class="invalid-feedback">
-                                            Please Enter Unit.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mb-3" id="select_units">
-                                        <label for="validationCustom03">Net Weight / Content</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" required>
-                                            <select class="custom-select input-sm" name="set_unit" id="set_unit" required>
-                                                <option value="">Open this select Unit</option>
-                                                <?php
-                                                foreach ($unit as $u_list) {
-                                                    echo ' <option value="' . $u_list['unit_id'] . '">' . $u_list['unit_name'] . '</option>';
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="col-md-2 mb-3">
-                                        <label for="validationCustom04">Purchase Rate</label>
-                                        <input type="text" class="form-control" name="Purchase_price" id="Purchase_price" placeholder="Purchase Price" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid state.
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2 mb-3">
-                                        <label for="validationCustom03">MRP</label>
-                                        <input type="text" class="form-control" name="mrp" id="mrp" placeholder="MRP" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid city.
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2 mb-3">
-                                        <label for="validationCustom04">Per Piece Price</label>
-                                        <input type="text" class="form-control" name="piece_price" id="piece_price" placeholder="Piece Price" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid state.
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2 mb-3">
-                                        <label for="validationCustom04">Set Price</label>
-                                        <input type="text" class="form-control" name="selling_price" id="selling_price" placeholder="Set Price" readonly>
-                                        <div class="invalid-feedback">
-                                            Please provide a valid state.
-                                        </div>
-                                    </div>
-
-                                    <!--<div class="col-md-3 mb-3">-->
-                                    <!--    <label for="validationCustom05">Weight</label>-->
-                                    <!--    <input type="number" step="any" min="0" class="form-control" name="weight"  placeholder="Weight" required="">-->
-                                    <!--    <div class="invalid-feedback">-->
-                                    <!--        Please provide a valid zip.-->
-                                    <!--    </div>-->
-                                    <!--</div>-->
-
-                                    <div class="col-md-2 mb-3">
-                                        <label for="validationCustom05">Weight</label>
-                                        <input type="text" step="any" min="0" class="form-control" name="weight" placeholder="Weight" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid zip.
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2 mb-3">
-                                        <label for="validationCustom05">Minimum Quantity</label>
-                                        <input type="number" class="form-control" name="min_qty" id="mini_quantity" placeholder="Min Qty" value="" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid state.
-                                        </div>
-                                    </div>
-
-                                    <!--<div class="col-md-2 mb-3">-->
-                                    <!--    <label for="validationCustom05">Maximum Quantity</label>-->
-                                    <!--    <input type="number" class="form-control" name="max_qty"  placeholder="Max Qty" required="">-->
-                                    <!--    <div class="invalid-feedback">-->
-                                    <!--        Please provide a valid zip.-->
-                                    <!--    </div>-->
-                                    <!--</div>-->
-
-                                    <!--<div class="col-md-2 mb-3">-->
-                                    <!--    <label for="validationCustom05">Delivery 35 per Kg</label>-->
-                                    <!--    <input type="text" class="form-control" name="delivery_amt"  placeholder="35" required="">-->
-                                    <!--    <div class="invalid-feedback">-->
-                                    <!--        Please provide a valid zip.-->
-                                    <!--    </div>-->
-                                    <!--</div>-->
-                                </div>
-                                <hr>
-                                <!--<p for="validationCustom03">Package weight & Shipment weight (KG)</p>-->
-                                <div class="form-row">
-                                    <div class="col-md-2 mb-3">
-
-                                        <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" required="">
-                                        <div class="invalid-feedback">
-                                            Please Enter Unit.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 mb-3">
-                                        <!--<label for="validationCustom05">GST</label>-->
-                                        <input type="number" class="form-control" name="gst" placeholder="GST" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid zip.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 mb-3">
-
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gst_type" id="flexRadioDefault1" value="0">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                Inclusive GST
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gst_type" id="flexRadioDefault2" value="1" checked>
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                Exclusive GST
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 mb-3">
-
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="0" id="invalidCheck2" name="allow_cod">
-                                            <label class="form-check-label" for="invalidCheck2">
-                                                Allow To COD
-                                            </label><br>
-                                            <input class="form-check-input" type="checkbox" value="1" id="invalidCheck223" name="live_product">
-                                            <label class="form-check-label" for="invalidCheck223">
-                                                Allow To Live
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 mb-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="0" id="invalidCheck22" name="allow_return">
-                                            <label class="form-check-label" for="invalidCheck22">
-                                                Allow To Return
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!--<div class="col-md-2 mb-3">-->
-                                    <!--   <div class="form-check">-->
-                                    <!--    <input class="form-check-input" type="checkbox" value="1" id="invalidCheck223"  name="live_product" >-->
-                                    <!--    <label class="form-check-label" for="invalidCheck223">-->
-                                    <!--        Allow To Live-->
-                                    <!--    </label>-->
-                                    <!--</div>-->
-                                    <!--</div>-->
-
-                                    <div class="col-md-2 mb-3">
-
-                                        <input type="number" class="form-control" name="return_period" id="returnperiod" placeholder="Return Period in days">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid zip.
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-
-                                <div class="card-body pad">
-                                    <div class="form-group col-md-12">
-                                        <label for="pro_input_description">Description </label>
-                                        <div class="mb-3">
-                                            <textarea name="pro_input_description" class="textarea addr_editor" placeholder="Place some text here"><?= (isset($product_details[0]['id'])) ? output_escaping(str_replace('\r\n', '&#13;&#10;', $product_details[0]['description'])) : ''; ?></textarea>
-                                        </div>
-                                        <label for="pro_input_description">Extra Description </label>
-                                        <div class="mb-3">
-                                            <textarea name="extra_input_description" class="textarea addr_editor" placeholder="Place some text here"><?= (isset($product_details[0]['id'])) ? output_escaping(str_replace('\r\n', '&#13;&#10;', $product_details[0]['extra_description'])) : ''; ?></textarea>
-                                        </div>
-                                        <div class="d-flex justify-content-center">
-                                            <div class="form-group" id="error_box">
+                                                    
+                                                    <div class="col-md-4 mb-3">
+                                                       
+                                                    </div>
+                                                    
+                                                    
+                                                </div>
+                                                
+                                               
+                                                <!--<div id="dynamic_field">-->
+                                                <!--    <div class="form-row">-->
+                                                <!--        <div class="col-md-4 mb-3">-->
+                                                <!--            <input type="text" class="form-control" name="key_attribute[]"  placeholder="custom key" value="" required="">-->
+                                                <!--        </div>-->
+                                                <!--        <div class="col-md-4 mb-3">-->
+                                                <!--            <input type="text" class="form-control" name="value_attribute[]"  placeholder="custom value" value="" required="">-->
+                                                <!--        </div>-->
+                                                <!--        <div class="col-md-4 mb-3">-->
+                                                <!--            <button type="button" name="add" id="add" class="btn btn-info">add custom attribute</button>-->
+                                                <!--        </div>            -->
+                                                <!--    </div>    -->
+                                                <!--</div>-->
+                                                </div>
+                                                
+                                                   <hr>
+                                                <div class="form-row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="validationCustom03">Unit</label>
+                                                        <!--<input type="text" class="form-control" name="unit"  placeholder="Unit" required="">-->
+                                                        <select class="custom-select input-sm" name="unit_id" id="unit_select" required>
+            <!-- New options -->
+            <option value="Chart">Chart</option>
+            <option value="Dozens">Dozens</option>
+            <option value="Kg">Kg</option>
+            <option value="Litre">Litre</option>
+            <option value="Meter">Meter</option>
+            <option value="Metric Tons">Metric Tons</option>
+            <option value="Nos.">Nos.</option>
+            <option value="Packet">Packet</option>
+            <option value="Pairs">Pairs</option>
+            <option value="Piece">Piece</option>
+            <option value="Pieces">Pieces</option>
+            <option value="Pounds">Pounds</option>
+            <option value="Quintal">Quintal</option>
+            <option value="Sets">Sets</option>
+            <option value="Tons">Tons</option>
+        </select>
+                                                        <div class="invalid-feedback">
+                                                            Please Enter Unit.
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3" id="select_units">
+                                                        <label for="validationCustom03">Net Weight / Content</label>
+                                                     <div class="input-group">
+                                                       <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" required>
+                                                          <select class="custom-select input-sm" name="unit_id" id="unit_select" required>
+            <!-- New options -->
+            <option value="">Open this select Unit</option>
+            <option value="Chart">Chart</option>
+            <option value="Dozens">Dozens</option>
+            <option value="Kg">Kg</option>
+            <option value="Litre">Litre</option>
+            <option value="Meter">Meter</option>
+            <option value="Metric Tons">Metric Tons</option>
+            <option value="Nos.">Nos.</option>
+            <option value="Packet">Packet</option>
+            <option value="Pairs">Pairs</option>
+            <option value="Piece">Piece</option>
+            <option value="Pieces">Pieces</option>
+            <option value="Pounds">Pounds</option>
+            <option value="Quintal">Quintal</option>
+            <option value="Sets">Sets</option>
+            <option value="Tons">Tons</option>
+        </select>
+                                                     </div>
+                                                 </div>
+                                                </div>
+                                                    
+                                                <div class="form-row">
+                                                    <div class="col-md-2 mb-3">
+                                                        <label for="validationCustom04">Purchase Rate</label>
+                                                        <input type="text" class="form-control" name="Purchase_price" id="Purchase_price"  placeholder="Purchase Price" required="">
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid state.
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-2 mb-3">
+                                                        <label for="validationCustom03">MRP</label>
+                                                        <input type="text" class="form-control" name="mrp" id="mrp" placeholder="MRP" required="">
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid city.
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-2 mb-3">
+                                                        <label for="validationCustom04">Per Piece Price</label>
+                                                        <input type="text" class="form-control" name="piece_price" id="piece_price"  placeholder="Piece Price" required="">
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid state.
+                                                        </div>
+                                                    </div>
+                                                    
+                                                     <div class="col-md-2 mb-3">
+                                                        <label for="validationCustom04">Set Price</label>
+                                                        <input type="text" class="form-control" name="selling_price" id="selling_price"  placeholder="Set Price" readonly>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid state.
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!--<div class="col-md-3 mb-3">-->
+                                                    <!--    <label for="validationCustom05">Weight</label>-->
+                                                    <!--    <input type="number" step="any" min="0" class="form-control" name="weight"  placeholder="Weight" required="">-->
+                                                    <!--    <div class="invalid-feedback">-->
+                                                    <!--        Please provide a valid zip.-->
+                                                    <!--    </div>-->
+                                                    <!--</div>-->
+                                                   
+                                                     <div class="col-md-2 mb-3">
+                                                        <label for="validationCustom05">Weight</label>
+                                                        <input type="text" step="any" min="0" class="form-control" name="weight"  placeholder="Weight" required="">
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid zip.
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-2 mb-3">
+                                                       <label for="validationCustom05">Minimum Quantity</label>
+                                                        <input type="number" class="form-control" name="min_qty" id="mini_quantity" placeholder="Min Qty" value="" required="">
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid state.
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!--<div class="col-md-2 mb-3">-->
+                                                    <!--    <label for="validationCustom05">Maximum Quantity</label>-->
+                                                    <!--    <input type="number" class="form-control" name="max_qty"  placeholder="Max Qty" required="">-->
+                                                    <!--    <div class="invalid-feedback">-->
+                                                    <!--        Please provide a valid zip.-->
+                                                    <!--    </div>-->
+                                                    <!--</div>-->
+                                                    
+                                                    <!--<div class="col-md-2 mb-3">-->
+                                                    <!--    <label for="validationCustom05">Delivery 35 per Kg</label>-->
+                                                    <!--    <input type="text" class="form-control" name="delivery_amt"  placeholder="35" required="">-->
+                                                    <!--    <div class="invalid-feedback">-->
+                                                    <!--        Please provide a valid zip.-->
+                                                    <!--    </div>-->
+                                                    <!--</div>-->
+                                                </div>
+                                             
+                                                <!--<p for="validationCustom03">Package weight & Shipment weight (KG)</p>-->
+                                                <hr>
+                                                      <p>SELL ONLINE IN BULK / WHOLESALE
+                                                         <!-- &nbsp;&nbsp;<button class="btn btn-danger" type="button" id="add_bulk">Add In Bulk</button></p>
+                                                    <div id="add_bulk_products" style="display:none"> -->
+                                                      <table class="table">
+                                                        <thead>
+                                                            <th>Minimum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Maximum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Discount Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Selling Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <!--<th>Action</th>-->
+                                                        </thead>
+                                                           <tbody id="dynamic_bulk">
+                                                               <tr id="row">
+                                                                   <td><input type="number" class="form-control" id="mini_quantitty_bind"  name="minimum_quantity[]" value="" readonly><div id="row1col1"></div></td>
+                                                                   <td><input type="number" class="form-control" id="maximum_quantity"  name="maximum_quantity[]" value=""><div id="row1col2"></div></td>
+                                                                   <td><input type="number" class="form-control" id="discount_mrp"  name="discount_mrp[]" value="" step="any"><div id="row1col3"></div></td>
+                                                                   <td><input type="number" class="form-control" id="selling_price_bind"  name="selling_price_set[]" value="" step="any" readonly><div id="row1col4"></div></td>
+                                                                   <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                                                </tr>  
+                                                                <tr id="row">
+                                                                   <td><input type="number" class="form-control" id="mini_quantitty_bind1"  name="minimum_quantity[]" value="" readonly><div id="row2col1"></div></td>
+                                                                   <td><input type="number" class="form-control" id="maximum_quantity1"  name="maximum_quantity[]" value=""><div id="row2col2"></div></td>
+                                                                   <td><input type="number" class="form-control" id="discount_mrp1"  name="discount_mrp[]" value="" step="any"><div id="row2col3"></div></td>
+                                                                   <td><input type="number" class="form-control" id="selling_price_bind1"  name="selling_price_set[]" value="" step="any" readonly><div id="row2col4"></div></td>
+                                                                   <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                                                </tr> 
+                                                                <tr id="row">
+                                                                   <td><input type="number" class="form-control" id="mini_quantitty_bind2"  name="minimum_quantity[]" value="" readonly><div id="row3col1"></div></td>
+                                                                   <td><input type="number" class="form-control" id="maximum_quantity2"  name="maximum_quantity[]" value=""><div id="row3col2"></div></td>
+                                                                   <td><input type="number" class="form-control" id="discount_mrp2"  name="discount_mrp[]" value="" step="any"><div id="row3col3"></div></td>
+                                                                   <td><input type="number" class="form-control" id="selling_price_bind2"  name="selling_price_set[]" value="" step="any" readonly><div id="row3col4"></div></td>
+                                                                   <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                                                </tr> 
+                                                                <!--<tr>-->
+                                                                <!--    <td>-->
+                                                                <!--        <span id="setData2"></span>-->
+                                                                <!--        <span id="unit_value11"></span>-->
+                                                                <!--    </td>-->
+                                                                <!--    <td>-->
+                                                                <!--        <span id="setData6"></span>-->
+                                                                <!--        <span id="unit_value11"></span>-->
+                                                                <!--    </td>-->
+                                                                <!--     </td></td>-->
+                                                                <!--     </td></td>-->
+                                                                <!--</tr>-->
+                                                            </tbody>
+                                                      </table>
+                                                    </div>
+                                                       <hr>
+                                    
+                                    <div class="card-body pad">
+                                        <div class="form-group col-md-12">
+                                            <label for="pro_input_description">Description </label>
+                                            <div class="mb-3">
+                                                <textarea name="pro_input_description" class="textarea addr_editor" placeholder="Place some text here"><?= (isset($product_details[0]['id'])) ? output_escaping(str_replace('\r\n', '&#13;&#10;', $product_details[0]['description'])) : ''; ?></textarea>
+                                            </div>
+                                            <label for="pro_input_description">Extra Description </label>
+                                            <div class="mb-3">
+                                                <textarea name="extra_input_description" class="textarea addr_editor" placeholder="Place some text here"><?= (isset($product_details[0]['id'])) ? output_escaping(str_replace('\r\n', '&#13;&#10;', $product_details[0]['extra_description'])) : ''; ?></textarea>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <div class="form-group" id="error_box">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="reset" class="btn btn-warning">Reset</button>
+                                                <button type="submit" class="btn btn-success" id="submit_btn"><?= (isset($product_details[0]['id'])) ? 'Update Product' : 'Add Product' ?></button>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <button type="reset" class="btn btn-warning">Reset</button>
-                                            <button type="submit" class="btn btn-success" id="submit_btn"><?= (isset($product_details[0]['id'])) ? 'Update Product' : 'Add Product' ?></button>
-                                        </div>
                                     </div>
-                                </div>
 
                             </div>
                     </div>
