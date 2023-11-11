@@ -17,6 +17,7 @@
         </div><!-- /.container-fluid -->
     </section>
     <section class="content-cod">
+    <main>
     <div class="container-fluid site-width">
         <div class="col-6">
             <div class="col-12  align-self-center">
@@ -36,14 +37,17 @@
                             <?= form_close(); ?>
                         </div>
                         <div class="col-12 text-center">
-                            <p class="card-text h6 ">Advance Percentage (COD) Per Order : &nbsp;&nbsp;&nbsp;<?php echo $advance['percentage']; ?> %</p>
+                            <p class="card-text h6 ">Advance Percentage (COD) Per Order : 40 %</p>
+
+                            <!-- <?php echo $advance['percentage']; ?> %</p> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+</main>
+    
     </section>
 
 

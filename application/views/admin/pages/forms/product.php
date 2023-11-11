@@ -799,13 +799,23 @@
                                                         <label for="validationCustom03">Unit</label>
                                                         <!--<input type="text" class="form-control" name="unit"  placeholder="Unit" required="">-->
                                                         <select class="custom-select input-sm" name="unit_id" id="unit_select" required>
-                                                                <!--<option value="">Open this select Unit</option>-->
-                                                                <?php
-                                                                foreach($unit as $u_list){
-                                                                    echo ' <option value="'.$u_list['unit_id'].'">'.$u_list['unit_name'].'</option>';
-                                                                }
-                                                                ?>
-                                                        </select>
+            <!-- New options -->
+            <option value="Chart">Chart</option>
+            <option value="Dozens">Dozens</option>
+            <option value="Kg">Kg</option>
+            <option value="Litre">Litre</option>
+            <option value="Meter">Meter</option>
+            <option value="Metric Tons">Metric Tons</option>
+            <option value="Nos.">Nos.</option>
+            <option value="Packet">Packet</option>
+            <option value="Pairs">Pairs</option>
+            <option value="Piece">Piece</option>
+            <option value="Pieces">Pieces</option>
+            <option value="Pounds">Pounds</option>
+            <option value="Quintal">Quintal</option>
+            <option value="Sets">Sets</option>
+            <option value="Tons">Tons</option>
+        </select>
                                                         <div class="invalid-feedback">
                                                             Please Enter Unit.
                                                         </div>
@@ -814,14 +824,25 @@
                                                         <label for="validationCustom03">Net Weight / Content</label>
                                                      <div class="input-group">
                                                        <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" required>
-                                                       <select class="custom-select input-sm" name="set_unit" id="set_unit" required>
-                                                                <option value="">Open this select Unit</option>
-                                                                <?php
-                                                                foreach($unit as $u_list){
-                                                                    echo ' <option value="'.$u_list['unit_id'].'">'.$u_list['unit_name'].'</option>';
-                                                                }
-                                                                ?>
-                                                    </select>
+                                                          <select class="custom-select input-sm" name="unit_id" id="unit_select" required>
+            <!-- New options -->
+            <option value="">Open this select Unit</option>
+            <option value="Chart">Chart</option>
+            <option value="Dozens">Dozens</option>
+            <option value="Kg">Kg</option>
+            <option value="Litre">Litre</option>
+            <option value="Meter">Meter</option>
+            <option value="Metric Tons">Metric Tons</option>
+            <option value="Nos.">Nos.</option>
+            <option value="Packet">Packet</option>
+            <option value="Pairs">Pairs</option>
+            <option value="Piece">Piece</option>
+            <option value="Pieces">Pieces</option>
+            <option value="Pounds">Pounds</option>
+            <option value="Quintal">Quintal</option>
+            <option value="Sets">Sets</option>
+            <option value="Tons">Tons</option>
+        </select>
                                                      </div>
                                                  </div>
                                                 </div>
@@ -899,80 +920,58 @@
                                                     <!--    </div>-->
                                                     <!--</div>-->
                                                 </div>
-                                                   <hr>
+                                             
                                                 <!--<p for="validationCustom03">Package weight & Shipment weight (KG)</p>-->
-                                                 <div class="form-row">
-                                                      <div class="col-md-2 mb-3">
-                                                        
-                                                        <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please Enter Unit.
-                                                        </div>
+                                                <hr>
+                                                      <p>SELL ONLINE IN BULK / WHOLESALE
+                                                         <!-- &nbsp;&nbsp;<button class="btn btn-danger" type="button" id="add_bulk">Add In Bulk</button></p>
+                                                    <div id="add_bulk_products" style="display:none"> -->
+                                                      <table class="table">
+                                                        <thead>
+                                                            <th>Minimum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Maximum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Discount Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Selling Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <!--<th>Action</th>-->
+                                                        </thead>
+                                                           <tbody id="dynamic_bulk">
+                                                               <tr id="row">
+                                                                   <td><input type="number" class="form-control" id="mini_quantitty_bind"  name="minimum_quantity[]" value="" readonly><div id="row1col1"></div></td>
+                                                                   <td><input type="number" class="form-control" id="maximum_quantity"  name="maximum_quantity[]" value=""><div id="row1col2"></div></td>
+                                                                   <td><input type="number" class="form-control" id="discount_mrp"  name="discount_mrp[]" value="" step="any"><div id="row1col3"></div></td>
+                                                                   <td><input type="number" class="form-control" id="selling_price_bind"  name="selling_price_set[]" value="" step="any" readonly><div id="row1col4"></div></td>
+                                                                   <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                                                </tr>  
+                                                                <tr id="row">
+                                                                   <td><input type="number" class="form-control" id="mini_quantitty_bind1"  name="minimum_quantity[]" value="" readonly><div id="row2col1"></div></td>
+                                                                   <td><input type="number" class="form-control" id="maximum_quantity1"  name="maximum_quantity[]" value=""><div id="row2col2"></div></td>
+                                                                   <td><input type="number" class="form-control" id="discount_mrp1"  name="discount_mrp[]" value="" step="any"><div id="row2col3"></div></td>
+                                                                   <td><input type="number" class="form-control" id="selling_price_bind1"  name="selling_price_set[]" value="" step="any" readonly><div id="row2col4"></div></td>
+                                                                   <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                                                </tr> 
+                                                                <tr id="row">
+                                                                   <td><input type="number" class="form-control" id="mini_quantitty_bind2"  name="minimum_quantity[]" value="" readonly><div id="row3col1"></div></td>
+                                                                   <td><input type="number" class="form-control" id="maximum_quantity2"  name="maximum_quantity[]" value=""><div id="row3col2"></div></td>
+                                                                   <td><input type="number" class="form-control" id="discount_mrp2"  name="discount_mrp[]" value="" step="any"><div id="row3col3"></div></td>
+                                                                   <td><input type="number" class="form-control" id="selling_price_bind2"  name="selling_price_set[]" value="" step="any" readonly><div id="row3col4"></div></td>
+                                                                   <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                                                </tr> 
+                                                                <!--<tr>-->
+                                                                <!--    <td>-->
+                                                                <!--        <span id="setData2"></span>-->
+                                                                <!--        <span id="unit_value11"></span>-->
+                                                                <!--    </td>-->
+                                                                <!--    <td>-->
+                                                                <!--        <span id="setData6"></span>-->
+                                                                <!--        <span id="unit_value11"></span>-->
+                                                                <!--    </td>-->
+                                                                <!--     </td></td>-->
+                                                                <!--     </td></td>-->
+                                                                <!--</tr>-->
+                                                            </tbody>
+                                                      </table>
                                                     </div>
-                                                      <div class="col-md-2 mb-3">
-                                                        <!--<label for="validationCustom05">GST</label>-->
-                                                        <input type="number" class="form-control" name="gst"  placeholder="GST" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid zip.
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2 mb-3">
-                                                       
-                                                       <div class="form-check">
-                                                          <input class="form-check-input" type="radio" name="gst_type" id="flexRadioDefault1" value="0">
-                                                          <label class="form-check-label" for="flexRadioDefault1">
-                                                            Inclusive GST
-                                                          </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                          <input class="form-check-input" type="radio" name="gst_type" id="flexRadioDefault2" value="1" checked>
-                                                          <label class="form-check-label" for="flexRadioDefault2">
-                                                            Exclusive GST
-                                                          </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2 mb-3">
-                                                       
-                                                       <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="0" id="invalidCheck2" name="allow_cod" >
-                                                        <label class="form-check-label" for="invalidCheck2">
-                                                            Allow To COD
-                                                        </label><br>
-                                                         <input class="form-check-input" type="checkbox" value="1" id="invalidCheck223"  name="live_product" >
-                                                        <label class="form-check-label" for="invalidCheck223">
-                                                            Allow To Live
-                                                        </label>
-                                                    </div>
-                                                    </div>
-                                                    <div class="col-md-2 mb-3">
-                                                       <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="0" id="invalidCheck22" name="allow_return" >
-                                                        <label class="form-check-label" for="invalidCheck22">
-                                                            Allow To Return
-                                                        </label>
-                                                    </div>
-                                                    </div>
-                                                    
-                                                    <!--<div class="col-md-2 mb-3">-->
-                                                    <!--   <div class="form-check">-->
-                                                    <!--    <input class="form-check-input" type="checkbox" value="1" id="invalidCheck223"  name="live_product" >-->
-                                                    <!--    <label class="form-check-label" for="invalidCheck223">-->
-                                                    <!--        Allow To Live-->
-                                                    <!--    </label>-->
-                                                    <!--</div>-->
-                                                    <!--</div>-->
-                                                    
-                                                    <div class="col-md-2 mb-3">
-                                                     
-                                                        <input type="number" class="form-control" name="return_period" id="returnperiod" placeholder="Return Period in days" >
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid zip.
-                                                        </div>
-                                                    </div>
-                                                 
-                                                </div>
-
-
+                                                       <hr>
                                     
                                     <div class="card-body pad">
                                         <div class="form-group col-md-12">
