@@ -60,6 +60,6 @@ $route['delivery-boy/(:any)/(:any)/(:any)/(:any)/(:any)'] = "delivery_boy/$1/$2/
 $route['products/(:num)'] = "products/index/$1";
 $route['blogs/(:num)'] = "blogs/index/$1";
 $route['sellers/(:num)'] = "sellers/index/$1";
-$route['default_controller'] = 'home';
+$route['default_controller'] = 'admin/login';
 $route['404_override'] = 'error_404';
 $route['translate_uri_dashes'] = TRUE;
