@@ -1,3 +1,6 @@
+<html>
+    <body>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <!-- Main content -->
@@ -609,19 +612,14 @@
                                                                     </div>
                                                                     <div id="product-general-settings">
                                                                         <div id="general_price_section" class="collapse">
-                                                                            <div class="form-group" class="col-md-2">
-                                                                            <label for="type" class="col-md-2">Purchase Rate:</label>
-                                                                        <div class="col-md-12">
-                                                                            <input type="number" name="purchase_rate" class="form-control purchase_rate" value="" min='0' step="0.01">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group" class="col-md-2">
-                                                                        <label for="type" class="col-md-2">MRP:</label>
+                                                                            <div class="form-group">
+                                                                                <label for="type" class="col-md-2">Price:</label>
+                                                                                <div class="col-md-12">
                                                                                     <input type="number" name="simple_price" class="form-control stock-simple-mustfill-field price" min='0' step="0.01">
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="form-group" class="col-md-2">
-                                                                                <label for="type" class="col-md-2">Per Piece Price:</label>
+                                                                            <div class="form-group">
+                                                                                <label for="type" class="col-md-2">Purchase rate:</label>
                                                                                 <div class="col-md-12">
                                                                                     <input type="number" name="simple_special_price" class="form-control discounted_price" min='0' step="0.01">
                                                                                 </div>
@@ -862,6 +860,14 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-2 mb-3">
+                                                        <label for="validationCustom04">Per Piece Price</label>
+                                                        <input type="text" class="form-control" name="piece_price" id="piece_price"  placeholder="Piece Price" required="">
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid state.
+                                                        </div>
+                                                    </div>
                                     <div class="col-md-2 mb-3">
                                         <label for="validationCustom04">Set Price</label>
                                         <input type="text" class="form-control" name="selling_price" id="selling_price" placeholder="Set Price" readonly>
@@ -892,80 +898,43 @@
 
                                 <!--<p for="validationCustom03">Package weight & Shipment weight (KG)</p>-->
                                 <hr>
-                                <p>SELL ONLINE IN BULK / WHOLESALE
-                                    <!-- &nbsp;&nbsp;<button class="btn btn-danger" type="button" id="add_bulk">Add In Bulk</button></p>
-                                                    <div id="add_bulk_products" style="display:none"> -->
-                                <table class="table">
-                                    <thead>
-                                        <th>Minimum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
-                                        <th>Maximum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
-                                        <th>Discount Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
-                                        <th>Selling Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
-                                        <!--<th>Action</th>-->
-                                    </thead>
-                                    <tbody id="dynamic_bulk">
-                                        <tr id="row">
-                                            <td><input type="number" class="form-control" id="mini_quantitty_bind" name="minimum_quantity[]" value="" readonly>
-                                                <div id="row1col1"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="maximum_quantity" name="maximum_quantity[]" value="">
-                                                <div id="row1col2"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="discount_mrp" name="discount_mrp[]" value="" step="any">
-                                                <div id="row1col3"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="selling_price_bind" name="selling_price_set[]" value="" step="any" readonly>
-                                                <div id="row1col4"></div>
-                                            </td>
-                                            <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
-                                        </tr>
-                                        <tr id="row">
-                                            <td><input type="number" class="form-control" id="mini_quantitty_bind1" name="minimum_quantity[]" value="" readonly>
-                                                <div id="row2col1"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="maximum_quantity1" name="maximum_quantity[]" value="">
-                                                <div id="row2col2"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="discount_mrp1" name="discount_mrp[]" value="" step="any">
-                                                <div id="row2col3"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="selling_price_bind1" name="selling_price_set[]" value="" step="any" readonly>
-                                                <div id="row2col4"></div>
-                                            </td>
-                                            <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
-                                        </tr>
-                                        <tr id="row">
-                                            <td><input type="number" class="form-control" id="mini_quantitty_bind2" name="minimum_quantity[]" value="" readonly>
-                                                <div id="row3col1"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="maximum_quantity2" name="maximum_quantity[]" value="">
-                                                <div id="row3col2"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="discount_mrp2" name="discount_mrp[]" value="" step="any">
-                                                <div id="row3col3"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="selling_price_bind2" name="selling_price_set[]" value="" step="any" readonly>
-                                                <div id="row3col4"></div>
-                                            </td>
-                                            <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
-                                        </tr>
-                                        <!--<tr>-->
-                                        <!--    <td>-->
-                                        <!--        <span id="setData2"></span>-->
-                                        <!--        <span id="unit_value11"></span>-->
-                                        <!--    </td>-->
-                                        <!--    <td>-->
-                                        <!--        <span id="setData6"></span>-->
-                                        <!--        <span id="unit_value11"></span>-->
-                                        <!--    </td>-->
-                                        <!--     </td></td>-->
-                                        <!--     </td></td>-->
-                                        <!--</tr>-->
-                                    </tbody>
-                                </table>
-                            </div>
-                            <hr>
-
+                                                      <p>SELL ONLINE IN BULK &nbsp;&nbsp;<button class="btn btn-danger" type="button" id="add_bulk">Add In Bulk</button></p>
+                                                    <div id="add_bulk_products" style="display:none">
+                                                      <table class="table">
+                                                        <thead class="">
+                                                            <th>Minimum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Maximum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Discount Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Selling Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <!--<th>Action</th>-->
+                                                        </thead>
+                                                           <tbody id="dynamic_bulk">
+                                                               <tr id="row">
+                                                                   <td><input type="number" class="form-control" id="mini_quantitty_bind"  name="minimum_quantity[]" value="" readonly><div id="row1col1"></div></td>
+                                                                   <td><input type="number" class="form-control" id="maximum_quantity"  name="maximum_quantity[]" value=""><div id="row1col2"></div></td>
+                                                                   <td><input type="number" class="form-control" id="discount_mrp"  name="discount_mrp[]" value="" step="any"><div id="row1col3"></div></td>
+                                                                   <td><input type="number" class="form-control" id="selling_price_bind"  name="selling_price_set[]" value="" step="any" readonly><div id="row1col4"></div></td>
+                                                                   <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                                                </tr>  
+                                                                <tr id="row">
+                                                                   <td><input type="number" class="form-control" id="mini_quantitty_bind1"  name="minimum_quantity[]" value="" readonly><div id="row2col1"></div></td>
+                                                                   <td><input type="number" class="form-control" id="maximum_quantity1"  name="maximum_quantity[]" value=""><div id="row2col2"></div></td>
+                                                                   <td><input type="number" class="form-control" id="discount_mrp1"  name="discount_mrp[]" value="" step="any"><div id="row2col3"></div></td>
+                                                                   <td><input type="number" class="form-control" id="selling_price_bind1"  name="selling_price_set[]" value="" step="any" readonly><div id="row2col4"></div></td>
+                                                                   <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                                                </tr> 
+                                                                <tr id="row">
+                                                                   <td><input type="number" class="form-control" id="mini_quantitty_bind2"  name="minimum_quantity[]" value="" readonly><div id="row3col1"></div></td>
+                                                                   <td><input type="number" class="form-control" id="maximum_quantity2"  name="maximum_quantity[]" value=""><div id="row3col2"></div></td>
+                                                                   <td><input type="number" class="form-control" id="discount_mrp2"  name="discount_mrp[]" value="" step="any"><div id="row3col3"></div></td>
+                                                                   <td><input type="number" class="form-control" id="selling_price_bind2"  name="selling_price_set[]" value="" step="any" readonly><div id="row3col4"></div></td>
+                                                                   <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                                                </tr> 
+                                                              
+                                                            </tbody>
+                                                      </table>
+                                                    </div>
+                                                       <!--<hr>-->
                             <div class="card-body pad">
                                 <div class="form-group col-md-12">
                                     <label for="pro_input_description">Description </label>
@@ -1000,3 +969,103 @@
 </section>
 <!-- /.content -->
 </div>
+<script src="<?= base_url(); ?>assets/js/app_product_list.js"></script>
+
+<script src="<?= base_url(); ?>assets/vendors/jquery-ui/jquery-ui.min.js"></script>
+        <script src="<?= base_url(); ?>assets/vendors/moment/moment.js"></script>
+        <script src="<?= base_url(); ?>assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>    
+        <script src="<?= base_url(); ?>assets/vendors/slimscroll/jquery.slimscroll.min.js"></script>
+        <!-- END: Template JS-->
+
+        <!-- START: APP JS-->
+        <script src="<?= base_url(); ?>assets/js/app.js"></script>
+        <!-- END: APP JS-->
+
+        <!-- START: Page Vendor JS-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/raphael/raphael.min.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/morris/morris.min.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/chartjs/Chart.min.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/starrr/starrr.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.canvaswrapper.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.colorhelpers.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.saturated.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.browser.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.drawSeries.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.uiConstants.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.legend.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.pie.js"></script>        -->
+        <!--<script src="<?= base_url(); ?>assets/vendors/chartjs/Chart.min.js"></script>  -->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-jvectormap/jquery-jvectormap-2.0.3.min.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-jvectormap/jquery-jvectormap-world-mill.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-jvectormap/jquery-jvectormap-de-merc.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-jvectormap/jquery-jvectormap-us-aea.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/apexcharts/apexcharts.min.js"></script>-->
+        <script src="<?= base_url(); ?>assets/vendors/toastr/toastr.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/toastr.script.js"></script>
+        <script src="<?= base_url(); ?>assets/vendors/datatable/js/dataTables.bootstrap4.min.js"></script>
+        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/jszip/jszip.min.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/pdfmake/pdfmake.min.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/pdfmake/vfs_fonts.js"></script>-->
+        <script src="<?= base_url(); ?>assets/vendors/datatable/buttons/js/dataTables.buttons.min.js"></script>
+        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/buttons/js/buttons.bootstrap4.min.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/buttons/js/buttons.colVis.min.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/buttons/js/buttons.flash.min.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/buttons/js/buttons.html5.min.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/buttons/js/buttons.print.min.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/js/back.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/js/dashboard.js"></script>-->
+        <!--<script src="<?= base_url(); ?>assets/js/tinymce/tinymce.min.js"></script>-->
+       
+        <?php 
+         if($page == 'products'){ ?>
+            <script src="<?= base_url(); ?>assets/js/app_product_list.js"></script>
+            <script src="<?= base_url(); ?>assets/js/image_remove_add.js"></script>
+        <?php } ?>
+
+        <?php if ($this->session->flashdata('success')) { ?>
+        <script src="<?= base_url(); ?>assets/vendors/toastrsuccess.js"></script>
+        <?php } ?>
+    
+        <?php if ($this->session->flashdata('danger') || $this->session->flashdata('demo')) { ?>
+            <script src="<?= base_url(); ?>assets/vendors/toastrerror.js"></script>
+        <?php } ?>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script> 
+<script>
+    $("form").on("submit", function(event){
+        if( $("form").valid() == true){
+            event.preventDefault();
+            var formValues= $(this).serialize();
+    		$.ajax({
+    			type: 'POST',
+    			url: base_url + 'Productsseller/addproducts',
+    			dataType: 'json',
+    			data:formValues,
+    			beforeSend: function () {
+    			    $('#add_product_data').hide();
+                    $('#loader').html('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>');
+                },
+    			success:function(response){
+    				document.getElementById('addProdcut').reset();
+                    $('#loader').html('');
+                    $('#add_product_data').show();
+                    $("form").removeClass("was-validated");
+    				if(response.status == 200){
+    				   AndroidInterface.showToast('Success..! Product added successfully.');
+    				}
+    				else{
+    				    AndroidInterface.showToast('Error - Try again after some time.');
+    				}
+    				
+    			}
+    		});
+        }
+	});
+	 $('#subcategory,#category_s,#brand_id123').select2({
+      selectOnClose: true
+    });
+</script>
+</body>
+    <!-- END: Body-->
+
+</html>
