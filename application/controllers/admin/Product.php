@@ -70,6 +70,7 @@ class Product extends CI_Controller
                 if (!empty($product_details)) {
                     $this->data['product_details'] = $product_details;
                     $this->data['product_variants'] = get_variants_values_by_pid($_GET['edit_id']);
+                    $this->data['product_set'] = get_set_values_by_pid($_GET['edit_id']);
                     $product_attributes = fetch_details('product_attributes', ['product_id' => $_GET['edit_id']]);
                     if (!empty($product_attributes) && !empty($product_details)) {
                         $this->data['product_attributes'] = $product_attributes;
@@ -159,6 +160,7 @@ class Product extends CI_Controller
     public function fetch_attributes_by_id()
     {
         $variants = get_variants_values_by_pid($_GET['edit_id']);
+        $set = get_set_values_by_pid($_GET['edit_id']);
         $res['attr_values'] = get_attribute_values_by_pid($_GET['edit_id']);
         $res['pre_selected_variants_names'] = (!empty($variants)) ? $variants[0]['attr_name'] : null;
         $res['pre_selected_variants_ids'] = $variants;
@@ -182,6 +184,13 @@ class Product extends CI_Controller
     public function fetch_variants_values_by_pid()
     {
         $res = get_variants_values_by_pid($_GET['edit_id']);
+        $response['result'] = $res;
+        print_r(json_encode($response));
+    }
+
+    public function fetch_set_values_by_pid()
+    {
+        $res = get_set_values_by_pid($_GET['edit_id']);
         $response['result'] = $res;
         print_r(json_encode($response));
     }
@@ -523,6 +532,7 @@ class Product extends CI_Controller
                 $this->data['product_details'] = $res['product'];
                 $this->data['product_attributes'] = get_attribute_values_by_pid($_GET['edit_id']);
                 $this->data['product_variants'] = get_variants_values_by_pid($_GET['edit_id'], [0, 1, 7]);
+                $this->data['product_set'] = get_set_values_by_pid($_GET['edit_id'], [0, 1, 7]);
                 $this->data['product_rating'] = $this->rating_model->fetch_rating((isset($_GET['edit_id'])) ? $_GET['edit_id'] : '', '');
                 $this->data['currency'] = $settings['currency'];
                 $this->data['category_result'] = fetch_details('categories', ['status' => '1'], 'id,name');
