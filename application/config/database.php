@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '34.233.6.119',
-	'username' => 'bhim',
-	'password' => 'smitox',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
 	'database' => 'eshop_vendor',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
