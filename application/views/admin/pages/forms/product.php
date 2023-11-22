@@ -609,6 +609,7 @@
                                                                     </div>
                                                                     <div id="product-general-settings">
                                                                         <div id="general_price_section" class="collapse">
+<<<<<<< Updated upstream
                                                                             <div class="form-group" class="col-md-2">
                                                                                 <label for="type" class="col-md-2">Purchase Rate:</label>
                                                                                 <div class="col-md-12">
@@ -618,232 +619,211 @@
                                                                             <div class="form-group" class="col-md-2">
                                                                                 <label for="type" class="col-md-2">MRP:</label>
                                                                                 <input type="number" name="simple_price" class="form-control stock-simple-mustfill-field price" min='0' step="0.01">
+=======
+                                                                            <div class="form-group">
+                                                                                <label for="type" class="col-md-2">Price:</label>
+                                                                                <div class="col-md-12">
+                                                                                    <input type="number" name="simple_price" class="form-control stock-simple-mustfill-field price" min='0' step="0.01">
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="form-group" class="col-md-2">
-                                                                            <label for="type" class="col-md-2">Per Piece Price:</label>
-                                                                            <div class="col-md-12">
-                                                                                <input type="number" name="simple_special_price" class="form-control discounted_price" min='0' step="0.01">
+                                                                            <div class="form-group">
+                                                                                <label for="type" class="col-md-2">Purchase rate:</label>
+                                                                                <div class="col-md-12">
+                                                                                    <input type="number" name="simple_special_price" class="form-control discounted_price" min='0' step="0.01">
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="form-group row mt-3" id="product-dimensions">
-                                                                            <div class="col-md-6">
-                                                                                <label for="weight" class="control-label col-md-12"><small>(These are the product parcel's dimentions.)</small></label>
+                                                                            <div class="form-group row mt-3" id="product-dimensions">
+                                                                                <div class="col-md-6">
+                                                                                    <label for="weight" class="control-label col-md-12"><small>(These are the product parcel's dimentions.)</small></label>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="form-group row" id="product-dimensions">
-                                                                            <div class="col-3">
-                                                                                <label for="weight" class="control-label col-md-12">Weight <small>(kg)</small> <span class='text-danger text-xs'>*</span></label>
-                                                                                <input type="number" class="form-control" name="weight" placeholder="Weight" id="weight" value="" step="0.01">
+                                                                            <div class="form-group row" id="product-dimensions">
+                                                                                <div class="col-3">
+                                                                                    <label for="weight" class="control-label col-md-12">Weight <small>(kg)</small> <span class='text-danger text-xs'>*</span></label>
+                                                                                    <input type="number" class="form-control" name="weight" placeholder="Weight" id="weight" value="" step="0.01">
+                                                                                </div>
+                                                                                <div class="col-3">
+                                                                                    <label for="height" class="control-label col-md-12">Height <small>(cms)</small></label>
+                                                                                    <input type="number" class="form-control" name="height" placeholder="Height" id="height" value="" step="0.01">
+                                                                                </div>
+                                                                                <div class="col-3">
+                                                                                    <label for="breadth" class="control-label col-md-12">Breadth <small>(cms)</small></label>
+                                                                                    <input type="number" class="form-control" name="breadth" placeholder="Breadth" id="breadth" value="" step="0.01">
+                                                                                </div>
+                                                                                <div class="col-3">
+                                                                                    <label for="length" class="control-label col-md-12">Length <small>(cms)</small></label>
+                                                                                    <input type="number" class="form-control" name="length" placeholder="Length" id="length" value="" step="0.01">
+                                                                                </div>
                                                                             </div>
-                                                                            <div class="col-3">
-                                                                                <label for="height" class="control-label col-md-12">Height <small>(cms)</small></label>
-                                                                                <input type="number" class="form-control" name="height" placeholder="Height" id="height" value="" step="0.01">
-                                                                            </div>
-                                                                            <div class="col-3">
-                                                                                <label for="breadth" class="control-label col-md-12">Breadth <small>(cms)</small></label>
-                                                                                <input type="number" class="form-control" name="breadth" placeholder="Breadth" id="breadth" value="" step="0.01">
-                                                                            </div>
-                                                                            <div class="col-3">
-                                                                                <label for="length" class="control-label col-md-12">Length <small>(cms)</small></label>
-                                                                                <input type="number" class="form-control" name="length" placeholder="Length" id="length" value="" step="0.01">
-                                                                            </div>
-                                                                        </div>
 
-                                                                        <div class="form-group  simple_stock_management">
+                                                                            <div class="form-group  simple_stock_management">
+                                                                                <div class="col">
+                                                                                    <input type="checkbox" name="simple_stock_management_status" class="align-middle simple_stock_management_status"> <span class="align-middle">Enable Stock Management</span>
+                                                                                </div>
+>>>>>>> Stashed changes
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group simple-product-level-stock-management collapse">
+                                                                            <div class="col col-xs-12">
+                                                                                <label class="control-label">SKU :</label>
+                                                                                <input type="text" name="product_sku" class="col form-control simple-pro-sku">
+                                                                            </div>
+                                                                            <div class="col col-xs-12">
+                                                                                <label class="control-label">Total Stock :</label>
+                                                                                <input type="number" min="1" name="product_total_stock" class="col form-control stock-simple-mustfill-field">
+                                                                            </div>
+                                                                            <div class="col col-xs-12">
+                                                                                <label class="control-label">Stock Status :</label>
+                                                                                <select type="text" class="col form-control stock-simple-mustfill-field" id="simple_product_stock_status">
+                                                                                    <option value="1">In Stock</option>
+                                                                                    <option value="0">Out Of Stock</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group collapse simple-product-save">
+                                                                            <div class="col"> <a href="javascript:void(0);" class="btn btn-primary save-settings">Save Settings</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="variant_stock_level" class="collapse">
+                                                                        <div class="form-group">
                                                                             <div class="col">
-                                                                                <input type="checkbox" name="simple_stock_management_status" class="align-middle simple_stock_management_status"> <span class="align-middle">Enable Stock Management</span>
+                                                                                <input type="checkbox" name="variant_stock_management_status" class="align-middle variant_stock_status"> <span class="align-middle"> Enable Stock Management</span>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="form-group simple-product-level-stock-management collapse">
-                                                                        <div class="col col-xs-12">
-                                                                            <label class="control-label">SKU :</label>
-                                                                            <input type="text" name="product_sku" class="col form-control simple-pro-sku">
-                                                                        </div>
-                                                                        <div class="col col-xs-12">
-                                                                            <label class="control-label">Total Stock :</label>
-                                                                            <input type="number" min="1" name="product_total_stock" class="col form-control stock-simple-mustfill-field">
-                                                                        </div>
-                                                                        <div class="col col-xs-12">
-                                                                            <label class="control-label">Stock Status :</label>
-                                                                            <select type="text" class="col form-control stock-simple-mustfill-field" id="simple_product_stock_status">
-                                                                                <option value="1">In Stock</option>
-                                                                                <option value="0">Out Of Stock</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group collapse simple-product-save">
-                                                                        <div class="col"> <a href="javascript:void(0);" class="btn btn-primary save-settings">Save Settings</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div id="variant_stock_level" class="collapse">
-                                                                    <div class="form-group">
-                                                                        <div class="col">
-                                                                            <input type="checkbox" name="variant_stock_management_status" class="align-middle variant_stock_status"> <span class="align-middle"> Enable Stock Management</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group collapse" id="stock_level">
-                                                                        <label for="type" class="col-md-2">Choose Stock Management Type:</label>
-                                                                        <div class="col-md-12">
-                                                                            <select id="stock_level_type" class="form-control variant-stock-level-type" data-placeholder=" Type to search and select type">
-                                                                                <option value=" ">Select Stock Type</option>
-                                                                                <option value="product_level">Product Level ( Stock Will Be Managed Generally )</option>
-                                                                                <option value="variable_level">Variable Level ( Stock Will Be Managed Variant Wise )</option>
-                                                                            </select>
-                                                                            <div class="form-group row variant-product-level-stock-management collapse">
-                                                                                <div class="col col-xs-12">
-                                                                                    <label class="control-label">SKU :</label>
-                                                                                    <input type="text" name="sku_variant_type" class="col form-control">
-                                                                                </div>
-                                                                                <div class="col col-xs-12">
-                                                                                    <label class="control-label">Total Stock :</label>
-                                                                                    <input type="number" min="1" name="total_stock_variant_type" class="col form-control variant-stock-mustfill-field">
-                                                                                </div>
-                                                                                <div class="col col-xs-12">
-                                                                                    <label class="control-label">Stock Status :</label>
-                                                                                    <select type="text" id="stock_status_variant_type" name="variant_status" class="col form-control variant-stock-mustfill-field">
-                                                                                        <option value="1">In Stock</option>
-                                                                                        <option value="0">Out Of Stock</option>
-                                                                                    </select>
+                                                                        <div class="form-group collapse" id="stock_level">
+                                                                            <label for="type" class="col-md-2">Choose Stock Management Type:</label>
+                                                                            <div class="col-md-12">
+                                                                                <select id="stock_level_type" class="form-control variant-stock-level-type" data-placeholder=" Type to search and select type">
+                                                                                    <option value=" ">Select Stock Type</option>
+                                                                                    <option value="product_level">Product Level ( Stock Will Be Managed Generally )</option>
+                                                                                    <option value="variable_level">Variable Level ( Stock Will Be Managed Variant Wise )</option>
+                                                                                </select>
+                                                                                <div class="form-group row variant-product-level-stock-management collapse">
+                                                                                    <div class="col col-xs-12">
+                                                                                        <label class="control-label">SKU :</label>
+                                                                                        <input type="text" name="sku_variant_type" class="col form-control">
+                                                                                    </div>
+                                                                                    <div class="col col-xs-12">
+                                                                                        <label class="control-label">Total Stock :</label>
+                                                                                        <input type="number" min="1" name="total_stock_variant_type" class="col form-control variant-stock-mustfill-field">
+                                                                                    </div>
+                                                                                    <div class="col col-xs-12">
+                                                                                        <label class="control-label">Stock Status :</label>
+                                                                                        <select type="text" id="stock_status_variant_type" name="variant_status" class="col form-control variant-stock-mustfill-field">
+                                                                                            <option value="1">In Stock</option>
+                                                                                            <option value="0">Out Of Stock</option>
+                                                                                        </select>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <div class="col"> <a href="javascript:void(0);" class="btn btn-primary save-variant-general-settings">Save Settings</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div id="digital_product_setting" class="collapse">
-                                                                    <div class="row form-group">
-                                                                        <div class="col-md-2 col-xs-6 ml-2">
-                                                                            <label for="is_cod_allowed" class="col-form-label">Is Download allowed?</label>
-                                                                            <input type="checkbox" name="download_allowed" id="download_allowed" class="switch" <?= (isset($product_details[0]['download_allowed']) && $product_details[0]['download_allowed'] == '1') ? 'Checked' : ''; ?> data-bootstrap-switch data-off-color="danger" data-on-color="success">
-                                                                        </div>
-                                                                        <div class="col-md-3 col-xs-6 collapse" id='download_type'>
-                                                                            <label for="download_allowed" class="col-form-label">Download Link Type <span class='text-danger text-sm'>*</span></label>
-                                                                            <select class='form-control' name="download_link_type" id="download_link_type">
-                                                                                <option value=''>None</option>
-                                                                                <option value='self_hosted'>Self Hosted</option>
-                                                                                <option value='add_link'>Add Link</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="col-md-6 d-none" id="digital_link_container">
-                                                                            <label for="video" class="col-form-label ml-1">Digital Product Link <span class='text-danger text-sm'>*</span></label>
-                                                                            <input type="url" class='form-control' name='download_link' id='download_link' value="" placeholder="Paste digital product link or URL here">
-                                                                        </div>
-                                                                        <div class="col-md-6 mt-2 d-none" id="digital_media_container">
-                                                                            <label for="image" class="ml-2">File <span class='text-danger text-sm'>*</span></label>
-                                                                            <div class='col-md-3'><a class="uploadFile img btn btn-primary text-white btn-sm" data-input='pro_input_zip' data-isremovable='1' data-media_type='archive,document' data-is-multiple-uploads-allowed='0' data-toggle="modal" data-target="#media-upload-modal" value="Upload Photo"><i class='fa fa-upload'></i> Upload</a></div>
-                                                                            <div class="container-fluid row image-upload-section">
-                                                                                <div class="col-md-3 col-sm-12 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image d-none">
-                                                                                </div>
+                                                                        <div class="form-group">
+                                                                            <div class="col"> <a href="javascript:void(0);" class="btn btn-primary save-variant-general-settings">Save Settings</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row">
-                                                                        <div class="form-group mt-3 ml-2">
-                                                                            <div class="col"> <a href="javascript:void(0);" class="btn btn-primary save-digital-product-settings">Save Settings</a></div>
+                                                                    <div id="digital_product_setting" class="collapse">
+                                                                        <div class="row form-group">
+                                                                            <div class="col-md-2 col-xs-6 ml-2">
+                                                                                <label for="is_cod_allowed" class="col-form-label">Is Download allowed?</label>
+                                                                                <input type="checkbox" name="download_allowed" id="download_allowed" class="switch" <?= (isset($product_details[0]['download_allowed']) && $product_details[0]['download_allowed'] == '1') ? 'Checked' : ''; ?> data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                                                            </div>
+                                                                            <div class="col-md-3 col-xs-6 collapse" id='download_type'>
+                                                                                <label for="download_allowed" class="col-form-label">Download Link Type <span class='text-danger text-sm'>*</span></label>
+                                                                                <select class='form-control' name="download_link_type" id="download_link_type">
+                                                                                    <option value=''>None</option>
+                                                                                    <option value='self_hosted'>Self Hosted</option>
+                                                                                    <option value='add_link'>Add Link</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-6 d-none" id="digital_link_container">
+                                                                                <label for="video" class="col-form-label ml-1">Digital Product Link <span class='text-danger text-sm'>*</span></label>
+                                                                                <input type="url" class='form-control' name='download_link' id='download_link' value="" placeholder="Paste digital product link or URL here">
+                                                                            </div>
+                                                                            <div class="col-md-6 mt-2 d-none" id="digital_media_container">
+                                                                                <label for="image" class="ml-2">File <span class='text-danger text-sm'>*</span></label>
+                                                                                <div class='col-md-3'><a class="uploadFile img btn btn-primary text-white btn-sm" data-input='pro_input_zip' data-isremovable='1' data-media_type='archive,document' data-is-multiple-uploads-allowed='0' data-toggle="modal" data-target="#media-upload-modal" value="Upload Photo"><i class='fa fa-upload'></i> Upload</a></div>
+                                                                                <div class="container-fluid row image-upload-section">
+                                                                                    <div class="col-md-3 col-sm-12 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image d-none">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="form-group mt-3 ml-2">
+                                                                                <div class="col"> <a href="javascript:void(0);" class="btn btn-primary save-digital-product-settings">Save Settings</a></div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
 
-                                                            </div>
-                                                            <div class="tab-pane fade" id="product-attributes" role="tabpanel" aria-labelledby="product-attributes-tab">
-                                                                <div class="info col-12 p-3 d-none" id="note">
-                                                                    <div class=" col-12 d-flex align-center"> <strong>Note : </strong>
-                                                                        <input type="checkbox" checked="checked" class="ml-3 my-auto custom-checkbox" disabled> <span class="ml-3">check if the attribute is to be used for variation </span>
+                                                                </div>
+                                                                <div class="tab-pane fade" id="product-attributes" role="tabpanel" aria-labelledby="product-attributes-tab">
+                                                                    <div class="info col-12 p-3 d-none" id="note">
+                                                                        <div class=" col-12 d-flex align-center"> <strong>Note : </strong>
+                                                                            <input type="checkbox" checked="checked" class="ml-3 my-auto custom-checkbox" disabled> <span class="ml-3">check if the attribute is to be used for variation </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12"> <a href="javascript:void(0);" id="add_attributes" class="btn btn-block btn-outline-primary col-md-2 float-right m-2 btn-sm">Add Attributes</a> <a href="javascript:void(0);" id="save_attributes" class="btn btn-block btn-outline-primary col-md-2 float-right m-2 btn-sm d-none">Save Attributes</a>
+                                                                    </div>
+                                                                    <div class="clearfix"></div>
+                                                                    <div id="attributes_process">
+                                                                        <div class="form-group text-center row my-auto p-2 border rounded bg-gray-light col-md-12 no-attributes-added">
+                                                                            <div class="col-md-12 text-center">No Product Attribures Are Added !</div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-12"> <a href="javascript:void(0);" id="add_attributes" class="btn btn-block btn-outline-primary col-md-2 float-right m-2 btn-sm">Add Attributes</a> <a href="javascript:void(0);" id="save_attributes" class="btn btn-block btn-outline-primary col-md-2 float-right m-2 btn-sm d-none">Save Attributes</a>
-                                                                </div>
-                                                                <div class="clearfix"></div>
-                                                                <div id="attributes_process">
-                                                                    <div class="form-group text-center row my-auto p-2 border rounded bg-gray-light col-md-12 no-attributes-added">
-                                                                        <div class="col-md-12 text-center">No Product Attribures Are Added !</div>
+                                                                <div class="tab-pane fade" id="product-variants" role="tabpanel" aria-labelledby="product-variants-tab">
+                                                                    <div class="clearfix"></div>
+                                                                    <div class="form-group text-center row my-auto p-2 border rounded bg-gray-light col-md-12 no-variants-added">
+                                                                        <div class="col-md-12 text-center">No Product Variations Are Added !</div>
                                                                     </div>
+                                                                    <div id="variants_process" class="ui-sortable"></div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="tab-pane fade" id="product-variants" role="tabpanel" aria-labelledby="product-variants-tab">
-                                                                <div class="clearfix"></div>
-                                                                <div class="form-group text-center row my-auto p-2 border rounded bg-gray-light col-md-12 no-variants-added">
-                                                                    <div class="col-md-12 text-center">No Product Variations Are Added !</div>
-                                                                </div>
-                                                                <div id="variants_process" class="ui-sortable"></div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            <?php
+                                                <?php
                                             }
-                                            ?>
+                                                ?>
+                                                </div>
                                             </div>
                                     </div>
+
+
+
+                                    <div class="form-row">
+
+                                        <div class="col-md-4 mb-3">
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <!--<div id="dynamic_field">-->
+                                    <!--    <div class="form-row">-->
+                                    <!--        <div class="col-md-4 mb-3">-->
+                                    <!--            <input type="text" class="form-control" name="key_attribute[]"  placeholder="custom key" value="" required="">-->
+                                    <!--        </div>-->
+                                    <!--        <div class="col-md-4 mb-3">-->
+                                    <!--            <input type="text" class="form-control" name="value_attribute[]"  placeholder="custom value" value="" required="">-->
+                                    <!--        </div>-->
+                                    <!--        <div class="col-md-4 mb-3">-->
+                                    <!--            <button type="button" name="add" id="add" class="btn btn-info">add custom attribute</button>-->
+                                    <!--        </div>            -->
+                                    <!--    </div>    -->
+                                    <!--</div>-->
                                 </div>
 
-
-
+                                <hr>
                                 <div class="form-row">
-
                                     <div class="col-md-4 mb-3">
-
-                                    </div>
-
-
-                                </div>
-
-
-                                <!--<div id="dynamic_field">-->
-                                <!--    <div class="form-row">-->
-                                <!--        <div class="col-md-4 mb-3">-->
-                                <!--            <input type="text" class="form-control" name="key_attribute[]"  placeholder="custom key" value="" required="">-->
-                                <!--        </div>-->
-                                <!--        <div class="col-md-4 mb-3">-->
-                                <!--            <input type="text" class="form-control" name="value_attribute[]"  placeholder="custom value" value="" required="">-->
-                                <!--        </div>-->
-                                <!--        <div class="col-md-4 mb-3">-->
-                                <!--            <button type="button" name="add" id="add" class="btn btn-info">add custom attribute</button>-->
-                                <!--        </div>            -->
-                                <!--    </div>    -->
-                                <!--</div>-->
-                            </div>
-
-                            <hr>
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustom03">Unit</label>
-                                    <!--<input type="text" class="form-control" name="unit"  placeholder="Unit" required="">-->
-                                    <select class="custom-select input-sm" name="unit" id="unit" required>
-                                        <!-- New options -->
-                                        <option value="Chart">Chart</option>
-                                        <option value="Dozens">Dozens</option>
-                                        <option value="Kg">Kg</option>
-                                        <option value="Litre">Litre</option>
-                                        <option value="Meter">Meter</option>
-                                        <option value="Metric Tons">Metric Tons</option>
-                                        <option value="Nos.">Nos.</option>
-                                        <option value="Packet">Packet</option>
-                                        <option value="Pairs">Pairs</option>
-                                        <option value="Piece">Piece</option>
-                                        <option value="Pieces">Pieces</option>
-                                        <option value="Pounds">Pounds</option>
-                                        <option value="Quintal">Quintal</option>
-                                        <option value="Sets">Sets</option>
-                                        <option value="Tons">Tons</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please Enter Unit.
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3" id="select_units">
-                                    <label for="validationCustom03">Net Weight / Content</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" required>
-                                        <select class="custom-select input-sm" name="set_unit" id="set_unit" required>
+                                        <label for="validationCustom03">Unit</label>
+                                        <!--<input type="text" class="form-control" name="unit"  placeholder="Unit" required="">-->
+                                        <select class="custom-select input-sm" name="unit_id" id="unit_select" required>
                                             <!-- New options -->
-                                            <option value="">Open this select Unit</option>
                                             <option value="Chart">Chart</option>
                                             <option value="Dozens">Dozens</option>
                                             <option value="Kg">Kg</option>
@@ -860,17 +840,56 @@
                                             <option value="Sets">Sets</option>
                                             <option value="Tons">Tons</option>
                                         </select>
+<<<<<<< Updated upstream
+=======
+                                        <div class="invalid-feedback">
+                                            Please Enter Unit.
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-2 mb-3">
-                                    <label for="validationCustom04">Set Price</label>
-                                    <input type="text" class="form-control" name="set_price" id="set_price" placeholder="Set Price" readonly>
-                                    <div class="invalid-feedback">
-                                        Please provide a valid state.
+                                    <div class="col-md-4 mb-3" id="select_units">
+                                        <label for="validationCustom03">Net Weight / Content</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" required>
+                                            <select class="custom-select input-sm" name="unit_id" id="unit_select" required>
+                                                <!-- New options -->
+                                                <option value="">Open this select Unit</option>
+                                                <option value="Chart">Chart</option>
+                                                <option value="Dozens">Dozens</option>
+                                                <option value="Kg">Kg</option>
+                                                <option value="Litre">Litre</option>
+                                                <option value="Meter">Meter</option>
+                                                <option value="Metric Tons">Metric Tons</option>
+                                                <option value="Nos.">Nos.</option>
+                                                <option value="Packet">Packet</option>
+                                                <option value="Pairs">Pairs</option>
+                                                <option value="Piece">Piece</option>
+                                                <option value="Pieces">Pieces</option>
+                                                <option value="Pounds">Pounds</option>
+                                                <option value="Quintal">Quintal</option>
+                                                <option value="Sets">Sets</option>
+                                                <option value="Tons">Tons</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
+                                    <div class="col-md-2 mb-3">
+                                                        <label for="validationCustom04">Per Piece Price</label>
+                                                        <input type="text" class="form-control" name="piece_price" id="piece_price"  placeholder="Piece Price" required="">
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid state.
+                                                        </div>
+                                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        <label for="validationCustom04">Set Price</label>
+                                        <input type="text" class="form-control" name="selling_price" id="selling_price" placeholder="Set Price" readonly>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid state.
+                                        </div>
+>>>>>>> Stashed changes
+                                    </div>
+                                </div>
+
+<<<<<<< Updated upstream
                             <!--<p for="validationCustom03">Package weight & Shipment weight (KG)</p>-->
                             <div class="form-row">
                                 <!-- <hr> -->
@@ -960,22 +979,94 @@
                             </div>
                             <div class="d-flex justify-content-center">
                                 <div class="form-group" id="error_box">
+=======
+                                <div class="form-row">
+                                   
+                                    <!--<div class="col-md-2 mb-3">-->
+                                    <!--    <label for="validationCustom05">Maximum Quantity</label>-->
+                                    <!--    <input type="number" class="form-control" name="max_qty"  placeholder="Max Qty" required="">-->
+                                    <!--    <div class="invalid-feedback">-->
+                                    <!--        Please provide a valid zip.-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="col-md-2 mb-3">-->
+                                    <!--    <label for="validationCustom05">Delivery 35 per Kg</label>-->
+                                    <!--    <input type="text" class="form-control" name="delivery_amt"  placeholder="35" required="">-->
+                                    <!--    <div class="invalid-feedback">-->
+                                    <!--        Please provide a valid zip.-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
+                                </div>
+
+                                <!--<p for="validationCustom03">Package weight & Shipment weight (KG)</p>-->
+                                <hr>
+                                                      <p>SELL ONLINE IN BULK &nbsp;&nbsp;<button class="btn btn-danger" type="button" id="add_bulk">Add In Bulk</button></p>
+                                                    <div id="add_bulk_products" style="display:none">
+                                                      <table class="table">
+                                                        <thead class="">
+                                                            <th>Minimum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Maximum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Discount Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Selling Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <!--<th>Action</th>-->
+                                                        </thead>
+                                                           <tbody id="dynamic_bulk">
+                                                               <tr id="row">
+                                                                   <td><input type="number" class="form-control" id="mini_quantitty_bind"  name="minimum_quantity[]" value="" readonly><div id="row1col1"></div></td>
+                                                                   <td><input type="number" class="form-control" id="maximum_quantity"  name="maximum_quantity[]" value=""><div id="row1col2"></div></td>
+                                                                   <td><input type="number" class="form-control" id="discount_mrp"  name="discount_mrp[]" value="" step="any"><div id="row1col3"></div></td>
+                                                                   <td><input type="number" class="form-control" id="selling_price_bind"  name="selling_price_set[]" value="" step="any" readonly><div id="row1col4"></div></td>
+                                                                   <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                                                </tr>  
+                                                                <tr id="row">
+                                                                   <td><input type="number" class="form-control" id="mini_quantitty_bind1"  name="minimum_quantity[]" value="" readonly><div id="row2col1"></div></td>
+                                                                   <td><input type="number" class="form-control" id="maximum_quantity1"  name="maximum_quantity[]" value=""><div id="row2col2"></div></td>
+                                                                   <td><input type="number" class="form-control" id="discount_mrp1"  name="discount_mrp[]" value="" step="any"><div id="row2col3"></div></td>
+                                                                   <td><input type="number" class="form-control" id="selling_price_bind1"  name="selling_price_set[]" value="" step="any" readonly><div id="row2col4"></div></td>
+                                                                   <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                                                </tr> 
+                                                                <tr id="row">
+                                                                   <td><input type="number" class="form-control" id="mini_quantitty_bind2"  name="minimum_quantity[]" value="" readonly><div id="row3col1"></div></td>
+                                                                   <td><input type="number" class="form-control" id="maximum_quantity2"  name="maximum_quantity[]" value=""><div id="row3col2"></div></td>
+                                                                   <td><input type="number" class="form-control" id="discount_mrp2"  name="discount_mrp[]" value="" step="any"><div id="row3col3"></div></td>
+                                                                   <td><input type="number" class="form-control" id="selling_price_bind2"  name="selling_price_set[]" value="" step="any" readonly><div id="row3col4"></div></td>
+                                                                   <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                                                </tr> 
+                                                              
+                                                            </tbody>
+                                                      </table>
+                                                    </div>
+                                                       <!--<hr>-->
+                            <div class="card-body pad">
+                                <div class="form-group col-md-12">
+                                    <label for="pro_input_description">Description </label>
+                                    <div class="mb-3">
+                                        <textarea name="pro_input_description" class="textarea addr_editor" placeholder="Place some text here"><?= (isset($product_details[0]['id'])) ? output_escaping(str_replace('\r\n', '&#13;&#10;', $product_details[0]['description'])) : ''; ?></textarea>
+                                    </div>
+                                    <label for="pro_input_description">Extra Description </label>
+                                    <div class="mb-3">
+                                        <textarea name="extra_input_description" class="textarea addr_editor" placeholder="Place some text here"><?= (isset($product_details[0]['id'])) ? output_escaping(str_replace('\r\n', '&#13;&#10;', $product_details[0]['extra_description'])) : ''; ?></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group" id="error_box">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="reset" class="btn btn-warning">Reset</button>
+                                        <button type="submit" class="btn btn-success" id="submit_btn"><?= (isset($product_details[0]['id'])) ? 'Update Product' : 'Add Product' ?></button>
+                                    </div>
+>>>>>>> Stashed changes
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <button type="reset" class="btn btn-warning">Reset</button>
-                                <button type="submit" class="btn btn-success" id="submit_btn"><?= (isset($product_details[0]['id'])) ? 'Update Product' : 'Add Product' ?></button>
-                            </div>
-                        </div>
-                    </div>
 
+                    </div>
                 </div>
+                </form>
             </div>
-            </form>
+            <!--/.card-->
         </div>
-        <!--/.card-->
-</div>
-<!--/.col-md-12-->
+        <!--/.col-md-12-->
 </div>
 <!-- /.row -->
 </div><!-- /.container-fluid -->
