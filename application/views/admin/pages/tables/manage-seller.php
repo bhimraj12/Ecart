@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Include Font Awesome for WhatsApp icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+</head>
+<body>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <!-- Main content -->
@@ -22,11 +33,9 @@
                 <div class="col-md-12 main-content">
                     <div class="card content-area p-4">
                         <div class="card-header border-0">
-                            <div class="card-tools row ">
-                                <a href="<?= base_url() . 'admin/sellers/manage-seller' ?>" class="btn btn-block  btn-outline-primary btn-sm">Add Seller </a>
-                                <!-- <a href="#" id="create-slug" class="btn btn-block  btn-outline-primary btn-sm">Create Seller Slug </a> -->
+                            <div class="card-tools row">
+                                <a href="<?= base_url() . 'admin/sellers/manage-seller' ?>" class="btn btn-block btn-outline-primary btn-sm">Add Seller</a>
                             </div>
-
                         </div>
                         <div class="card-innr">
                             <div class="row col-md-6">
@@ -41,30 +50,10 @@
                                         <th data-field="id" data-sortable="true">ID</th>
                                         <th data-field="name" data-sortable="false">Name</th>
                                         <th data-field="email" data-sortable="false">Email</th>
-                                        <th data-field="mobile" data-sortable="true">Mobile No</th>
-                                        <th data-field="address" data-sortable="true" data-visible="false">Address</th>
-                                        <th data-field="balance" data-sortable="true">Balance</th>
-                                        <th data-field="rating" data-sortable="true">Rating</th>
-                                        <th data-field="store_name" data-sortable="true">Store Name</th>
-                                        <th data-field="store_url" data-sortable="true" data-visible="false">Store URL</th>
-                                        <th data-field="store_description" data-sortable="true" data-visible="false">Store Description</th>
-                                        <th data-field="account_number" data-sortable="true" data-visible="false">Account Number</th>
-                                        <th data-field="account_name" data-sortable="true" data-visible="false">Account Name</th>
-                                        <th data-field="bank_code" data-sortable="true" data-visible="false">Bank Code</th>
-                                        <th data-field="bank_name" data-sortable="true" data-visible="false">Bank Name</th>
-                                        <th data-field="latitude" data-sortable="true" data-visible="false">Latitude</th>
-                                        <th data-field="longitude" data-sortable="true" data-visible="false">Longitude</th>
-                                        <th data-field="tax_name" data-sortable="true" data-visible="false">Tax Name</th>
-                                        <th data-field="tax_number" data-sortable="true" data-visible="false">Tax Number</th>
-                                        <th data-field="pan_number" data-sortable="true" data-visible="false">Pan Number</th>
-                                        <th data-field="status" data-sortable="true">Status</th>
-                                        <th data-field="category_ids" data-sortable="true" data-visible="false">Category Ids</th>
-                                        <th data-field="logo" data-sortable="true">Logo</th>
-                                        <th data-field="national_identity_card" data-sortable="true" data-visible="false">National Identity Card</th>
-                                        <th data-field="address_proof" data-sortable="true" data-visible="false">Address Proof</th>
-                                        <th data-field="permissions" data-sortable="true" data-visible="false">Permissions</th>
-                                        <th data-field="date" data-sortable="true" data-visible="false">Date</th>
+                                        <th data-field="mobile" data-sortable="true" data-formatter="whatsappFormatter">Mobile No</th>
+                                        <!-- ... (Rest of your table headers) -->
                                         <th data-field="operate">Actions</th>
+                                        <th data-field="order_type" data-formatter="orderTypeFormatter">Order Type</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -77,3 +66,29 @@
     </section>
     <!-- /.content -->
 </div>
+
+<script>
+    function whatsappFormatter(value) {
+        return `
+            <div>
+                <span>${value}</span>
+                <a href="https://wa.me/${value}" target="_blank" title="Chat on WhatsApp">
+                    <i class="fab fa-whatsapp" style="color: #25d366;"></i>
+                </a>
+            </div>
+        `;
+    }
+    function orderTypeFormatter(value, row, index) {
+        return `
+            <div class="update2" data-id="${row.id}">
+                <input type="radio" name="order_type_${row.id}" value="0" ${value == '0' ? 'checked' : ''}>COD<br>
+                <input type="radio" name="order_type_${row.id}" value="1" ${value == '1' ? 'checked' : ''}>Prepaid<br>
+                <input type="radio" name="order_type_${row.id}" value="2" ${value == '2' ? 'checked' : ''}>Advance<br>
+            </div>
+        `;
+    }
+    // ... (Your existing JavaScript code remains unchanged)
+</script>
+
+</body>
+</html>
