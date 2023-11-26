@@ -55,7 +55,7 @@
                                         <th data-field="status" data-sortable="true">Status</th>
                                         <!-- New Order Type Column -->
                                         <th data-field="actions" data-sortable="true">Actions</th>
-                                        <th data-field="order_type" data-formatter="orderTypeFormatter">Order Type</th>
+                                        <th data-field="cod_type" data-formatter="orderTypeFormatter">Order Type</th>
                                     </tr>
                                 </thead>
                             </table>

@@ -41,8 +41,8 @@ class Customer_model extends CI_Model
         if (isset($_GET['search']) and $_GET['search'] != '') {
             $search = $_GET['search'];
             $multipleWhere = [
-                '`u.id`' => $search, '`u.username`' => $search, '`u.email`' => $search, '`u.mobile`' => $search, '`c.name`' => $search, '`a.name`' => $search, '`u.street`' => $search
-            ];
+                '`u.id`' => $search, '`u.username`' => $search, '`u.email`' => $search, '`u.mobile`' => $search, '`c.name`' => $search, '`a.name`' => $search, '`u.street`' => $search,
+                '`u.status`' => $search, '`u.cod_type`' => $search,];
         }
 
         if (isset($_GET['order_status']) && ($_GET['order_status'] != '')) {
@@ -114,6 +114,7 @@ class Customer_model extends CI_Model
             $tempRow['city'] = $row['city_name'];
             $tempRow['area'] = $row['area_name'];
             $tempRow['street'] = $row['street'];
+            $tempRow['cod_type'] = $row['cod_type'];
             $tempRow['status'] = ($row['active'] == '1') ? '<a class="badge badge-success text-white" >Active</a>' : '<a class="badge badge-danger text-white" >Inactive</a>';
             $tempRow['date'] = $row['created_at'];
             if (!$this->ion_auth->is_seller()) {

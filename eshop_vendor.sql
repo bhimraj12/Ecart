@@ -1062,7 +1062,7 @@ CREATE TABLE `product_attributes` (
   `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1071,7 +1071,7 @@ CREATE TABLE `product_attributes` (
 
 LOCK TABLES `product_attributes` WRITE;
 /*!40000 ALTER TABLE `product_attributes` DISABLE KEYS */;
-INSERT INTO `product_attributes` VALUES (1,1,'','2022-04-04 05:12:09'),(2,2,'','2023-11-11 08:07:22');
+INSERT INTO `product_attributes` VALUES (1,1,'','2022-04-04 05:12:09'),(2,2,'','2023-11-11 08:07:22'),(3,3,'','2023-11-14 18:28:08'),(4,4,'','2023-11-14 18:34:27'),(5,5,'','2023-11-14 18:38:13'),(6,6,'','2023-11-14 18:40:03'),(7,7,'','2023-11-15 06:51:24'),(8,8,'','2023-11-15 06:54:20'),(9,9,'','2023-11-15 07:59:36'),(10,10,'','2023-11-15 08:15:58'),(11,11,'','2023-11-15 08:17:45'),(12,12,'','2023-11-15 08:19:56'),(13,13,'','2023-11-15 14:59:26'),(14,14,'','2023-11-19 14:41:56');
 /*!40000 ALTER TABLE `product_attributes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1143,7 +1143,7 @@ DROP TABLE IF EXISTS `product_set`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_set` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `Product_id` int(20) NOT NULL,
   `minimum_quantity` int(20) NOT NULL,
   `maximum_quantity` int(20) NOT NULL,
@@ -1153,7 +1153,7 @@ CREATE TABLE `product_set` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `status` int(20) NOT NULL COMMENT '0=Active,1=Inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1162,6 +1162,7 @@ CREATE TABLE `product_set` (
 
 LOCK TABLES `product_set` WRITE;
 /*!40000 ALTER TABLE `product_set` DISABLE KEYS */;
+INSERT INTO `product_set` VALUES (1,9,0,949,95,9025,0,'2023-11-15 07:59:36',0),(2,11,0,1,1,0,1,'2023-11-15 08:17:45',0),(3,11,0,1,1,0,1,'2023-11-15 08:17:45',0),(4,11,0,1,1,0,1,'2023-11-15 08:17:45',0),(5,12,0,473,16,0,0,'2023-11-15 08:19:56',0),(6,12,0,220,6,0,0,'2023-11-15 08:19:56',0),(7,12,0,327,72,0,0,'2023-11-15 08:19:56',0),(8,13,0,450,28,0,0,'2023-11-15 14:59:26',0),(9,13,0,742,22,0,0,'2023-11-15 14:59:26',0),(10,13,0,495,68,0,0,'2023-11-15 14:59:26',0),(11,14,0,395,40,0,0,'2023-11-19 14:41:56',0),(12,14,0,378,9,0,0,'2023-11-19 14:41:56',0),(13,14,0,892,58,0,0,'2023-11-19 14:41:56',0);
 /*!40000 ALTER TABLE `product_set` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1193,10 +1194,10 @@ CREATE TABLE `product_variants` (
   `unit_set` varchar(100) NOT NULL,
   `set_unit` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `purchase_rate` float NOT NULL,
-  `selling_price` float DEFAULT NULL,
+  `set_price` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1205,7 +1206,7 @@ CREATE TABLE `product_variants` (
 
 LOCK TABLES `product_variants` WRITE;
 /*!40000 ALTER TABLE `product_variants` DISABLE KEYS */;
-INSERT INTO `product_variants` VALUES (2,2,NULL,NULL,500,400,NULL,NULL,0,45,50,80,NULL,NULL,1,'2023-11-11 08:07:22',NULL,'','',0,NULL);
+INSERT INTO `product_variants` VALUES (2,2,NULL,NULL,500,400,NULL,NULL,0,45,50,80,NULL,NULL,1,'2023-11-11 08:07:22',NULL,'','',0,NULL),(3,3,NULL,NULL,800,500,NULL,NULL,34,83,83,64,NULL,NULL,1,'2023-11-14 18:28:08',NULL,'','',45,NULL),(4,4,NULL,NULL,46,0,NULL,NULL,75,0,0,0,NULL,NULL,1,'2023-11-14 18:34:27',NULL,'','',59,NULL),(5,7,NULL,NULL,500,316,NULL,NULL,15,80,57,93,NULL,NULL,1,'2023-11-15 06:51:24','Dozens','83','Chart',25,NULL),(6,8,NULL,NULL,676,564,NULL,NULL,96,22,12,92,NULL,NULL,1,'2023-11-15 06:54:20','Litre','2','Kg',456,0),(7,11,NULL,NULL,23556,949,NULL,NULL,75,63,81,1,NULL,NULL,1,'2023-11-15 08:17:45','Meter','6','Quintal',453,0),(8,12,NULL,NULL,7564,538,NULL,NULL,14,92,99,15,NULL,NULL,1,'2023-11-15 08:19:56','Pieces','97','Kg',435,0),(9,13,NULL,NULL,200,100,NULL,NULL,26,96,65,63,NULL,NULL,1,'2023-11-15 14:59:26','Pairs','2','Piece',45,0),(10,14,NULL,NULL,6756,552,NULL,NULL,20,9,53,43,NULL,NULL,1,'2023-11-19 14:41:56','Metric Tons','43','Tons',34,0);
 /*!40000 ALTER TABLE `product_variants` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1264,7 +1265,7 @@ CREATE TABLE `products` (
   `date_added` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1273,7 +1274,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (2,NULL,2,4,4,0,'simple_product',NULL,'Rylee Sheppard','Soluta impedit aut','rylee-sheppard',0,1,0,'','',44,370,394,1,1,1,'processed','uploads/media/2023/github.png','[]','','','','','','India','67567',NULL,NULL,NULL,NULL,0,0,'<p>hee lo ssicser</p>','<p>regfrtret tertret</p>',1,NULL,'Bhimraj',1,'2023-11-11 08:07:22');
+INSERT INTO `products` VALUES (2,NULL,2,4,4,0,'simple_product',NULL,'Rylee Sheppard','Soluta impedit aut','rylee-sheppard',0,1,0,'','',44,370,394,1,1,1,'processed','uploads/media/2023/github.png','[]','','','','','','India','67567',NULL,NULL,NULL,NULL,0,0,'<p>hee lo ssicser</p>','<p>regfrtret tertret</p>',1,NULL,'Bhimraj',1,'2023-11-11 08:07:22'),(3,NULL,2,4,3,0,'simple_product',NULL,'Dolan Graham','Animi explicabo No','dolan-graham',0,1,0,'','',288,99,373,1,1,1,'received','uploads/media/2023/github.png','[]','','','','Totam reiciendis bla','Eos qui in quam ad','India','5645645',NULL,NULL,NULL,NULL,0,0,'<p>wrewr</p>','<p>erwerw53454fg</p>',1,NULL,'Bhimraj',1,'2023-11-14 18:28:08'),(4,NULL,1,4,3,0,'simple_product',NULL,'Rylee Sheppard','hb','rylee-sheppard-1',0,0,0,'','',1,1,NULL,0,0,0,'','uploads/media/2023/github.png','[]','','','','','',NULL,'',NULL,NULL,NULL,NULL,0,0,'','',1,NULL,'Bhimraj',1,'2023-11-14 18:34:27'),(5,NULL,1,4,4,0,'digital_product',NULL,'Thor Kirby','In voluptas sequi qu','thor-kirby',0,0,0,'','',739,251,1,0,0,0,'','uploads/media/2021/eshop-logo-full.png','[]','','','','Excepteur odit quia','Enim non et sed ipsu',NULL,'Ex fugit enim dolor',NULL,NULL,NULL,NULL,0,0,'','',1,NULL,' ',1,'2023-11-14 18:38:13'),(6,NULL,1,4,4,0,'simple_product',NULL,'MacKenzie Dudley','Rem quia aliqua Obc','mackenzie-dudley',1,1,0,'','',778,839,915,0,0,0,'','uploads/media/2021/eshop-logo-full.png','[]','','','','Atque doloribus labo','Optio et dolor do e',NULL,'Voluptas architecto',NULL,NULL,NULL,NULL,0,0,'','',1,NULL,'Bhimraj',1,'2023-11-14 18:40:03'),(7,NULL,2,4,3,0,'simple_product',NULL,'Dalton Ayala','Voluptatem consecte','dalton-ayala',1,1,0,'','',507,806,78,0,0,0,'','uploads/media/2021/eshop-logo-full.png','[]','','','','Adipisci suscipit la','Vel aut necessitatib',NULL,'Iste iure nihil dolo',NULL,NULL,NULL,NULL,0,0,'<p>gfg</p>','<p>gfgfdg</p>',1,NULL,'Bhimraj',1,'2023-11-15 06:51:24'),(8,NULL,0,4,4,0,'simple_product',NULL,'Brennan Johnston','Temporibus beatae in','brennan-johnston-1',0,1,0,'','',454,138,981,0,0,0,'','uploads/media/2021/eshop-logo-full.png','[]','','','','Excepturi iste facil','Labore velit aut si',NULL,'Eum fugiat et eiusmo',NULL,'Enim aliquip dolores',33,1,0,0,'<p>gdgd</p>','<p>dfgdfg</p>',1,NULL,' ',1,'2023-11-15 06:54:20'),(9,NULL,1,4,4,0,'simple_product','0','Abigail Bender','Ut accusamus est con','abigail-bender',1,1,0,'','',306,787,124,0,0,0,'','uploads/media/2021/eshop-logo-full.png','[]','','','It is very hard to be.','Ex voluptatem aliqu','Quis officia tempor',NULL,'Velit ut tenetur su',NULL,'Laborum distinctio',38,1,0,0,'<p>dg</p>','<p>gfg</p>',1,NULL,'Bhimraj',1,'2023-11-15 07:59:36'),(10,NULL,1,4,3,0,'simple_product','0','Kevyn William','Aute in perferendis','kevyn-william',0,0,0,'','',157,279,241,0,0,0,'','uploads/media/2021/eshop-logo-full.png','[]','','','','Tenetur accusantium','Excepteur exercitati',NULL,'Est maiores repudian',NULL,'Obcaecati sed volupt',64,0,0,0,'<p>ete</p>','<p>tr</p>',1,NULL,'Bhimraj',1,'2023-11-15 08:15:58'),(11,NULL,1,4,4,0,'simple_product','0','Venus Cox','Nihil labore ullam e','venus-cox',1,0,0,'','',427,537,955,0,0,0,'','uploads/media/2021/eshop-logo-full.png','[]','','','','Numquam consequatur','Omnis in quo labore',NULL,'Aut veritatis aut re',NULL,'Quisquam optio volu',94,1,0,0,'','',1,NULL,'Bhimraj',1,'2023-11-15 08:17:45'),(12,NULL,1,2,3,0,'simple_product','0','Scarlett Long','Quidem sed inventore','scarlett-long',0,0,0,'','',287,323,449,0,0,0,'','uploads/media/2021/eshop-logo-full.png','[]','','','','Eaque voluptate sint','Veritatis sint non',NULL,'Fuga Occaecat et ac',NULL,'Voluptate in laboris',58,1,0,0,'','',1,NULL,' ',1,'2023-11-15 08:19:56'),(13,NULL,2,4,3,0,'simple_product','0','Rhonda Carr','Quidem qui in conseq','rhonda-carr',0,1,0,'','',309,248,754,0,0,0,'','uploads/media/2021/eshop-logo-full.png','[]','','','','Qui rerum ut beatae','Asperiores reprehend',NULL,'Aspernatur consequat',NULL,'Officia quas aute at',22,1,0,0,'<p>gdfg</p>','<p>gdfg</p>',1,NULL,'Bhimraj',1,'2023-11-15 14:59:26'),(14,NULL,2,4,4,0,'simple_product','0','Wyoming Chambers','Sit magnam recusanda','wyoming-chambers',0,0,0,'','',160,39,859,0,0,0,'','uploads/media/2021/eshop-logo-full.png','[]','','','','Eius ut enim eiusmod','Quas elit fugiat ve',NULL,'Sint illum do minus',NULL,'Dignissimos et enim',51,1,0,0,'','',1,NULL,'Bhimraj',1,'2023-11-19 14:41:56');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1555,7 +1556,7 @@ CREATE TABLE `taxes` (
 
 LOCK TABLES `taxes` WRITE;
 /*!40000 ALTER TABLE `taxes` DISABLE KEYS */;
-INSERT INTO `taxes` VALUES (1,'COD','15',2),(3,'GST','20',1),(4,'CGST','20',1);
+INSERT INTO `taxes` VALUES (1,'COD','20',2),(3,'GST','20',1),(4,'CGST','20',1);
 /*!40000 ALTER TABLE `taxes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1861,6 +1862,7 @@ CREATE TABLE `users` (
   `driving_license` varchar(1024) DEFAULT 'NULL',
   `status` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `cod_type` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `mobile` (`mobile`),
   KEY `email` (`email`)
@@ -1873,7 +1875,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'41.176.193.214','Admin','$2y$12$dJ97BExmxI/ZKIH.cxPNn.oQ33vyPV18opLVfC8NyCPYt2ar0YHNC','bhimrajparihar0@gmail.com','8655552214',NULL,21610473638.449993,NULL,NULL,NULL,NULL,NULL,'22f1d81333f51eb31689809b52d066efde4b17ff','$2y$10$SLZKedociawlJOLTemnPFe61f4X6zxSx091AN7YxbI2Z5W4sjZZtO',1268889823,1699724281,1,'ADMIN',NULL,'percentage_per_order',NULL,0.00,NULL,91,'57','157',NULL,NULL,NULL,NULL,'vXaEvNuR',NULL,'fFQa3MftQ6uliFS6T1IdGk:APA91bGNY-dntY4Yu0zTtjS9hB1ncLHnVmyDnnF4QCvRx3BOT57TfKAIIg036aBQ2tNt3SKFyLVGamBviZu0TjDluRdojAVJMdH40BwL3Hrpr6YNkYwQGYzwmKfpf42Ktp0AyITmT7R5',NULL,NULL,'phone','NULL',0,'2020-06-30 10:20:08'),(2,'::1','dikshita','$2y$10$JkeDBNNmpfx7aD9UET/pZe6mfqlN2daHNJ5m.jcfaUkQvpZmYYl3e','dikshita@gmail.com','222222222',NULL,0,'9bab4eda6f47dce6ddcd','$2y$10$53cUBe9kLAVrpyS.A8Mz/OP6eeXc/u5uQUdbV6TP0MU/aS03Yv8c.',NULL,NULL,NULL,NULL,NULL,1649049092,NULL,1,NULL,'237 time square','percentage_per_order',NULL,0.00,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'','','phone','NULL',0,'2022-04-04 05:11:32'),(3,'34.345.654.345','Bhimraj','$2y$12$dJ97BExmxI/ZKIH.cxPNn.oQ33vyPV18opLVfC8NyCPYt2ar0YHNC','bhimraj@yopmail.com','6764576574',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1268889887,NULL,1,NULL,NULL,'percentage_per_order',NULL,0.00,NULL,91,'57','157',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'phone','NULL',0,'2023-04-04 05:11:32'),(4,'::1','Bhimraj','$2y$10$FE9LOjM16Ze0oF/DnRbLpem1vAaFz848CyLDYvUnO1KLnEYidqP0i','raj@yopmail.com','656456456',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1699209373,1699209488,1,NULL,'yyy','percentage_per_order',NULL,0.00,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'','','phone','NULL',0,'2023-11-05 18:36:13');
+INSERT INTO `users` VALUES (1,'41.176.193.214','Admin','$2y$12$dJ97BExmxI/ZKIH.cxPNn.oQ33vyPV18opLVfC8NyCPYt2ar0YHNC','bhimrajparihar0@gmail.com','8655552214',NULL,21610473638.449993,NULL,NULL,NULL,NULL,NULL,'97c368efd6daa06d313738a1d81e98f6a4d896a8','$2y$10$fNVBchAWS4RPCha1tUYQEehXMBLzlplG/uttNIcCpiDuEcNfSpOr.',1268889823,1701019388,1,'ADMIN',NULL,'percentage_per_order',NULL,0.00,NULL,91,'57','157',NULL,NULL,NULL,NULL,'vXaEvNuR',NULL,'fFQa3MftQ6uliFS6T1IdGk:APA91bGNY-dntY4Yu0zTtjS9hB1ncLHnVmyDnnF4QCvRx3BOT57TfKAIIg036aBQ2tNt3SKFyLVGamBviZu0TjDluRdojAVJMdH40BwL3Hrpr6YNkYwQGYzwmKfpf42Ktp0AyITmT7R5',NULL,NULL,'phone','NULL',0,'2020-06-30 10:20:08',NULL),(2,'::1','dikshita','$2y$10$JkeDBNNmpfx7aD9UET/pZe6mfqlN2daHNJ5m.jcfaUkQvpZmYYl3e','dikshita@gmail.com','222222222',NULL,0,'9bab4eda6f47dce6ddcd','$2y$10$53cUBe9kLAVrpyS.A8Mz/OP6eeXc/u5uQUdbV6TP0MU/aS03Yv8c.',NULL,NULL,NULL,NULL,NULL,1649049092,NULL,1,NULL,'237 time square','percentage_per_order',NULL,0.00,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'','','phone','NULL',0,'2022-04-04 05:11:32',NULL),(3,'34.345.654.345','Bhimraj','$2y$12$dJ97BExmxI/ZKIH.cxPNn.oQ33vyPV18opLVfC8NyCPYt2ar0YHNC','bhimraj@yopmail.com','6764576574',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1268889887,NULL,1,NULL,NULL,'percentage_per_order',NULL,0.00,NULL,91,'57','157',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'phone','NULL',0,'2023-04-04 05:11:32',1),(4,'::1','Bhimraj','$2y$10$FE9LOjM16Ze0oF/DnRbLpem1vAaFz848CyLDYvUnO1KLnEYidqP0i','raj@yopmail.com','656456456',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1699209373,1699209488,1,NULL,'yyy','percentage_per_order',NULL,0.00,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'','','phone','NULL',0,'2023-11-05 18:36:13',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1972,4 +1974,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-12  0:50:46
+-- Dump completed on 2023-11-26 23:50:07
