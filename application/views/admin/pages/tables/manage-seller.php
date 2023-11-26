@@ -53,7 +53,7 @@
                                         <th data-field="mobile" data-sortable="true" data-formatter="whatsappFormatter">Mobile No</th>
                                         <!-- ... (Rest of your table headers) -->
                                         <th data-field="operate">Actions</th>
-                                        <th data-field="order_type" data-formatter="orderTypeFormatter">Order Type</th>
+                                        <!-- <th data-field="order_type" data-formatter="orderTypeFormatter">Order Type</th> -->
                                     </tr>
                                 </thead>
                             </table>
