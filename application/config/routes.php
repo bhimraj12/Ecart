@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['admin'] = "admin/home";
 $route['delivery_boy'] = "delivery_boy/home";
 $route['delivery-boy'] = "delivery_boy/home";
+$route['updateOrderType'] = 'Users/updateOrderType';
 $route['delivery-boy/(:any)'] = "delivery_boy/$1";
 $route['delivery-boy/(:any)/(:any)'] = "delivery_boy/$1/$2";
 $route['delivery-boy/(:any)/(:any)/(:any)'] = "delivery_boy/$1/$2/$3";

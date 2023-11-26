@@ -128,4 +128,10 @@ class Customer extends CI_Controller
             redirect('admin/login', 'refresh');
         }
     }
+
+    public function updateOrderType(){
+        $cod_type = $this->input->post('cod_type');
+        $id = $this->input->post('id');
+        $res['success']=$this->users->updateOrderType($cod_type,$id);
+   }
 }
