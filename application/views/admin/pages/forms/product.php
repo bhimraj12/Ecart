@@ -391,7 +391,7 @@
                                                                             <input type="number" name="simple_price" class="form-control stock-simple-mustfill-field price" value="<?= $product_variants[0]['price'] ?>" min='0' step="0.01">
                                                                         </div>
                                                                     </div>
-                                                                      <div class="col-md-2 mb-3">
+                                                                    <div class="col-md-2 mb-3">
                                                         <label for="validationCustom04">Per Piece Price</label>
                                                         <input type="text" class="form-control" name="piece_price" id="piece_price"  placeholder="Piece Price" required="">
                                                         <div class="invalid-feedback">
@@ -871,21 +871,22 @@
                                     </div>
                                 </div>
                             </div>
+                            </div>
 
                             <!--<p for="validationCustom03">Package weight & Shipment weight (KG)</p>-->
-                            <div class="form-row">
-                                <!-- <hr> -->
-                                <p>SELL ONLINE IN BULK / WHOLESALE
-                                    &nbsp;&nbsp;<button class="btn btn-danger" type="button" id="add_bulk">Add In Bulk</button></p>
-                                                    <!-- <div id="add_bulk_products" style="display:none"> -->
-                                <table class="table">
-                                    <thead>
-                                        <th>Minimum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
-                                        <th>Maximum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
-                                        <th>Discount Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
-                                        <th>Selling Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
-                                        <!--<th>Action</th>-->
-                                    </thead>
+                            <!-- <hr> -->
+                            <!-- <div class="form-row"> -->
+                            <hr>
+                                                      <p>SELL ONLINE IN BULK / WHOLESALE &nbsp;&nbsp;<button class="btn btn-danger" type="button" id="add_bulk">Add In Bulk</button></p>
+                                                    <div id="add_bulk_products" style="display:none">
+                                                      <table class="table">
+                                                        <thead>
+                                                            <th>Minimum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Maximum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Discount Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Selling Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <!--<th>Action</th>-->
+                                                        </thead>
                                     <tbody id="dynamic_bulk">
                                         <tr id="row">
                                             <td><input type="number" class="form-control" id="mini_quantitty_bind" name="minimum_quantity[]" value="" >
@@ -947,8 +948,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- <hr> -->
-                    </div>
+                            <hr>
+                   
                     <div class="card-body pad">
                         <div class="form-group col-md-12">
                             <label for="pro_input_description">Description </label>
