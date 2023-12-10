@@ -85,7 +85,7 @@ class Tax_model extends CI_Model
 
         foreach ($tax_search_res as $row) {
             $row = output_escaping($row);
-            if ($row['status'] == '1') {
+            if ($row['status'] == '1' || $row['status'] == '2') {
                 if (!$this->ion_auth->is_seller()) {
                     $operate = ' <a href="javascript:void(0)" class="edit_btn btn action-btn btn-success btn-xs mr-1 mb-1 ml-1"  title="Edit" data-id="' . $row['id'] . '" data-url="admin/taxes/"><i class="fa fa-pen"></i></a>';
                     $operate .= ' <a  href="javascript:void(0)" class="btn btn-danger action-btn btn-xs mr-1 mb-1 ml-1"  title="Delete" id="delete-tax" data-id="' . $row['id'] . '" ><i class="fa fa-trash"></i></a>';
