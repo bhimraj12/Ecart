@@ -239,7 +239,7 @@ class Customer_model extends CI_Model
 
     public function updateOrderType($cod_type,$id){
         $this->db->set('cod_type',$cod_type);
-       $this->db->where('user_id', $id);
-       $this->db->update('smitox_user');
+       $this->db->where('id', $id);
+       $this->db->update('users');
    }
 }

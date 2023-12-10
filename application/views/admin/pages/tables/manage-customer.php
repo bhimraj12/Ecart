@@ -88,9 +88,9 @@ function whatsappFormatter(value) {
 function orderTypeFormatter(value, row, index) {
     return `
         <div class="update2" data-id="${row.id}">
-            <input type="radio" name="order_type_${row.id}" value="0" ${value == '0' ? 'checked' : ''} onchange="updateOrderType(${row.id}, ${value}, 0)">COD<br>
-            <input type="radio" name="order_type_${row.id}" value="1" ${value == '1' ? 'checked' : ''} onchange="updateOrderType(${row.id}, ${value}, 1)">Prepaid<br>
-            <input type="radio" name="order_type_${row.id}" value="2" ${value == '2' ? 'checked' : ''} onchange="updateOrderType(${row.id}, ${value}, 2)">Advance<br>
+            <input type="radio" name="cod_type${row.id}" value="0" ${value == '0' ? 'checked' : ''} onchange="updateOrderType(${row.id}, ${value}, 0)">COD<br>
+            <input type="radio" name="cod_type${row.id}" value="1" ${value == '1' ? 'checked' : ''} onchange="updateOrderType(${row.id}, ${value}, 1)">Prepaid<br>
+            <input type="radio" name="cod_type${row.id}" value="2" ${value == '2' ? 'checked' : ''} onchange="updateOrderType(${row.id}, ${value}, 2)">Advance<br>
         </div>
     `;
 }
@@ -98,7 +98,7 @@ function orderTypeFormatter(value, row, index) {
 function updateOrderType(customerId, currentOrderType, newOrderType) {
     // Make an AJAX call to update the order type on the server
     $.ajax({
-        url: 'your_server_endpoint', // Replace with your server endpoint
+        url: 'updateOrderType', // Replace with your server endpoint
         type: 'POST',
         data: {
             id: customerId,
