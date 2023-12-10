@@ -195,6 +195,8 @@ class Product extends CI_Controller
         print_r(json_encode($response));
     }
 
+
+
     public function update_product_order()
     {
 
