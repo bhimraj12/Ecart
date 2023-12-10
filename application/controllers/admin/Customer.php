@@ -134,7 +134,6 @@ class Customer extends CI_Controller
         if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
             $cod_type = $this->input->post('new_cod_type');
                     $id = $this->input->post('id');
-                    // $res['success']=$this->users->updateOrderType($cod_type,$id);
             $res['success']=$this->Customer_model->updateOrderType($cod_type,$id);
         } else {
             redirect('admin/login', 'refresh');
