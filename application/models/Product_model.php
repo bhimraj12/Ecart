@@ -184,13 +184,30 @@ class Product_model extends CI_Model
             $pro_variance_data = [
                 'product_id' => $p_id,
                 'price' => $data['simple_price'],
+                'purchase_rate' => $data['purchase_rate'],
+                'unit' => $data['unit'],
+                'unit_set' => $data['unit_set'],
+                'set_unit' => $data['set_unit'],
+                'set_price' => $data['set_price'],
                 'special_price' => (isset($data['simple_special_price']) && !empty($data['simple_special_price'])) ? $data['simple_special_price'] : '0',
                 'weight' => (isset($data['weight'])) ? floatval($data['weight']) : 0,
                 'height' => (isset($data['height'])) ? $data['height'] : 0,
                 'breadth' => (isset($data['breadth'])) ? $data['breadth'] : 0,
                 'length' => (isset($data['length'])) ? $data['length'] : 0,
             ];
-
+            foreach ($this->input->post('minimum_quantity') as $key => $value) {
+                if (!empty($this->input->post('maximum_quantity')[$key]) && $this->input->post('maximum_quantity')[$key] != 0) {
+                    $set['minimum_quantity'] = isset($value) ? floatval($value) : 0;
+                    $set['maximum_quantity'] = isset($this->input->post('maximum_quantity')[$key]) ? floatval($this->input->post('maximum_quantity')[$key]) : 0;
+                    $set['discount_mrp'] = isset($this->input->post('discount_mrp')[$key]) ? floatval($this->input->post('discount_mrp')[$key]) : 0;
+                    $set['discount_price_set'] = isset($this->input->post('discount_price_set')[$key]) ? floatval($this->input->post('discount_price_set')[$key]) : 0;
+                    $set['selling_price_set'] = isset($this->input->post('selling_price_set')[$key]) ? floatval($this->input->post('selling_price_set')[$key]) : 0;
+                    $set['Product_id'] = $p_id;
+                    $this->db->insert('product_Set', $set);
+                }
+            }
+            
+            
             if (isset($data['edit_product_id'])) {
                 if (isset($_POST['reset_settings']) && trim($_POST['reset_settings']) == '1') {
                     $this->db->insert('product_variants', $pro_variance_data);
@@ -204,8 +221,14 @@ class Product_model extends CI_Model
             $pro_variance_data = [
                 'product_id' => $p_id,
                 'price' => $data['simple_price'],
+                'purchase_rate' => $data['purchase_rate'],
+                'unit' => $data['unit'],
+                'unit_set' => $data['unit_set'],
+                'set_unit' => $data['set_unit'],
+                'set_price' => $data['set_price'],
                 'special_price' => (isset($data['simple_special_price']) && !empty($data['simple_special_price'])) ? $data['simple_special_price'] : '0',
             ];
+
 
             if (isset($data['edit_product_id'])) {
                 if (isset($_POST['reset_settings']) && trim($_POST['reset_settings']) == '1') {
@@ -230,6 +253,12 @@ class Product_model extends CI_Model
                     $variant_height = (isset($data['height'])) ? $data['height'] : 0.0;
                     $variant_breadth = (isset($data['breadth'])) ? $data['breadth'] : 0.0;
                     $variant_length = (isset($data['length'])) ? $data['length'] : 0.0;
+                    $variant_unit = (isset($data['unit'])) ? $data['unit'] : 0.0;
+                    $variant_unit_set = (isset($data['unit_set'])) ? $data['unit_set'] : 0.0;
+                    $variant_set_unit = (isset($data['set_unit'])) ? $data['set_unit'] : 0.0;
+                    $variant_purchase_rate = (isset($data['purchase_rate'])) ? $data['purchase_rate'] : 0.0;
+                    $variant_set_price = (isset($data['set_price'])) ? $data['set_price'] : 0.0;
+
                 } else {
                     $flag = "variant_level";
                     $variant_price = $data['variant_price'];
@@ -241,6 +270,11 @@ class Product_model extends CI_Model
                     $variant_height = (isset($data['height'])) ? $data['height'] : 0.0;
                     $variant_breadth = (isset($data['breadth'])) ? $data['breadth'] : 0.0;
                     $variant_length = (isset($data['length'])) ? $data['length'] : 0.0;
+                    $variant_unit = (isset($data['unit'])) ? $data['unit'] : 0.0;
+                    $variant_unit_set = (isset($data['unit_set'])) ? $data['unit_set'] : 0.0;
+                    $variant_set_unit = (isset($data['set_unit'])) ? $data['set_unit'] : 0.0;
+                    $variant_purchase_rate = (isset($data['purchase_rate'])) ? $data['purchase_rate'] : 0.0;
+                    $variant_set_price = (isset($data['set_price'])) ? $data['set_price'] : 0.0;
                 }
             } else {
 
@@ -250,6 +284,11 @@ class Product_model extends CI_Model
                 $variant_height = (isset($data['height'])) ? $data['height'] : 0.0;
                 $variant_breadth = (isset($data['breadth'])) ? $data['breadth'] : 0.0;
                 $variant_length = (isset($data['length'])) ? $data['length'] : 0.0;
+                $variant_unit = (isset($data['unit'])) ? $data['unit'] : 0.0;
+                $variant_unit_set = (isset($data['unit_set'])) ? $data['unit_set'] : 0.0;
+                $variant_set_unit = (isset($data['set_unit'])) ? $data['set_unit'] : 0.0;
+                $variant_purchase_rate = (isset($data['purchase_rate'])) ? $data['purchase_rate'] : 0.0;
+                $variant_set_price = (isset($data['set_price'])) ? $data['set_price'] : 0.0;
             }
 
             if (!empty($data['variants_ids'])) {
@@ -271,6 +310,11 @@ class Product_model extends CI_Model
                         $pro_variance_data['height'] = $variant_height[$i];
                         $pro_variance_data['breadth'] = $variant_breadth[$i];
                         $pro_variance_data['length'] = $variant_length[$i];
+                        $pro_variance_data['unit'] = $variant_unit[$i];
+                        $pro_variance_data['unit_set'] = $variant_unit_set[$i];
+                        $pro_variance_data['set_unit'] = $variant_set_unit[$i];
+                        $pro_variance_data['purchase_rate'] = $variant_purchase_rate[$i];
+                        $pro_variance_data['set_price'] = $variant_set_price[$i];
                         $pro_variance_data['sku'] = $variant_sku[$i];
                         $pro_variance_data['stock'] = $variant_total_stock[$i];
                         $pro_variance_data['availability'] = $variant_stock_status[$i];
@@ -281,6 +325,11 @@ class Product_model extends CI_Model
                         $pro_variance_data['height'] = $variant_height[$i];
                         $pro_variance_data['breadth'] = $variant_breadth[$i];
                         $pro_variance_data['length'] = $variant_length[$i];
+                        $pro_variance_data['unit'] = $variant_unit[$i];
+                        $pro_variance_data['unit_set'] = $variant_unit_set[$i];
+                        $pro_variance_data['set_unit'] = $variant_set_unit[$i];
+                        $pro_variance_data['purchase_rate'] = $variant_purchase_rate[$i];
+                        $pro_variance_data['set_price'] = $variant_set_price[$i];
                     }
 
                     if (isset($variant_images[$i]) && !empty($variant_images[$i])) {
@@ -397,7 +446,7 @@ class Product_model extends CI_Model
             $total = $row['total'];
         }
 
-        $search_res = $this->db->select('product_variants.id AS id,c.name as category_name,sd.store_name, p.id as pid,p.rating,p.no_of_ratings,p.name, p.type, p.image, p.status,p.brand,product_variants.price , product_variants.special_price, product_variants.stock')
+        $search_res = $this->db->select('product_variants.id AS id,c.name as category_name,sd.store_name, p.id as pid,p.rating,p.no_of_ratings,p.name, p.type, p.image, p.status,p.brand,product_variants.price , product_variants.special_price, product_variants.stock, product_variants.unit, product_variants.unit_set, product_variants.set_unit, product_variants.purchase_rate')
             ->join("categories c", "p.category_id=c.id")
             ->join("seller_data sd", "sd.user_id=p.seller_id ")
             ->join('product_variants', 'product_variants.product_id = p.id');
@@ -478,6 +527,7 @@ class Product_model extends CI_Model
             $operate .= "<a href='javascript:void(0)' data-id=" . $row['pid'] . " data-toggle='modal' data-target='#product-faqs-modal' class='btn action-btn btn-info btn-xs mr-1 mb-1 ml-1' title='View FAQs' ><i class='fas fa-question-circle'></i></a></div>";
 
             $attr_values  =  get_variants_values_by_pid($row['pid']);
+            $set_values  =  get_set_values_by_pid($row['pid']);
             $tempRow['id'] = $row['pid'];
             $tempRow['varaint_id'] = $row['id'];
             $tempRow['name'] = $row['name'] . '<br><small>' . ucwords(str_replace('_', ' ', $row['type'])) . '</small><br><small> By </small><b>' . $row['store_name'] . '</b>';
@@ -594,6 +644,7 @@ class Product_model extends CI_Model
         foreach ($pro_search_res as $row) {
             $row = output_escaping($row);
             $attr_values  =  get_variants_values_by_pid($row['pid']);
+            $set_values  =  get_set_values_by_pid($row['pid']);
             $tempRow['id'] = $row['pid'];
             $tempRow['varaint_id'] = $row['id'];
             $tempRow['name'] = $row['name'] . '<br><small>' . ucwords(str_replace('_', ' ', $row['type'])) . '</small><br><small> By </small><b>' . $row['store_name'] . '</b>';
@@ -1011,7 +1062,6 @@ class Product_model extends CI_Model
 
 
     public function get_stock_details()
-
     {
 
         $filters['show_only_stock_product'] = true;
@@ -1071,7 +1121,7 @@ class Product_model extends CI_Model
             $operate = $stock = "";
 
             $variants = get_variants_values_by_pid($product['id']);
-
+            $sets = get_set_values_by_pid($product['id']);
             $stock = implode("<br/>", array_column($variants, 'stock'));
 
 
@@ -1127,7 +1177,6 @@ class Product_model extends CI_Model
 
 
     public function get_seller_stock_details()
-
     {
 
         $seller_id = $_SESSION['user_id'];
@@ -1186,7 +1235,7 @@ class Product_model extends CI_Model
             $operate = $stock = "";
 
             $variants = get_variants_values_by_pid($product['id']);
-
+            $sets = get_set_values_by_pid($product['id']);
             $stock = implode("<br/>", array_column($variants, 'stock'));
 
 
@@ -1237,5 +1286,13 @@ class Product_model extends CI_Model
 
 
         print_r(json_encode($bulkData));
+    }
+
+    public function showSets($id)
+    {
+        $this->db->select("*");
+        $this->db->from('smitox_product_Set');
+        $this->db->where('Product_id', $id);
+        return $this->db->get()->result();
     }
 }
