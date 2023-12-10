@@ -77,11 +77,11 @@
                                                         <option value="0" selected> No Taxes Are Added </option>
                                                     <?php } ?>
                                                     <?php foreach ($taxes as $row) {
-                                                        if (isset($product_details[0]['tax']) && $product_details[0]['tax'] == $row['id']) {
-                                                            $selected = 'selected';
-                                                        } else {
-                                                            $selected = '';
+                                                        if ($row['id'] == 1) {
+                                                            // Skip the option with id 1
+                                                            continue;
                                                         }
+                                                        $selected = (isset($product_details[0]['tax']) && $product_details[0]['tax'] == $row['id']) ? 'selected' : '';
                                                     ?>
                                                         <option value="<?= $row['id'] ?>" <?= $selected ?>><?= $row['title'] ?><?php echo "(" . $row['percentage'] . "%)" ?></option>
                                                     <?php

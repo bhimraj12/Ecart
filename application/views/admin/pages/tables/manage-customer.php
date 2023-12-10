@@ -105,14 +105,30 @@ function updateOrderType(customerId, currentOrderType, newOrderType) {
             cod_type: currentOrderType,
             new_cod_type: newOrderType
         },
-        success: function(response) {
-            // Handle the response from the server if needed
-            console.log(response);
-        },
-        error: function(error) {
-            // Handle errors if any
-            console.error(error);
-        }
+        success: function (result) {
+    console.log('Received result:', result);
+
+    // Explicitly parse the JSON response
+    result = JSON.parse(result);
+
+    console.log(result.error);
+    console.log(result.message);
+
+    if (result && result.error === false) {
+        iziToast.success({
+            message: '<span style="text-transform:capitalize">' + result.message + '</span>',
+        });
+        $('.table').bootstrapTable('refresh');
+    } else {
+        iziToast.error({
+            message: '<span style="text-transform:capitalize">' + (result.message || 'Unknown error') + '</span>',
+        });
+    }
+},
+
+     error: function(xhr, status, error) {
+        console.error("Error updating order type:", error);
+    }
     });
 }
 </script>

@@ -134,9 +134,22 @@ class Customer extends CI_Controller
         if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
             $cod_type = $this->input->post('new_cod_type');
                     $id = $this->input->post('id');
-            $res['success']=$this->Customer_model->updateOrderType($cod_type,$id);
+                    $updateResult = $this->Customer_model->updateOrderType($cod_type, $id);
+            
+                    if ($updateResult) {
+                        $response['error'] = false;
+                        $response['message'] = 'Order type successfully updated.';
+                    } else {
+                        $response['error'] = true;
+                        $response['message'] = 'Failed to update order type.';
+                    }
+            
+                    // Return the JSON response
+                    echo json_encode($response);
         } else {
             redirect('admin/login', 'refresh');
         }
     }
+
+
 }

@@ -240,6 +240,8 @@ class Customer_model extends CI_Model
     public function updateOrderType($cod_type,$id){
         $this->db->set('cod_type',$cod_type);
        $this->db->where('id', $id);
-       $this->db->update('users');
+       $result = $this->db->update('users');
+
+       return $result;
    }
 }
