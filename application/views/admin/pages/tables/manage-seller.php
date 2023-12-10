@@ -79,14 +79,32 @@
         `;
     }
     function orderTypeFormatter(value, row, index) {
-        return `
-            <div class="update2" data-id="${row.id}">
-                <input type="radio" name="order_type_${row.id}" value="0" ${value == '0' ? 'checked' : ''}>COD<br>
-                <input type="radio" name="order_type_${row.id}" value="1" ${value == '1' ? 'checked' : ''}>Prepaid<br>
-                <input type="radio" name="order_type_${row.id}" value="2" ${value == '2' ? 'checked' : ''}>Advance<br>
-            </div>
-        `;
-    }
+    return `
+        <div class="update2" data-id="${row.id}">
+            <input type="radio" name="order_type_${row.id}" value="0" ${value == '0' ? 'checked' : ''} onclick="updateOrderType(${row.id}, 0)">COD<br>
+            <input type="radio" name="order_type_${row.id}" value="1" ${value == '1' ? 'checked' : ''} onclick="updateOrderType(${row.id}, 1)">Prepaid<br>
+            <input type="radio" name="order_type_${row.id}" value="2" ${value == '2' ? 'checked' : ''} onclick="updateOrderType(${row.id}, 2)">Advance<br>
+        </div>
+    `;
+}
+
+// Add a new function to handle the POST request
+function updateOrderType(userId, orderType) {
+    $.ajax({
+        type: "POST",
+        context: "application/json",
+        data: { 'order_type': orderType, 'id': userId },
+        url: base_url + "updateOrderType",
+        success: function (data) {
+            // Handle success, if needed
+            // For example, you can update the UI or display a message
+        },
+        error: function (error) {
+            // Handle error, if needed
+        }
+    });
+}
+
     // ... (Your existing JavaScript code remains unchanged)
 </script>
 
