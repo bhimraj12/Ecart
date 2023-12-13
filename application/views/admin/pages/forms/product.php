@@ -594,17 +594,221 @@
                                                                     <div id="product-general-settings">
                                                                         <div id="general_price_section" class="collapse">
                                                                             <div class="form-group">
-                                                                                <label for="type" class="col-md-2">Price:</label>
+                                                                                <label for="type" class="col-md-2">MRP Price:</label>
                                                                                 <div class="col-md-12">
                                                                                     <input type="number" name="simple_price" class="form-control stock-simple-mustfill-field price" min='0' step="0.01">
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="type" class="col-md-2">Special Price:</label>
-                                                                                <div class="col-md-12">
-                                                                                    <input type="number" name="simple_special_price" class="form-control discounted_price" min='0' step="0.01">
+                                                                                <div class="invalid-feedback">
+                                                                                    Please provide a valid MRP.
                                                                                 </div>
                                                                             </div>
+                                                                            <div class="form-group" class="col-md-2">
+                                                                                <label for="type" class="col-md-2">Purchase Rate:</label>
+                                                                                <div class="col-md-12">
+                                                                                    <input type="number" name="purchase_rate" class="form-control purchase_rate" value="" min='0' step="0.01">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="type" class="col-md-2">Per Piece Price / Special Price:</label>
+                                                                                <div class="col-md-12">
+                                                                                    <input type="number" name="simple_special_price" id="simple_special_price"  placeholder="Piece Price" class="form-control discounted_price" min='0' step="0.01">
+                                                                                </div>
+                                                                            </div>
+                                                                           <!--  <div class="form-group" class="col-md-2">
+                                                                                <label for="type" class="col-md-2">MRP:</label>
+                                                                                <input type="number" name="simple_price" class="form-control stock-simple-mustfill-field price" min='0' step="0.01">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group" class="col-md-2">
+                                                                            <label for="type" class="col-md-2">Per Piece Price:</label>
+                                                                            <div class="col-md-12">
+                                                                                <input type="number" name="simple_special_price" class="form-control discounted_price" min='0' step="0.01">
+                                                                            </div>
+                                                                        </div> -->
+                                                                        <hr>
+                                                   <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationCustom03">Unit</label>
+                                    <!--<input type="text" class="form-control" name="unit"  placeholder="Unit" required="">-->
+                                    <select class="custom-select input-sm" name="unit" id="unit" required>
+                                        <!-- New options -->
+                                        <option value="Chart">Chart</option>
+                                        <option value="Dozens">Dozens</option>
+                                        <option value="Kg">Kg</option>
+                                        <option value="Litre">Litre</option>
+                                        <option value="Meter">Meter</option>
+                                        <option value="Metric Tons">Metric Tons</option>
+                                        <option value="Nos.">Nos.</option>
+                                        <option value="Packet">Packet</option>
+                                        <option value="Pairs">Pairs</option>
+                                        <option value="Piece">Piece</option>
+                                        <option value="Pieces">Pieces</option>
+                                        <option value="Pounds">Pounds</option>
+                                        <option value="Quintal">Quintal</option>
+                                        <option value="Sets">Sets</option>
+                                        <option value="Tons">Tons</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please Enter Unit.
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3" id="select_units">
+                                    <label for="validationCustom03">Net Weight / Content</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" required>
+                                        <select class="custom-select input-sm" name="set_unit" id="set_unit" required>
+                                            <!-- New options -->
+                                            <option value="">Open this select Unit</option>
+                                            <option value="Chart">Chart</option>
+                                            <option value="Dozens">Dozens</option>
+                                            <option value="Kg">Kg</option>
+                                            <option value="Litre">Litre</option>
+                                            <option value="Meter">Meter</option>
+                                            <option value="Metric Tons">Metric Tons</option>
+                                            <option value="Nos.">Nos.</option>
+                                            <option value="Packet">Packet</option>
+                                            <option value="Pairs">Pairs</option>
+                                            <option value="Piece">Piece</option>
+                                            <option value="Pieces">Pieces</option>
+                                            <option value="Pounds">Pounds</option>
+                                            <option value="Quintal">Quintal</option>
+                                            <option value="Sets">Sets</option>
+                                            <option value="Tons">Tons</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                                    
+                                                <div class="form-row">
+                                                    <!-- <div class="col-md-2 mb-3">
+                                                        <label for="validationCustom04">Purchase Rate</label>
+                                                        <input type="text" class="form-control" name="Purchase_price" id="Purchase_price"  placeholder="Purchase Price" required="">
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid state.
+                                                        </div>
+                                                    </div> -->
+                                                    
+                                                    <!-- <div class="col-md-2 mb-3">
+                                                        <label for="validationCustom03">MRP</label>
+                                                        <input type="text" class="form-control" name="mrp" id="mrp" placeholder="MRP" required="">
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid city.
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-2 mb-3">
+                                                        <label for="validationCustom04">Per Piece Price</label>
+                                                        <input type="text" class="form-control" name="piece_price" id="piece_price"  placeholder="Piece Price" required="">
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid state.
+                                                        </div>
+                                                    </div> -->
+                                                    
+                                                     <div class="col-md-2 mb-3">
+                                                        <label for="validationCustom04">Set Price</label>
+                                                        <input type="text" class="form-control" name="selling_price" id="selling_price"  placeholder="Set Price" readonly>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid state.
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                    <div class="col-md-2 mb-3">
+                                                       <label for="validationCustom05">Minimum Quantity</label>
+                                                        <input type="number" class="form-control" name="min_qty" id="mini_quantity" placeholder="Min Qty" value="" required="">
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid state.
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!--<div class="col-md-2 mb-3">-->
+                                                    <!--    <label for="validationCustom05">Maximum Quantity</label>-->
+                                                    <!--    <input type="number" class="form-control" name="max_qty"  placeholder="Max Qty" required="">-->
+                                                    <!--    <div class="invalid-feedback">-->
+                                                    <!--        Please provide a valid zip.-->
+                                                    <!--    </div>-->
+                                                    <!--</div>-->
+                                                    
+                                                    <!--<div class="col-md-2 mb-3">-->
+                                                    <!--    <label for="validationCustom05">Delivery 35 per Kg</label>-->
+                                                    <!--    <input type="text" class="form-control" name="delivery_amt"  placeholder="35" required="">-->
+                                                    <!--    <div class="invalid-feedback">-->
+                                                    <!--        Please provide a valid zip.-->
+                                                    <!--    </div>-->
+                                                    <!--</div>-->
+                                           
+
+                                                <hr>
+                                                      <p>SELL ONLINE IN BULK / WHOLESALE &nbsp;&nbsp;<button class="btn btn-danger" type="button" id="add_bulk">Add In Bulk</button></p>
+                                                    <div id="add_bulk_products" style="display:none">
+                                                      <table class="table">
+                                                        <thead>
+                                                            <th>Minimum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Maximum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Discount Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <th>Selling Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
+                                                            <!--<th>Action</th>-->
+                                                        </thead>
+                                    <tbody id="dynamic_bulk">
+                                        <tr id="row">
+                                            <td><input type="number" class="form-control" id="mini_quantitty_bind" name="minimum_quantity[]" value="" >
+                                                <div id="row1col1"></div>
+                                            </td>
+                                            <td><input type="number" class="form-control" id="maximum_quantity" name="maximum_quantity[]" value="">
+                                                <div id="row1col2"></div>
+                                            </td>
+                                            <td><input type="number" class="form-control" id="discount_mrp" name="discount_mrp[]" value="" step="any">
+                                                <div id="row1col3"></div>
+                                            </td>
+                                            <td><input type="number" class="form-control" id="selling_price_bind" name="selling_price_set[]" value="" step="any" >
+                                                <div id="row1col4"></div>
+                                            </td>
+                                            <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                        </tr>
+                                        <tr id="row">
+                                            <td><input type="number" class="form-control" id="mini_quantitty_bind1" name="minimum_quantity[]" value="" >
+                                                <div id="row2col1"></div>
+                                            </td>
+                                            <td><input type="number" class="form-control" id="maximum_quantity1" name="maximum_quantity[]" value="">
+                                                <div id="row2col2"></div>
+                                            </td>
+                                            <td><input type="number" class="form-control" id="discount_mrp1" name="discount_mrp[]" value="" step="any">
+                                                <div id="row2col3"></div>
+                                            </td>
+                                            <td><input type="number" class="form-control" id="selling_price_bind1" name="selling_price_set[]" value="" step="any" >
+                                                <div id="row2col4"></div>
+                                            </td>
+                                            <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                        </tr>
+                                        <tr id="row">
+                                            <td><input type="number" class="form-control" id="mini_quantitty_bind2" name="minimum_quantity[]" value="" >
+                                                <div id="row3col1"></div>
+                                            </td>
+                                            <td><input type="number" class="form-control" id="maximum_quantity2" name="maximum_quantity[]" value="">
+                                                <div id="row3col2"></div>
+                                            </td>
+                                            <td><input type="number" class="form-control" id="discount_mrp2" name="discount_mrp[]" value="" step="any">
+                                                <div id="row3col3"></div>
+                                            </td>
+                                            <td><input type="number" class="form-control" id="selling_price_bind2" name="selling_price_set[]" value="" step="any" >
+                                                <div id="row3col4"></div>
+                                            </td>
+                                            <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
+                                        </tr>
+                                        <!--<tr>-->
+                                        <!--    <td>-->
+                                        <!--        <span id="setData2"></span>-->
+                                        <!--        <span id="unit_value11"></span>-->
+                                        <!--    </td>-->
+                                        <!--    <td>-->
+                                        <!--        <span id="setData6"></span>-->
+                                        <!--        <span id="unit_value11"></span>-->
+                                        <!--    </td>-->
+                                        <!--     </td></td>-->
+                                        <!--     </td></td>-->
+                                        <!--</tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
                                                                             <div class="form-group row mt-3" id="product-dimensions">
                                                                                 <div class="col-md-6">
                                                                                     <label for="weight" class="control-label col-md-12"><small>(These are the product parcel's dimentions.)</small></label>
@@ -789,205 +993,7 @@
                                                 <!--</div>-->
                                                 </div>
                                                 
-                                                   <hr>
-                                                   <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustom03">Unit</label>
-                                    <!--<input type="text" class="form-control" name="unit"  placeholder="Unit" required="">-->
-                                    <select class="custom-select input-sm" name="unit" id="unit" required>
-                                        <!-- New options -->
-                                        <option value="Chart">Chart</option>
-                                        <option value="Dozens">Dozens</option>
-                                        <option value="Kg">Kg</option>
-                                        <option value="Litre">Litre</option>
-                                        <option value="Meter">Meter</option>
-                                        <option value="Metric Tons">Metric Tons</option>
-                                        <option value="Nos.">Nos.</option>
-                                        <option value="Packet">Packet</option>
-                                        <option value="Pairs">Pairs</option>
-                                        <option value="Piece">Piece</option>
-                                        <option value="Pieces">Pieces</option>
-                                        <option value="Pounds">Pounds</option>
-                                        <option value="Quintal">Quintal</option>
-                                        <option value="Sets">Sets</option>
-                                        <option value="Tons">Tons</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please Enter Unit.
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3" id="select_units">
-                                    <label for="validationCustom03">Net Weight / Content</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" required>
-                                        <select class="custom-select input-sm" name="set_unit" id="set_unit" required>
-                                            <!-- New options -->
-                                            <option value="">Open this select Unit</option>
-                                            <option value="Chart">Chart</option>
-                                            <option value="Dozens">Dozens</option>
-                                            <option value="Kg">Kg</option>
-                                            <option value="Litre">Litre</option>
-                                            <option value="Meter">Meter</option>
-                                            <option value="Metric Tons">Metric Tons</option>
-                                            <option value="Nos.">Nos.</option>
-                                            <option value="Packet">Packet</option>
-                                            <option value="Pairs">Pairs</option>
-                                            <option value="Piece">Piece</option>
-                                            <option value="Pieces">Pieces</option>
-                                            <option value="Pounds">Pounds</option>
-                                            <option value="Quintal">Quintal</option>
-                                            <option value="Sets">Sets</option>
-                                            <option value="Tons">Tons</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                                    
-                                                <div class="form-row">
-                                                    <div class="col-md-2 mb-3">
-                                                        <label for="validationCustom04">Purchase Rate</label>
-                                                        <input type="text" class="form-control" name="Purchase_price" id="Purchase_price"  placeholder="Purchase Price" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid state.
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-md-2 mb-3">
-                                                        <label for="validationCustom03">MRP</label>
-                                                        <input type="text" class="form-control" name="mrp" id="mrp" placeholder="MRP" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid city.
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-md-2 mb-3">
-                                                        <label for="validationCustom04">Per Piece Price</label>
-                                                        <input type="text" class="form-control" name="piece_price" id="piece_price"  placeholder="Piece Price" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid state.
-                                                        </div>
-                                                    </div>
-                                                    
-                                                     <div class="col-md-2 mb-3">
-                                                        <label for="validationCustom04">Set Price</label>
-                                                        <input type="text" class="form-control" name="selling_price" id="selling_price"  placeholder="Set Price" readonly>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid state.
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <!--<div class="col-md-3 mb-3">-->
-                                                    <!--    <label for="validationCustom05">Weight</label>-->
-                                                    <!--    <input type="number" step="any" min="0" class="form-control" name="weight"  placeholder="Weight" required="">-->
-                                                    <!--    <div class="invalid-feedback">-->
-                                                    <!--        Please provide a valid zip.-->
-                                                    <!--    </div>-->
-                                                    <!--</div>-->
                                                    
-                                                     <div class="col-md-2 mb-3">
-                                                        <label for="validationCustom05">Weight</label>
-                                                        <input type="text" step="any" min="0" class="form-control" name="weight"  placeholder="Weight" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid zip.
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-md-2 mb-3">
-                                                       <label for="validationCustom05">Minimum Quantity</label>
-                                                        <input type="number" class="form-control" name="min_qty" id="mini_quantity" placeholder="Min Qty" value="" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid state.
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <!--<div class="col-md-2 mb-3">-->
-                                                    <!--    <label for="validationCustom05">Maximum Quantity</label>-->
-                                                    <!--    <input type="number" class="form-control" name="max_qty"  placeholder="Max Qty" required="">-->
-                                                    <!--    <div class="invalid-feedback">-->
-                                                    <!--        Please provide a valid zip.-->
-                                                    <!--    </div>-->
-                                                    <!--</div>-->
-                                                    
-                                                    <!--<div class="col-md-2 mb-3">-->
-                                                    <!--    <label for="validationCustom05">Delivery 35 per Kg</label>-->
-                                                    <!--    <input type="text" class="form-control" name="delivery_amt"  placeholder="35" required="">-->
-                                                    <!--    <div class="invalid-feedback">-->
-                                                    <!--        Please provide a valid zip.-->
-                                                    <!--    </div>-->
-                                                    <!--</div>-->
-                                           
-
-                                                <hr>
-                                                      <p>SELL ONLINE IN BULK / WHOLESALE &nbsp;&nbsp;<button class="btn btn-danger" type="button" id="add_bulk">Add In Bulk</button></p>
-                                                    <div id="add_bulk_products" style="display:none">
-                                                      <table class="table">
-                                                        <thead>
-                                                            <th>Minimum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
-                                                            <th>Maximum Quantity&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
-                                                            <th>Discount Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
-                                                            <th>Selling Price&nbsp;&nbsp;<span id="unit_value" style="color: aqua;"><span></th>
-                                                            <!--<th>Action</th>-->
-                                                        </thead>
-                                    <tbody id="dynamic_bulk">
-                                        <tr id="row">
-                                            <td><input type="number" class="form-control" id="mini_quantitty_bind" name="minimum_quantity[]" value="" >
-                                                <div id="row1col1"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="maximum_quantity" name="maximum_quantity[]" value="">
-                                                <div id="row1col2"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="discount_mrp" name="discount_mrp[]" value="" step="any">
-                                                <div id="row1col3"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="selling_price_bind" name="selling_price_set[]" value="" step="any" >
-                                                <div id="row1col4"></div>
-                                            </td>
-                                            <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
-                                        </tr>
-                                        <tr id="row">
-                                            <td><input type="number" class="form-control" id="mini_quantitty_bind1" name="minimum_quantity[]" value="" >
-                                                <div id="row2col1"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="maximum_quantity1" name="maximum_quantity[]" value="">
-                                                <div id="row2col2"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="discount_mrp1" name="discount_mrp[]" value="" step="any">
-                                                <div id="row2col3"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="selling_price_bind1" name="selling_price_set[]" value="" step="any" >
-                                                <div id="row2col4"></div>
-                                            </td>
-                                            <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
-                                        </tr>
-                                        <tr id="row">
-                                            <td><input type="number" class="form-control" id="mini_quantitty_bind2" name="minimum_quantity[]" value="" >
-                                                <div id="row3col1"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="maximum_quantity2" name="maximum_quantity[]" value="">
-                                                <div id="row3col2"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="discount_mrp2" name="discount_mrp[]" value="" step="any">
-                                                <div id="row3col3"></div>
-                                            </td>
-                                            <td><input type="number" class="form-control" id="selling_price_bind2" name="selling_price_set[]" value="" step="any" >
-                                                <div id="row3col4"></div>
-                                            </td>
-                                            <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
-                                        </tr>
-                                        <!--<tr>-->
-                                        <!--    <td>-->
-                                        <!--        <span id="setData2"></span>-->
-                                        <!--        <span id="unit_value11"></span>-->
-                                        <!--    </td>-->
-                                        <!--    <td>-->
-                                        <!--        <span id="setData6"></span>-->
-                                        <!--        <span id="unit_value11"></span>-->
-                                        <!--    </td>-->
-                                        <!--     </td></td>-->
-                                        <!--     </td></td>-->
-                                        <!--</tr>-->
-                                    </tbody>
-                                </table>
-                            </div>
                             <hr>
                    
                     <div class="card-body pad">
