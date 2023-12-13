@@ -215,10 +215,6 @@
                                                     <option value='shipped' <?= (isset($product_details[0]['cancelable_till']) && $product_details[0]['cancelable_till'] == 'shipped') ? 'selected' : '' ?>>Shipped</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-5 cod_advance <?= (isset($product_details[0]['cod_allowed']) && $product_details[0]['cod_allowed'] != '1') ? 'd-none' : '' ?>">
-                                                <label for="cod_advance" class="col-form-label">Advance Payment on COD (%)</label>
-                                                <input type="number" class="col-md-12 form-control" name="cod_advance" min="10" value="<?= (isset($product_details[0]['cod_advance'])) ? $product_details[0]['cod_advance'] : 10; ?>" placeholder='Advance Payment on COD in %'>
-                                            </div>
                                         </div>
                                         <div class="row col mt-3">
 
