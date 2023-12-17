@@ -718,7 +718,7 @@
                                                     
                                                     <div class="col-md-2 mb-3">
                                                        <label for="validationCustom05">Minimum Quantity</label>
-                                                        <input type="number" class="form-control" name="min_qtytt" id="mini_quantitytt" placeholder="Min Qty" value="" required="">
+                                                        <input type="number" class="form-control" name="min_qty" id="mini_quantity" placeholder="Min Qty" value="" required="">
                                                         <div class="invalid-feedback">
                                                             Please provide a valid state.
                                                         </div>
