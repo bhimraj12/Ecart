@@ -1,273 +1,273 @@
-var base_url = "https://smitox.com/admin/";
+// var base_url = "https://smitox.com/admin/";
  
 /***************** Category DataTable *************************/
-$(function () {  
-     editproducts(new URL(window.location.href).searchParams.get('product_id'));
-});
+// $(function () {  
+//      editproducts(new URL(window.location.href).searchParams.get('product_id'));
+// });
 
 
-function editproducts(id){
-     $(".preview-images-zone").empty();
-     $("#appendvariant1").empty();
-      $("#sets").empty();
-     $("#stockssss").empty();
-// 		var id = $(this).data('id');
-		var table ='';var v_image='';
-		$.ajax({
-			type: 'POST',
-			url: base_url + 'Productsseller/editproducts',
-			dataType: 'json',
-			data: {id: id},
-			success:function(response){
+// function editproducts(id){
+//      $(".preview-images-zone").empty();
+//      $("#appendvariant1").empty();
+//       $("#sets").empty();
+//      $("#stockssss").empty();
+// // 		var id = $(this).data('id');
+// 		var table ='';var v_image='';
+// 		$.ajax({
+// 			type: 'POST',
+// 			url: base_url + 'Productsseller/editproducts',
+// 			dataType: 'json',
+// 			data: {id: id},
+// 			success:function(response){
     			
-    		//	var explode = '<?php echo 123; ?>';
-    // 			console.log(response);
-			    $('#product_name1').val(response.product.ProductName);
-			    $('#description1').val(response.product.ProductDescription);
-			    $('#unit1').val(response.product.Unit);
-			    $('#mrp1').val(response.product.MRP);
-			    $('#selling_price1').val(response.product.Selling_price);
-			    $('#gst1').val(response.product.GST);
-			    $('#weight1').val(response.product.Weight);
-			    $('#delivery_amt1').val(response.product.DeliveryCharge);
-			    $('#p_weight1').val(response.product.PackageWeight);
-			    $('#s_weight1').val(response.product.ShipmentWeight);
-			    $('#min_qty1').val(response.product.MinimumQty);
-			    $('#max_qty1').val(response.product.MaximumQty);
-			    $('#p_price1').val(response.product.Price);
-			    $('#returnperiod1').val(response.product.ReturnPeriod);
-			    $('#Purchase_amt1').val(response.product.purchase_rate);
-			    $('#cat').val(response.product.Category_id);
-			    $('#subcat').val(response.product.Subcategory_id);
-			    $('#brandlist').val(response.product.Brand_id);
-			    $('#product_id1').val(response.product.Product_id);
-			    $('#p_id').val(response.product.Product_id);
-			    $('#ProductLink1').val(response.product.ProductLink);
-			    $('#brand_name1').val(response.product.brand_name);
-			    $('#model_name1').val(response.product.model_name);
-			    $('#model_id1').val(response.product.model_id);
-			    $('#set_price1').val(response.product.set_price);
-			    $('#cat').text(response.product.name);
-			    $('#subcat').text(response.product.sub_category);
-			    $('#brandlist').text(response.product.brand_name);
-			    $('#unit_set1').val(response.product.unit_set);
-			    $('#unit1').val(response.product.Unit);
-			    $('#unit1').text(response.unitName.unit_name);
-			    $('#subunit1').val(response.product.set_unit);
-			    $('#subunit1').text(response.subunitName.unit_name);
-			    var stock = response.product.Stock;
+//     		//	var explode = '<?php echo 123; ?>';
+//     // 			console.log(response);
+// 			    $('#product_name1').val(response.product.ProductName);
+// 			    $('#description1').val(response.product.ProductDescription);
+// 			    $('#unit1').val(response.product.Unit);
+// 			    $('#mrp1').val(response.product.MRP);
+// 			    $('#selling_price1').val(response.product.Selling_price);
+// 			    $('#gst1').val(response.product.GST);
+// 			    $('#weight1').val(response.product.Weight);
+// 			    $('#delivery_amt1').val(response.product.DeliveryCharge);
+// 			    $('#p_weight1').val(response.product.PackageWeight);
+// 			    $('#s_weight1').val(response.product.ShipmentWeight);
+// 			    $('#min_qty1').val(response.product.MinimumQty);
+// 			    $('#max_qty1').val(response.product.MaximumQty);
+// 			    $('#p_price1').val(response.product.Price);
+// 			    $('#returnperiod1').val(response.product.ReturnPeriod);
+// 			    $('#Purchase_amt1').val(response.product.purchase_rate);
+// 			    $('#cat').val(response.product.Category_id);
+// 			    $('#subcat').val(response.product.Subcategory_id);
+// 			    $('#brandlist').val(response.product.Brand_id);
+// 			    $('#product_id1').val(response.product.Product_id);
+// 			    $('#p_id').val(response.product.Product_id);
+// 			    $('#ProductLink1').val(response.product.ProductLink);
+// 			    $('#brand_name1').val(response.product.brand_name);
+// 			    $('#model_name1').val(response.product.model_name);
+// 			    $('#model_id1').val(response.product.model_id);
+// 			    $('#set_price1').val(response.product.set_price);
+// 			    $('#cat').text(response.product.name);
+// 			    $('#subcat').text(response.product.sub_category);
+// 			    $('#brandlist').text(response.product.brand_name);
+// 			    $('#unit_set1').val(response.product.unit_set);
+// 			    $('#unit1').val(response.product.Unit);
+// 			    $('#unit1').text(response.unitName.unit_name);
+// 			    $('#subunit1').val(response.product.set_unit);
+// 			    $('#subunit1').text(response.subunitName.unit_name);
+// 			    var stock = response.product.Stock;
 			    
-			    if(stock =="0"){
-			         var markupstock=`
-			        <input type="number" class="form-control" name="stock1" placeholder="Stock" required="" value="0">`;
-			        $("#stockssss").append(markupstock);
+// 			    if(stock =="0"){
+// 			         var markupstock=`
+// 			        <input type="number" class="form-control" name="stock1" placeholder="Stock" required="" value="0">`;
+// 			        $("#stockssss").append(markupstock);
 
-			    }else{
-                  	var markupstock=`
-                        <input type="number" class="form-control" name="stock1" min="0" placeholder="Stock" required="" value="`+stock+`" >`;
-			        $("#stockssss").append(markupstock);
-			    }
+// 			    }else{
+//                   	var markupstock=`
+//                         <input type="number" class="form-control" name="stock1" min="0" placeholder="Stock" required="" value="`+stock+`" >`;
+// 			        $("#stockssss").append(markupstock);
+// 			    }
 			    
-			    if(response.product.gst_type =="0"){
-			         $('#flexRadioDefault1').attr("checked", "checked");
+// 			    if(response.product.gst_type =="0"){
+// 			         $('#flexRadioDefault1').attr("checked", "checked");
 
-			    }else{
-                   $('#flexRadioDefault2').attr("checked", "checked");
-			    }
+// 			    }else{
+//                    $('#flexRadioDefault2').attr("checked", "checked");
+// 			    }
 			    
-			    let keys_attribute = response.product.key_attribute;
-			    let values_attribute = response.product.value_attribute;
+// 			    let keys_attribute = response.product.key_attribute;
+// 			    let values_attribute = response.product.value_attribute;
 
-                const myArr = keys_attribute.split(",");
-                const myArr2 = values_attribute.split(",");
+//                 const myArr = keys_attribute.split(",");
+//                 const myArr2 = values_attribute.split(",");
                 
-                let sets = response.sets;
-                var k = 1;
-                if(sets.length == 0){
-                    while(k <=3){
+//                 let sets = response.sets;
+//                 var k = 1;
+//                 if(sets.length == 0){
+//                     while(k <=3){
                          
-                    var markupsets=`
-                        <div class="form-row">
-                          <div class="col">
-                            <input type="number" class="form-control"  name="minimum_quantity1[]"  id="minimum_quantity_`+k+`" value="0" onkeydown="setoldvalue`+k+`()" >
-                              <input type="hidden" class="form-control"  name="mini_quantity[]"  value="`+response.product.MinimumQty+`">
-                            <input type='hidden' name='product_type[]' value="1">
-                            <div id="row`+k+k+`col1">0 `+response.subunitName.unit_name+`</div>
-                            </div>
-                            <div class="col">
-                              <input type="number" class="form-control" name="maximum_quantity1[]" id="maximum_quantity_`+k+`" value="0">
-                              <div id="row`+k+k+`col2">400 `+response.subunitName.unit_name+`</div>
-                            </div>
-                            <div class="col">
-                              <input type="number" class="form-control" name="discount_mrp1[]" id="discount_mrp_`+k+`" value="0" step="any">
-                              <div id="row`+k+k+`col3">Set Discount = ₹ 0</div>
-                            </div>
-                            <div class="col">
-                              <input type="number" class="form-control" name="selling_price_set1[]" id="selling_price_set_`+k+`" value="0" step="any">
-                              <div id="row`+k+k+`col4">1 set = ₹ 0</div>
-                            </div>
+//                     var markupsets=`
+//                         <div class="form-row">
+//                           <div class="col">
+//                             <input type="number" class="form-control"  name="minimum_quantity1[]"  id="minimum_quantity_`+k+`" value="0" onkeydown="setoldvalue`+k+`()" >
+//                               <input type="hidden" class="form-control"  name="mini_quantity[]"  value="`+response.product.MinimumQty+`">
+//                             <input type='hidden' name='product_type[]' value="1">
+//                             <div id="row`+k+k+`col1">0 `+response.subunitName.unit_name+`</div>
+//                             </div>
+//                             <div class="col">
+//                               <input type="number" class="form-control" name="maximum_quantity1[]" id="maximum_quantity_`+k+`" value="0">
+//                               <div id="row`+k+k+`col2">400 `+response.subunitName.unit_name+`</div>
+//                             </div>
+//                             <div class="col">
+//                               <input type="number" class="form-control" name="discount_mrp1[]" id="discount_mrp_`+k+`" value="0" step="any">
+//                               <div id="row`+k+k+`col3">Set Discount = ₹ 0</div>
+//                             </div>
+//                             <div class="col">
+//                               <input type="number" class="form-control" name="selling_price_set1[]" id="selling_price_set_`+k+`" value="0" step="any">
+//                               <div id="row`+k+k+`col4">1 set = ₹ 0</div>
+//                             </div>
                            
-                        </div><br>
-                    `;
-                    k++;
-                     $("#sets").append(markupsets);
-                    }
-                }
+//                         </div><br>
+//                     `;
+//                     k++;
+//                      $("#sets").append(markupsets);
+//                     }
+//                 }
                 
-                else{
-                sets.forEach(function(sets){
+//                 else{
+//                 sets.forEach(function(sets){
                     
-                    var markupsets=`
-                        <div class="form-row">
-                          <div class="col">
-                            <input type="number" class="form-control"  name="minimum_quantity1[]"  id="minimum_quantity_`+k+`" value="`+sets.minimum_quantity+`" onkeydown="setoldvalue`+k+`()">
-                               <input type="hidden" class="form-control"  name="mini_quantity[]"  value="`+response.product.MinimumQty+`">
-                            <input type='hidden' name='product_type[]' value="0">
-                            <input type='hidden' name='productqty_id[]' value="`+sets.ProductQty_id+`">
-                            <div id="row`+k+k+`col1">`+sets.minimum_quantity*response.product.unit_set+` `+response.subunitName.unit_name+`</div>
-                            </div>
-                            <div class="col">
-                              <input type="number" class="form-control" name="maximum_quantity1[]" id="maximum_quantity_`+k+`" value="`+sets.maximum_quantity+`">
-                              <div id="row`+k+k+`col2">`+sets.maximum_quantity*response.product.unit_set+` `+response.subunitName.unit_name+`</div>
-                            </div>
-                            <div class="col">
-                              <input type="number" class="form-control" name="discount_mrp1[]" id="discount_mrp_`+k+`" value="`+sets.discount_mrp+`" step="any">
-                              <div id="row`+k+k+`col3">Set Discount = ₹ `+sets.discount_mrp*response.product.unit_set+`</div>
-                            </div>
-                            <div class="col">
-                              <input type="number" class="form-control" name="selling_price_set1[]" id="selling_price_set_`+k+`" value="`+sets.selling_price_set+`" step="any">
-                              <div id="row`+k+k+`col4">1 set = ₹ `+sets.selling_price_set*response.product.unit_set+`</div>
-                            </div>
+//                     var markupsets=`
+//                         <div class="form-row">
+//                           <div class="col">
+//                             <input type="number" class="form-control"  name="minimum_quantity1[]"  id="minimum_quantity_`+k+`" value="`+sets.minimum_quantity+`" onkeydown="setoldvalue`+k+`()">
+//                                <input type="hidden" class="form-control"  name="mini_quantity[]"  value="`+response.product.MinimumQty+`">
+//                             <input type='hidden' name='product_type[]' value="0">
+//                             <input type='hidden' name='productqty_id[]' value="`+sets.ProductQty_id+`">
+//                             <div id="row`+k+k+`col1">`+sets.minimum_quantity*response.product.unit_set+` `+response.subunitName.unit_name+`</div>
+//                             </div>
+//                             <div class="col">
+//                               <input type="number" class="form-control" name="maximum_quantity1[]" id="maximum_quantity_`+k+`" value="`+sets.maximum_quantity+`">
+//                               <div id="row`+k+k+`col2">`+sets.maximum_quantity*response.product.unit_set+` `+response.subunitName.unit_name+`</div>
+//                             </div>
+//                             <div class="col">
+//                               <input type="number" class="form-control" name="discount_mrp1[]" id="discount_mrp_`+k+`" value="`+sets.discount_mrp+`" step="any">
+//                               <div id="row`+k+k+`col3">Set Discount = ₹ `+sets.discount_mrp*response.product.unit_set+`</div>
+//                             </div>
+//                             <div class="col">
+//                               <input type="number" class="form-control" name="selling_price_set1[]" id="selling_price_set_`+k+`" value="`+sets.selling_price_set+`" step="any">
+//                               <div id="row`+k+k+`col4">1 set = ₹ `+sets.selling_price_set*response.product.unit_set+`</div>
+//                             </div>
                            
-                        </div><br>
-                    `;
-                    //  var markupsets=`
-                    //  <tr>
+//                         </div><br>
+//                     `;
+//                     //  var markupsets=`
+//                     //  <tr>
                     
-                    //   <td> <input type="number" class="form-control"  name="minimum_quantity1[]"  id="minimum_quantity_`+k+`" value="`+sets.minimum_quantity+`">
-                    //         <input type='hidden' name='product_type[]' value="0">
-                    //         <input type='hidden' name='productqty_id[]' value="`+sets.ProductQty_id+`">
-                    //         <div id="row`+k+k+`col1"></div></td>
-                    //   <td> <input type="number" class="form-control" name="maximum_quantity1[]" id="maximum_quantity_`+k+`" value="`+sets.maximum_quantity+`">
-                    //           <div id="row`+k+k+`col2"></div></td>
-                    //   <td> <input type="number" class="form-control" name="discount_mrp1[]" id="discount_mrp_`+k+`" value="`+sets.discount_mrp+`" >
-                    //           <div id="row`+k+k+`col3"></div></td>
-                    //   <td><input type="number" class="form-control" name="selling_price_set1[]" id="selling_price_set_`+k+`" value="`+sets.selling_price_set+`">
-                    //           <div id="row`+k+k+`col4"></div></td>
-                    //   </tr>`;
+//                     //   <td> <input type="number" class="form-control"  name="minimum_quantity1[]"  id="minimum_quantity_`+k+`" value="`+sets.minimum_quantity+`">
+//                     //         <input type='hidden' name='product_type[]' value="0">
+//                     //         <input type='hidden' name='productqty_id[]' value="`+sets.ProductQty_id+`">
+//                     //         <div id="row`+k+k+`col1"></div></td>
+//                     //   <td> <input type="number" class="form-control" name="maximum_quantity1[]" id="maximum_quantity_`+k+`" value="`+sets.maximum_quantity+`">
+//                     //           <div id="row`+k+k+`col2"></div></td>
+//                     //   <td> <input type="number" class="form-control" name="discount_mrp1[]" id="discount_mrp_`+k+`" value="`+sets.discount_mrp+`" >
+//                     //           <div id="row`+k+k+`col3"></div></td>
+//                     //   <td><input type="number" class="form-control" name="selling_price_set1[]" id="selling_price_set_`+k+`" value="`+sets.selling_price_set+`">
+//                     //           <div id="row`+k+k+`col4"></div></td>
+//                     //   </tr>`;
                     
-                    $("#sets").append(markupsets);
-                    k++;
-                });
-                // console.log('for',k);
-                 while(k <=3){
-                        // console.log('while',k);
-                    var markupsets=`
-                        <div class="form-row">
-                          <div class="col">
-                            <input type="number" class="form-control"  name="minimum_quantity1[]"  id="minimum_quantity_`+k+`" value="0" onkeydown="setoldvalue`+k+`()">
-                              <input type="hidden" class="form-control"  name="mini_quantity[]"  value="`+response.product.MinimumQty+`">
-                            <input type='hidden' name='product_type[]' value="1">
-                            <div id="row`+k+k+`col1">0 `+response.subunitName.unit_name+`</div>
-                            </div>
-                            <div class="col">
-                              <input type="number" class="form-control" name="maximum_quantity1[]" id="maximum_quantity_`+k+`" value="0">
-                              <div id="row`+k+k+`col2">400 `+response.subunitName.unit_name+`</div>
-                            </div>
-                            <div class="col">
-                              <input type="number" class="form-control" name="discount_mrp1[]" id="discount_mrp_`+k+`" value="0" step="any">
-                              <div id="row`+k+k+`col3">Set Discount = ₹ 0</div>
-                            </div>
-                            <div class="col">
-                              <input type="number" class="form-control" name="selling_price_set1[]" id="selling_price_set_`+k+`" value="0" step="any">
-                              <div id="row`+k+k+`col4">1 set = ₹ 0</div>
-                            </div>
+//                     $("#sets").append(markupsets);
+//                     k++;
+//                 });
+//                 // console.log('for',k);
+//                  while(k <=3){
+//                         // console.log('while',k);
+//                     var markupsets=`
+//                         <div class="form-row">
+//                           <div class="col">
+//                             <input type="number" class="form-control"  name="minimum_quantity1[]"  id="minimum_quantity_`+k+`" value="0" onkeydown="setoldvalue`+k+`()">
+//                               <input type="hidden" class="form-control"  name="mini_quantity[]"  value="`+response.product.MinimumQty+`">
+//                             <input type='hidden' name='product_type[]' value="1">
+//                             <div id="row`+k+k+`col1">0 `+response.subunitName.unit_name+`</div>
+//                             </div>
+//                             <div class="col">
+//                               <input type="number" class="form-control" name="maximum_quantity1[]" id="maximum_quantity_`+k+`" value="0">
+//                               <div id="row`+k+k+`col2">400 `+response.subunitName.unit_name+`</div>
+//                             </div>
+//                             <div class="col">
+//                               <input type="number" class="form-control" name="discount_mrp1[]" id="discount_mrp_`+k+`" value="0" step="any">
+//                               <div id="row`+k+k+`col3">Set Discount = ₹ 0</div>
+//                             </div>
+//                             <div class="col">
+//                               <input type="number" class="form-control" name="selling_price_set1[]" id="selling_price_set_`+k+`" value="0" step="any">
+//                               <div id="row`+k+k+`col4">1 set = ₹ 0</div>
+//                             </div>
                            
-                        </div><br>
-                    `;
-                    k++;
-                     $("#sets").append(markupsets);
-                    }
-                }
-                  $("#specification").empty();
-			    myArr.forEach(function(myArr) {
+//                         </div><br>
+//                     `;
+//                     k++;
+//                      $("#sets").append(markupsets);
+//                     }
+//                 }
+//                   $("#specification").empty();
+// 			    myArr.forEach(function(myArr) {
 			        
-                   var markup1 = `
-                       <div class="form-row">
-                            <div class="col-md-12 mb-3">
-                              <input type="text" class="form-control" name="key_attribute1[]"  placeholder="custom key" value="`+myArr+`" >
-                            </div>
-                            </div>`;               
-                $("#specification").append(markup1);  
-                });
-                 $("#specification2").empty();
-                myArr2.forEach(function(myArr2){
-                    var markup2 = `
-                    <div class="form-row">
-                            <div class="col-md-12 mb-3">
-                              <input type="text" class="form-control" name="value_attribute1[]"  placeholder="custom key" value="`+myArr2+`">
-                            </div>
-                            </div>
-                    `;
-                    $("#specification2").append(markup2);
-                });
+//                    var markup1 = `
+//                        <div class="form-row">
+//                             <div class="col-md-12 mb-3">
+//                               <input type="text" class="form-control" name="key_attribute1[]"  placeholder="custom key" value="`+myArr+`" >
+//                             </div>
+//                             </div>`;               
+//                 $("#specification").append(markup1);  
+//                 });
+//                  $("#specification2").empty();
+//                 myArr2.forEach(function(myArr2){
+//                     var markup2 = `
+//                     <div class="form-row">
+//                             <div class="col-md-12 mb-3">
+//                               <input type="text" class="form-control" name="value_attribute1[]"  placeholder="custom key" value="`+myArr2+`">
+//                             </div>
+//                             </div>
+//                     `;
+//                     $("#specification2").append(markup2);
+//                 });
     
-			    if(response.product.CashonDelivery == '0'){
-			    $('#invalidCheck21').attr('checked',true);
-			    }
-			    if(response.product.AllowReturn == '0'){
-			    $('#invalidCheck221').attr('checked',true);
-			    }
-			    if(response.product.live_product == '1'){
-			    $('#invalidCheck222').attr('checked',true);
-			    }
+// 			    if(response.product.CashonDelivery == '0'){
+// 			    $('#invalidCheck21').attr('checked',true);
+// 			    }
+// 			    if(response.product.AllowReturn == '0'){
+// 			    $('#invalidCheck221').attr('checked',true);
+// 			    }
+// 			    if(response.product.live_product == '1'){
+// 			    $('#invalidCheck222').attr('checked',true);
+// 			    }
 			    
-			    for(i=0;i<response.product_images.length;i++)
-                {
-                    table+=`<div class="preview-image preview-show-`+response.product_images[i]['Image_id']+`">
-                                <div class="image-cancel" data-no="`+response.product_images[i]['Image_id']+`" data-path="`+response.product_images[i]['Image']+`">x</div>
+// 			    for(i=0;i<response.product_images.length;i++)
+//                 {
+//                     table+=`<div class="preview-image preview-show-`+response.product_images[i]['Image_id']+`">
+//                                 <div class="image-cancel" data-no="`+response.product_images[i]['Image_id']+`" data-path="`+response.product_images[i]['Image']+`">x</div>
                                 
-                                <div class="image-zone"><img id="pro-img-`+response.product_images[i]['Image_id']+`" src="`+response.product_images[i]['images']+`"></div>
-                                <div class="tools-edit-image"></div>
-                            </div>`;
-                }
-                $("#imageid").html('<input type="file" id="pro-image" name="pro-image" style="" class="form-control" multiple onchange="readImage('+response.product.Product_id+')">');
+//                                 <div class="image-zone"><img id="pro-img-`+response.product_images[i]['Image_id']+`" src="`+response.product_images[i]['images']+`"></div>
+//                                 <div class="tools-edit-image"></div>
+//                             </div>`;
+//                 }
+//                 $("#imageid").html('<input type="file" id="pro-image" name="pro-image" style="" class="form-control" multiple onchange="readImage('+response.product.Product_id+')">');
                 
                 
                
-                for(i=0;i<response.variant.length;i++)
-                {
-                    if(response.variant[i]['vp_image'] !==''){ v_image = response.variant[i]['images'];}
-                else{ v_image = base_url+'assets/images/product/no-image.png'}
-                   var markup=`
-                     <tr>
-                       <td><input type='hidden' name='v_id[]' value="`+response.variant[i]['variant_id']+`"><input type='hidden' name='db_type[]' value="0"><input type='button' class='btn btn-danger btn-sm' value='Delete' onclick='deletevariant1(this,`+response.variant[i]['variant_id']+`,"`+response.variant[i]['vp_image']+`")'></td>
-                       <td><input type='hidden' name='option1[]' value="`+ response.variant[i]['option_name'] +`"> `+ response.variant[i]['option_name'] +`</td>
-                       <td><input type='hidden' name='variant1[]' value="`+ response.variant[i]['varient_name'] +`"> `+ response.variant[i]['varient_name'] +`</td>
-                       <td>Prodcut Quantity<input type='number' class='form-control' name='vp_quantity1[]'  placeholder="Quantity" value="`+response.variant[i]['vp_qty']+`" onchange="myFunction()">
-                       Prodcut Price :<input type='number' class='form-control' name='vp_mrp1[]'  placeholder="MRP" value="`+response.variant[i]['vp_price']+`">
-                       Selling Price :<input type='number' class='form-control' name='vp_sprice1[]'  placeholder="Selling Price" value="`+response.variant[i]['vp_selling_price']+`"></td>
+//                 for(i=0;i<response.variant.length;i++)
+//                 {
+//                     if(response.variant[i]['vp_image'] !==''){ v_image = response.variant[i]['images'];}
+//                 else{ v_image = base_url+'assets/images/product/no-image.png'}
+//                    var markup=`
+//                      <tr>
+//                        <td><input type='hidden' name='v_id[]' value="`+response.variant[i]['variant_id']+`"><input type='hidden' name='db_type[]' value="0"><input type='button' class='btn btn-danger btn-sm' value='Delete' onclick='deletevariant1(this,`+response.variant[i]['variant_id']+`,"`+response.variant[i]['vp_image']+`")'></td>
+//                        <td><input type='hidden' name='option1[]' value="`+ response.variant[i]['option_name'] +`"> `+ response.variant[i]['option_name'] +`</td>
+//                        <td><input type='hidden' name='variant1[]' value="`+ response.variant[i]['varient_name'] +`"> `+ response.variant[i]['varient_name'] +`</td>
+//                        <td>Prodcut Quantity<input type='number' class='form-control' name='vp_quantity1[]'  placeholder="Quantity" value="`+response.variant[i]['vp_qty']+`" onchange="myFunction()">
+//                        Prodcut Price :<input type='number' class='form-control' name='vp_mrp1[]'  placeholder="MRP" value="`+response.variant[i]['vp_price']+`">
+//                        Selling Price :<input type='number' class='form-control' name='vp_sprice1[]'  placeholder="Selling Price" value="`+response.variant[i]['vp_selling_price']+`"></td>
                        
                        
-                       <td><input type="file" name="pro-image" style="" class="form-control" onchange="readUpdateImage(`+ i +`,`+response.variant[i]['variant_id']+`,`+response.variant[i]['Product_id']+`)">
-                            <div class="preview1 preview-images-zone-`+ i +`" style="min-height: 145px;">
-                                <div class="preview-image preview-show-`+response.variant[i]['variant_id']+`" style="height: 136px;width: 144px;">
-                                    <div class="image-cancel-1" data-no="`+response.variant[i]['variant_id']+`" data-path="`+response.variant[i]['vp_image']+`" style="right:-95px">x</div>
-                                    <div class="image-zone" style="width:165%"><img id="pro-img-`+response.variant[i]['variant_id']+`" src="`+v_image+`"></div>
-                                    <div class="tools-edit-image"><input type="hidden" name="variant_image[]" value=""></div>
-                                </div>
-                            </div></td>
-                      </tr>`;    
-                $("#appendvariant1").append(markup);   
-                }
+//                        <td><input type="file" name="pro-image" style="" class="form-control" onchange="readUpdateImage(`+ i +`,`+response.variant[i]['variant_id']+`,`+response.variant[i]['Product_id']+`)">
+//                             <div class="preview1 preview-images-zone-`+ i +`" style="min-height: 145px;">
+//                                 <div class="preview-image preview-show-`+response.variant[i]['variant_id']+`" style="height: 136px;width: 144px;">
+//                                     <div class="image-cancel-1" data-no="`+response.variant[i]['variant_id']+`" data-path="`+response.variant[i]['vp_image']+`" style="right:-95px">x</div>
+//                                     <div class="image-zone" style="width:165%"><img id="pro-img-`+response.variant[i]['variant_id']+`" src="`+v_image+`"></div>
+//                                     <div class="tools-edit-image"><input type="hidden" name="variant_image[]" value=""></div>
+//                                 </div>
+//                             </div></td>
+//                       </tr>`;    
+//                 $("#appendvariant1").append(markup);   
+//                 }
                 
-                $(".preview-images-zone").append(table);
+//                 $(".preview-images-zone").append(table);
 
-                $('#editModal').modal('show');
+//                 $('#editModal').modal('show');
                 
-			}
-		});
-	}
+// 			}
+// 		});
+// 	}
 
 $("#simple_special_price").keyup(function(){
     	var selling_price =  $('#simple_special_price').val();
