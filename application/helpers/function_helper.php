@@ -1181,7 +1181,7 @@ function get_variants_values_by_id($id)
     $varaint_values = $t->db->select("pv.*,pv.`product_id`,group_concat(`av`.`id` separator ', ') as varaint_ids,group_concat(`a`.`name` separator ', ') as attr_name, group_concat(`av`.`value` separator ', ') as variant_values")
         ->join('attribute_values av ', 'FIND_IN_SET(av.id, pv.attribute_value_ids ) > 0', 'inner')
         ->join('attributes a', 'a.id = av.attribute_id', 'inner')
-        ->where('pv.id', $id)->group_by('`pv`.`id`')->order_by('pv.id')->get('product_set pv')->result_array();
+        ->where('pv.id', $id)->group_by('`pv`.`id`')->order_by('pv.id')->get('product_variants pv')->result_array();
     if (!empty($varaint_values)) {
         for ($i = 0; $i < count($varaint_values); $i++) {
             $varaint_values[$i] = output_escaping($varaint_values[$i]);
