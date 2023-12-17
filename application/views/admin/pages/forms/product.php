@@ -717,12 +717,13 @@
                                                     
                                                     
                                                     <div class="col-md-2 mb-3">
-                                                       <label for="validationCustom05">Minimum Quantity</label>
-                                                        <input type="number" class="form-control" name="min_qty" id="mini_quantity" placeholder="Min Qty" value="" required="">
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid state.
-                                                        </div>
-                                                    </div>
+    <label for="validationCustom05">Minimum Quantity</label>
+    <input type="number" class="form-control" name="min_qty" id="mini_quantity1" placeholder="Min Qty" value="" required="">
+    <div class="invalid-feedback">
+        Please provide a valid state.
+    </div>
+</div>
+
                                                     
                                                     <!--<div class="col-md-2 mb-3">-->
                                                     <!--    <label for="validationCustom05">Maximum Quantity</label>-->
