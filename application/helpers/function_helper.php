@@ -17,6 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
    13. get_attribute_values_by_pid($id)
    14. get_attribute_values_by_id($id)
    15. get_variants_values_by_pid($id)
+       get_set_values_by_pid($id)
    16. update_stock($product_variant_ids, $qtns)
    17. validate_stock($product_variant_ids, $qtns)
    18. stock_status($product_variant_id)
@@ -501,7 +502,9 @@ function fetch_product($user_id = NULL, $filter = NULL, $id = NULL, $category_id
             $product[$i]['tax_id'] = ((isset($product[$i]['tax_id']) && intval($product[$i]['tax_id']) > 0) && $product[$i]['tax_id'] != "") ? $product[$i]['tax_id'] : '0';
             $product[$i]['attributes'] = get_attribute_values_by_pid($product[$i]['id']);
             $product[$i]['variants'] = get_variants_values_by_pid($product[$i]['id']);
+            $set[$i]['variants'] = get_set_values_by_pid($product[$i]['id']);
             $variants =   get_variants_values_by_pid($product[$i]['id']);
+            $set = get_set_values_by_pid($_GET['edit_id']);
             $total_stock = 0;
             foreach ($variants as $variant) {
                 $stock = (isset($variant['stock']) && !empty($variant['stock'])) ? $variant['stock'] : 0;
@@ -1159,13 +1162,26 @@ function get_variants_values_by_pid($id, $status = [1])
     return $varaint_values;
 }
 
+function get_set_values_by_pid($id)
+{
+    $t = &get_instance();
+    $set_values = $t->db->select("ps.*,ps.`product_id`")
+        ->where(['ps.product_id' => $id])->group_by('`ps`.`id`')->order_by('ps.id')->get('product_set ps')->result_array();
+    if (!empty($set_values)) {
+        for ($i = 0; $i < count($set_values); $i++) {
+            $set_values[$i] = output_escaping($set_values[$i]);
+        }
+    }
+    return $set_values;
+}
+
 function get_variants_values_by_id($id)
 {
     $t = &get_instance();
     $varaint_values = $t->db->select("pv.*,pv.`product_id`,group_concat(`av`.`id` separator ', ') as varaint_ids,group_concat(`a`.`name` separator ', ') as attr_name, group_concat(`av`.`value` separator ', ') as variant_values")
         ->join('attribute_values av ', 'FIND_IN_SET(av.id, pv.attribute_value_ids ) > 0', 'inner')
         ->join('attributes a', 'a.id = av.attribute_id', 'inner')
-        ->where('pv.id', $id)->group_by('`pv`.`id`')->order_by('pv.id')->get('product_variants pv')->result_array();
+        ->where('pv.id', $id)->group_by('`pv`.`id`')->order_by('pv.id')->get('product_set pv')->result_array();
     if (!empty($varaint_values)) {
         for ($i = 0; $i < count($varaint_values); $i++) {
             $varaint_values[$i] = output_escaping($varaint_values[$i]);
@@ -3240,6 +3256,7 @@ function get_favorites($user_id, $limit = NULL, $offset = NULL)
         $d['image_sm'] = get_image_url($d['image'], 'thumb', 'sm');
         $d['image'] = get_image_url($d['image']);
         $d['variants'] = get_variants_values_by_pid($d['id']);
+        $d['set'] = get_set_values_by_pid($d['id']);
         $d['min_max_price'] = get_min_max_price_of_product($d['id']);
         return $d;
     }, $res);

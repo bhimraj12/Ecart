@@ -527,7 +527,7 @@ class Product_model extends CI_Model
             $operate .= "<a href='javascript:void(0)' data-id=" . $row['pid'] . " data-toggle='modal' data-target='#product-faqs-modal' class='btn action-btn btn-info btn-xs mr-1 mb-1 ml-1' title='View FAQs' ><i class='fas fa-question-circle'></i></a></div>";
 
             $attr_values  =  get_variants_values_by_pid($row['pid']);
-            // $set_values  =  get_set_values_by_pid($row['pid']);
+            $set_values  =  get_set_values_by_pid($row['pid']);
             $tempRow['id'] = $row['pid'];
             $tempRow['varaint_id'] = $row['id'];
             $tempRow['name'] = $row['name'] . '<br><small>' . ucwords(str_replace('_', ' ', $row['type'])) . '</small><br><small> By </small><b>' . $row['store_name'] . '</b>';
@@ -644,7 +644,7 @@ class Product_model extends CI_Model
         foreach ($pro_search_res as $row) {
             $row = output_escaping($row);
             $attr_values  =  get_variants_values_by_pid($row['pid']);
-            // $set_values  =  get_set_values_by_pid($row['pid']);
+            $set_values  =  get_set_values_by_pid($row['pid']);
             $tempRow['id'] = $row['pid'];
             $tempRow['varaint_id'] = $row['id'];
             $tempRow['name'] = $row['name'] . '<br><small>' . ucwords(str_replace('_', ' ', $row['type'])) . '</small><br><small> By </small><b>' . $row['store_name'] . '</b>';
@@ -1121,7 +1121,7 @@ class Product_model extends CI_Model
             $operate = $stock = "";
 
             $variants = get_variants_values_by_pid($product['id']);
-            // $sets = get_set_values_by_pid($product['id']);
+            $set = get_set_values_by_pid($product['id']);
             $stock = implode("<br/>", array_column($variants, 'stock'));
 
 
@@ -1235,7 +1235,7 @@ class Product_model extends CI_Model
             $operate = $stock = "";
 
             $variants = get_variants_values_by_pid($product['id']);
-            // $sets = get_set_values_by_pid($product['id']);
+            $set = get_set_values_by_pid($product['id']);
             $stock = implode("<br/>", array_column($variants, 'stock'));
 
 

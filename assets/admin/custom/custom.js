@@ -152,6 +152,7 @@ var value_check_array = [];
 var attributes_selected_variations = [];
 var attributes_values = [];
 var pre_selected_attr_values = [];
+var pre_selected_sets_values = [];
 var current_attributes_selected = [];
 var current_variants_selected = [];
 var attribute_flag = 0;
@@ -640,6 +641,15 @@ function create_fetched_attributes_html(from) {
                         pre_selected_attr_values[key] = tempArray;
                     }
                 });
+                $.each(result['pre_selected_sets_ids'], function (key, val) {
+                    var tempArray = [];
+                    if (val.sets_ids) {
+                        $.each(val.sets_ids.split(','), function (k, v) {
+                            tempArray.push($.trim(v));
+                        });
+                        pre_selected_sets_values[key] = tempArray;
+                    }
+                });
 
                 if (result.pre_selected_variants_names) {
                     $.each(result.pre_selected_variants_names.split(','), function (key, value) {
@@ -781,6 +791,11 @@ function create_fetched_variants_html(add_newly_created_variants = false, from) 
     var newArr1 = [];
     for (var i = 0; i < pre_selected_attr_values.length; i++) {
         var temp = newArr1.concat(pre_selected_attr_values[i]);
+        newArr1 = [...new Set(temp)];
+
+    }
+    for (var i = 0; i < pre_selected_sets_values.length; i++) {
+        var temp = newArr1.concat(pre_selected_sets_values[i]);
         newArr1 = [...new Set(temp)];
 
     }
@@ -2688,6 +2703,7 @@ $(document).on('click', '.reset-settings', function (e) {
             attributes_values_selected = [];
             value_check_array = [];
             pre_selected_attr_values = [];
+            pre_selected_sets_values = [];
             var html = ' <input type="hidden" name="reset_settings" value="1">' +
                 '<div class="row mt-4 col-md-12 "> <nav class="w-100">' +
                 '<div class="nav nav-tabs" id="product-tab" role="tablist"> ' +

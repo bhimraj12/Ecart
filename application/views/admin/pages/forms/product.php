@@ -122,10 +122,6 @@
                                                 <label for="total_allowed_quantity" class="col-form-label">Total Allowed Quantity</label>
                                                 <input type="number" class="col-md-12 form-control" name="total_allowed_quantity" value="<?= (isset($product_details[0]['total_allowed_quantity'])) ? $product_details[0]['total_allowed_quantity'] : ''; ?>" placeholder='Total Allowed Quantity'>
                                             </div>
-                                            <div class="col-md-4 minimum_order_quantity <?= (isset($product_details[0]['type']) && $product_details[0]['type'] == 'digital_product') ? 'd-none' : '' ?>">
-                                                <label for="minimum_order_quantity" class="col-form-label">Minimum Order Quantity</label>
-                                                <input type="number" class="col-md-12 form-control" name="minimum_order_quantity" id="mini_quantity1" min="1" value="<?= (isset($product_details[0]['minimum_order_quantity'])) ? $product_details[0]['minimum_order_quantity'] : 1; ?>" placeholder='Minimum Order Quantity'>
-                                            </div>
                                             <div class="col-md-4 quantity_step_size <?= (isset($product_details[0]['type']) && $product_details[0]['type'] == 'digital_product') ? 'd-none' : '' ?>">
                                                 <label for="quantity_step_size" class="col-form-label">Quantity Step Size</label>
                                                 <input type="number" class="col-md-12 form-control" name="quantity_step_size" min="1" value="<?= (isset($product_details[0]['quantity_step_size'])) ? $product_details[0]['quantity_step_size'] : 1; ?>" placeholder='Quantity Step Size'>
@@ -714,7 +710,10 @@
                                                             Please provide a valid state.
                                                         </div>
                                                     </div>
-                                                    
+                                                    <div class="col-md-4 minimum_order_quantity <?= (isset($product_details[0]['type']) && $product_details[0]['type'] == 'digital_product') ? 'd-none' : '' ?>">
+                                                <label for="minimum_order_quantity" class="col-form-label">Minimum Order Quantity</label>
+                                                <input type="number" class="col-md-12 form-control" name="minimum_order_quantity" id="mini_quantity1" min="1" value="<?= (isset($product_details[0]['minimum_order_quantity'])) ? $product_details[0]['minimum_order_quantity'] : 1; ?>" placeholder='Minimum Order Quantity'>
+                                            </div>
                                                     
                                                     <!-- <div class="col-md-2 mb-3">
     <label for="validationCustom05">Minimum Quantity</label>
