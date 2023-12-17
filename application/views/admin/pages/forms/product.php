@@ -593,6 +593,60 @@
                                                                     </div>
                                                                     <div id="product-general-settings">
                                                                         <div id="general_price_section" class="collapse">
+
+
+                                                                        <div class="form-row">
+    <div class="col-md-4 mb-3">
+        <label for="validationCustom03">Unit</label>
+        <select class="custom-select input-sm" name="unit" id="unit" required>
+        <option value="Chart">Chart</option>
+                                        <option value="Dozens">Dozens</option>
+                                        <option value="Kg">Kg</option>
+                                        <option value="Litre">Litre</option>
+                                        <option value="Meter">Meter</option>
+                                        <option value="Metric Tons">Metric Tons</option>
+                                        <option value="Nos.">Nos.</option>
+                                        <option value="Packet">Packet</option>
+                                        <option value="Pairs">Pairs</option>
+                                        <option value="Piece">Piece</option>
+                                        <option value="Pieces">Pieces</option>
+                                        <option value="Pounds">Pounds</option>
+                                        <option value="Quintal">Quintal</option>
+                                        <option value="Sets">Sets</option>
+                                        <option value="Tons">Tons</option>
+        </select>
+        <div class="invalid-feedback">
+            Please Enter Unit.
+        </div>
+    </div>
+    <div class="col-md-4 mb-3" id="select_units">
+        <label for="validationCustom03">Net Weight / Content</label>
+        <div class="input-group">
+            <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" required>
+            <select class="custom-select input-sm" name="set_unit" id="set_unit" required>
+                <!-- New options -->
+                <option value="">Open this select Unit</option>
+                <option value="Chart">Chart</option>
+                                        <option value="Dozens">Dozens</option>
+                                        <option value="Kg">Kg</option>
+                                        <option value="Litre">Litre</option>
+                                        <option value="Meter">Meter</option>
+                                        <option value="Metric Tons">Metric Tons</option>
+                                        <option value="Nos.">Nos.</option>
+                                        <option value="Packet">Packet</option>
+                                        <option value="Pairs">Pairs</option>
+                                        <option value="Piece">Piece</option>
+                                        <option value="Pieces">Pieces</option>
+                                        <option value="Pounds">Pounds</option>
+                                        <option value="Quintal">Quintal</option>
+                                        <option value="Sets">Sets</option>
+                                        <option value="Tons">Tons</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
                                                                             <div class="form-group">
                                                                                 <label for="type" class="col-md-2">MRP Price:</label>
                                                                                 <div class="col-md-12">
@@ -626,57 +680,7 @@
                                                                             </div>
                                                                         </div> -->
                                                                         <hr>
-                                                   <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationCustom03">Unit</label>
-                                    <!--<input type="text" class="form-control" name="unit"  placeholder="Unit" required="">-->
-                                    <select class="custom-select input-sm" name="unit" id="unit" required>
-                                        <!-- New options -->
-                                        <option value="Chart">Chart</option>
-                                        <option value="Dozens">Dozens</option>
-                                        <option value="Kg">Kg</option>
-                                        <option value="Litre">Litre</option>
-                                        <option value="Meter">Meter</option>
-                                        <option value="Metric Tons">Metric Tons</option>
-                                        <option value="Nos.">Nos.</option>
-                                        <option value="Packet">Packet</option>
-                                        <option value="Pairs">Pairs</option>
-                                        <option value="Piece">Piece</option>
-                                        <option value="Pieces">Pieces</option>
-                                        <option value="Pounds">Pounds</option>
-                                        <option value="Quintal">Quintal</option>
-                                        <option value="Sets">Sets</option>
-                                        <option value="Tons">Tons</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please Enter Unit.
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3" id="select_units">
-                                    <label for="validationCustom03">Net Weight / Content</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" required>
-                                        <select class="custom-select input-sm" name="set_unit" id="set_unit" required>
-                                            <!-- New options -->
-                                            <option value="">Open this select Unit</option>
-                                            <option value="Chart">Chart</option>
-                                            <option value="Dozens">Dozens</option>
-                                            <option value="Kg">Kg</option>
-                                            <option value="Litre">Litre</option>
-                                            <option value="Meter">Meter</option>
-                                            <option value="Metric Tons">Metric Tons</option>
-                                            <option value="Nos.">Nos.</option>
-                                            <option value="Packet">Packet</option>
-                                            <option value="Pairs">Pairs</option>
-                                            <option value="Piece">Piece</option>
-                                            <option value="Pieces">Pieces</option>
-                                            <option value="Pounds">Pounds</option>
-                                            <option value="Quintal">Quintal</option>
-                                            <option value="Sets">Sets</option>
-                                            <option value="Tons">Tons</option>
-                                        </select>
-                                    </div>
-                                </div>
+                  
                                                     
                                                 <div class="form-row">
                                                     <!-- <div class="col-md-2 mb-3">
@@ -735,9 +739,10 @@
                                                     <!--        Please provide a valid zip.-->
                                                     <!--    </div>-->
                                                     <!--</div>-->
-                                           
-
-                                                <hr>
+                                                    <div class="form-group row" id="product-dimensions">
+                                                    
+                                                 
+                                            
                                                       <p>SELL ONLINE IN BULK / WHOLESALE &nbsp;&nbsp;<button class="btn btn-danger" type="button" id="add_bulk">Add In Bulk</button></p>
                                                     <div id="add_bulk_products" style="display:none">
                                                       <table class="table">
@@ -808,11 +813,12 @@
                                         <!--</tr>-->
                                     </tbody>
                                 </table>
-                            </div>
+                            </div>                            
+                       
                                                                             <div class="form-group row mt-3" id="product-dimensions">
-                                                                                <div class="col-md-6">
+                                                                                <!-- <div class="col-md-6">
                                                                                     <label for="weight" class="control-label col-md-12"><small>(These are the product parcel's dimentions.)</small></label>
-                                                                                </div>
+                                                                                </div> -->
                                                                             </div>
                                                                             <div class="form-group row" id="product-dimensions">
                                                                                 <div class="col-3">
