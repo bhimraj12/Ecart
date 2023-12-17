@@ -124,7 +124,7 @@
                                             </div>
                                             <div class="col-md-4 minimum_order_quantity <?= (isset($product_details[0]['type']) && $product_details[0]['type'] == 'digital_product') ? 'd-none' : '' ?>">
                                                 <label for="minimum_order_quantity" class="col-form-label">Minimum Order Quantity</label>
-                                                <input type="number" class="col-md-12 form-control" name="minimum_order_quantity" min="1" value="<?= (isset($product_details[0]['minimum_order_quantity'])) ? $product_details[0]['minimum_order_quantity'] : 1; ?>" placeholder='Minimum Order Quantity'>
+                                                <input type="number" class="col-md-12 form-control" name="minimum_order_quantity" id="mini_quantity1" min="1" value="<?= (isset($product_details[0]['minimum_order_quantity'])) ? $product_details[0]['minimum_order_quantity'] : 1; ?>" placeholder='Minimum Order Quantity'>
                                             </div>
                                             <div class="col-md-4 quantity_step_size <?= (isset($product_details[0]['type']) && $product_details[0]['type'] == 'digital_product') ? 'd-none' : '' ?>">
                                                 <label for="quantity_step_size" class="col-form-label">Quantity Step Size</label>
@@ -716,13 +716,13 @@
                                                     </div>
                                                     
                                                     
-                                                    <div class="col-md-2 mb-3">
+                                                    <!-- <div class="col-md-2 mb-3">
     <label for="validationCustom05">Minimum Quantity</label>
-    <input type="number" class="form-control" name="min_qty" id="mini_quantity1" placeholder="Min Qty" value="" required="">
+    <input type="number" class="form-control" name="minimum_order_quantity" id="mini_quantity1" placeholder="Min Qty" value="" required="">
     <div class="invalid-feedback">
         Please provide a valid state.
     </div>
-</div>
+</div> -->
 
                                                     
                                                     <!--<div class="col-md-2 mb-3">-->

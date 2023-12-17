@@ -95,7 +95,7 @@ $(document).on('click', '#editproducts', function(){
 			    $('#delivery_amt1').val(response.product.DeliveryCharge);
 			    $('#p_weight1').val(response.product.PackageWeight);
 			    $('#s_weight1').val(response.product.ShipmentWeight);
-			    $('#min_qty1').val(response.product.MinimumQty);
+			    $('#minimum_order_quantity1').val(response.product.MinimumQty);
 			    $('#max_qty1').val(response.product.MaximumQty);
 			    $('#p_price1').val(response.product.Price);
 			    $('#returnperiod1').val(response.product.ReturnPeriod);
@@ -109,7 +109,7 @@ $(document).on('click', '#editproducts', function(){
 			    $('#brand_name1').val(response.product.brand_name);
 			    $('#model_name1').val(response.product.model_name);
 			    $('#model_id1').val(response.product.model_id);
-			    $('#set_price1').val(response.product.set_price);
+			    $('#selling_price1').val(response.product.selling_price);
 			    $('#cat').text(response.product.name);
 			    $('#subcat').text(response.product.sub_category);
 			    $('#brandlist').text(response.product.brand_name);
@@ -543,7 +543,7 @@ $("#selling_price1").change(function(){
         	     //var value = $( this ).val();
                 var unitValue = $('#unit_set1').val();
                 var maxdata = Number(selling_price)* Number(unitValue);
-                $("#set_price1").val(maxdata);
+                $("#selling_price1").val(maxdata);
         	}
 });
 
@@ -854,7 +854,7 @@ $('#selling_price').keyup(function(){
     var selling_price_set_2 = Number(simple_special_price) - Number(discount_mrp_2);
     var selling_price_set_3 = Number(simple_special_price) - Number(discount_mrp_3);
 
-    $( "#set_price" ).val(simple_special_price*unit_set);
+    $( "#selling_price" ).val(simple_special_price*unit_set);
     $( "#row1col1" ).text(setdata+' ' +value1);
     $( "#row2col1" ).text(setdata2+' ' +value1);
     $( "#row3col1" ).text(setdata3+' ' +value1);
@@ -1280,7 +1280,7 @@ $(document).on('keyup', '#discount_mrp_3', function(){
     var selling_price_set_2 = Number(simple_special_price) - Number(discount_mrp_2);
     var selling_price_set_3 = Number(simple_special_price) - Number(discount_mrp_3);
 
-    $( "#set_price1" ).val(simple_special_price*unit_set);
+    $( "#selling_price1" ).val(simple_special_price*unit_set);
     $( "#row11col1" ).text(setdata+' ' +value1);
     $( "#row22col1" ).text(setdata2+' ' +value1);
     $( "#row33col1" ).text(setdata3+' ' +value1);
