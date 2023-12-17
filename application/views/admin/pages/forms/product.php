@@ -1050,46 +1050,10 @@
         <!-- END: APP JS-->
 
         <!-- START: Page Vendor JS-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/raphael/raphael.min.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/morris/morris.min.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/chartjs/Chart.min.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/starrr/starrr.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.canvaswrapper.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.colorhelpers.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.saturated.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.browser.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.drawSeries.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.uiConstants.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.legend.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-flot/jquery.flot.pie.js"></script>        -->
-        <!--<script src="<?= base_url(); ?>assets/vendors/chartjs/Chart.min.js"></script>  -->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-jvectormap/jquery-jvectormap-2.0.3.min.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-jvectormap/jquery-jvectormap-world-mill.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-jvectormap/jquery-jvectormap-de-merc.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/jquery-jvectormap/jquery-jvectormap-us-aea.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/apexcharts/apexcharts.min.js"></script>-->
         <script src="<?= base_url(); ?>assets/vendors/toastr/toastr.min.js"></script>
         <script src="<?= base_url(); ?>assets/js/toastr.script.js"></script>
         <script src="<?= base_url(); ?>assets/vendors/datatable/js/dataTables.bootstrap4.min.js"></script>
-        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/jszip/jszip.min.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/pdfmake/pdfmake.min.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/pdfmake/vfs_fonts.js"></script>-->
         <script src="<?= base_url(); ?>assets/vendors/datatable/buttons/js/dataTables.buttons.min.js"></script>
-        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/buttons/js/buttons.bootstrap4.min.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/buttons/js/buttons.colVis.min.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/buttons/js/buttons.flash.min.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/buttons/js/buttons.html5.min.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/vendors/datatable/buttons/js/buttons.print.min.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/js/back.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/js/dashboard.js"></script>-->
-        <!--<script src="<?= base_url(); ?>assets/js/tinymce/tinymce.min.js"></script>-->
-       
-        <!-- <?php 
-         if($page == 'products'){ ?>
-            <script src="<?= base_url(); ?>assets/js/app_product_list.js"></script>
-            <script src="<?= base_url(); ?>assets/js/image_remove_add.js"></script>
-        <?php } ?> -->
 
         <?php if ($this->session->flashdata('success')) { ?>
         <script src="<?= base_url(); ?>assets/vendors/toastrsuccess.js"></script>
