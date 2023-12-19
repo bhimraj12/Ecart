@@ -377,7 +377,7 @@
                                                                     <div class="form-group">
                                                                         <label for="type" class="col-md-2">Special Price:</label>
                                                                         <div class="col-md-12">
-                                                                            <input type="number" name="simple_special_price" class="form-control  discounted_price" value="<?= $product_variants[0]['special_price'] ?>" min='0' step="0.01">
+                                                                            <input type="number" name="special_price" class="form-control  discounted_price" value="<?= $product_variants[0]['special_price'] ?>" min='0' step="0.01">
                                                                         </div>
                                                                     </div>
 
@@ -455,7 +455,7 @@
 <div class="form-group">
     <label for="type" class="col-md-2">Per Piece Price / Special Price:</label>
     <div class="col-md-12">
-        <input type="number" name="simple_special_price" id="simple_special_price"  placeholder="Piece Price" class="form-control discounted_price" min='0' step="0.01">
+        <input type="number" name="special_price" id="special_price"  placeholder="Piece Price" class="form-control discounted_price" min='0' step="0.01">
     </div>
 </div>
 
@@ -847,7 +847,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="type" class="col-md-2">Per Piece Price / Special Price:</label>
                                                                                 <div class="col-md-12">
-                                                                                    <input type="number" name="simple_special_price" id="simple_special_price"  placeholder="Piece Price" class="form-control discounted_price" min='0' step="0.01">
+                                                                                    <input type="number" name="special_price" id="special_price"  placeholder="Piece Price" class="form-control discounted_price" min='0' step="0.01">
                                                                                 </div>
                                                                             </div>
                                                                      

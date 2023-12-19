@@ -264,7 +264,7 @@ Use POST method to pass the parameters
     if(product_type == simple_product):
         simple_product_stock_status:null|0|1   {1=in stock | 0=out stock}
         simple_price:100
-        simple_special_price:90                          //{optional}
+        special_price:90                          //{optional}
         product_sku:test
         product_total_stock:100
         variant_stock_status: 0            //{0 =>'Simple_Product_Stock_Active' 1 => "Product_Level" 2 => "Variable_Level"	}
@@ -370,7 +370,7 @@ Use POST method to pass the parameters
     if(product_type == simple_product):
         simple_product_stock_status:null|0|1   {1=in stock | 0=out stock}
         simple_price:100
-        simple_special_price:90
+        special_price:90
         product_sku:test
         product_total_stock:100
         variant_stock_status: 0            //{0 =>'Simple_Product_Stock_Active' 1 => "Product_Level" 2 => "Variable_Level"	}

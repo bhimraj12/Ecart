@@ -189,7 +189,7 @@ class Product_model extends CI_Model
                 'unit_set' => $data['unit_set'],
                 'set_unit' => $data['set_unit'],
                 'selling_price' => $data['selling_price'],
-                'special_price' => (isset($data['simple_special_price']) && !empty($data['simple_special_price'])) ? $data['simple_special_price'] : '0',
+                'special_price' => (isset($data['special_price']) && !empty($data['special_price'])) ? $data['special_price'] : '0',
                 'weight' => (isset($data['weight'])) ? floatval($data['weight']) : 0,
                 'height' => (isset($data['height'])) ? $data['height'] : 0,
                 'breadth' => (isset($data['breadth'])) ? $data['breadth'] : 0,
@@ -226,7 +226,7 @@ class Product_model extends CI_Model
                 'unit_set' => $data['unit_set'],
                 'set_unit' => $data['set_unit'],
                 'selling_price' => $data['selling_price'],
-                'special_price' => (isset($data['simple_special_price']) && !empty($data['simple_special_price'])) ? $data['simple_special_price'] : '0',
+                'special_price' => (isset($data['special_price']) && !empty($data['special_price'])) ? $data['special_price'] : '0',
             ];
 
 

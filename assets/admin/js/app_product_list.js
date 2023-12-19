@@ -269,12 +269,12 @@ function editproducts(id){
 		});
 	}
 
-$("#simple_special_price").keyup(function(){
-    	var selling_price =  $('#simple_special_price').val();
+$("#special_price").keyup(function(){
+    	var selling_price =  $('#special_price').val();
     	var mrp =  $('#mrp').val();
         	if(Number(selling_price) > Number(mrp)){
         	    alert('Price is greater than MRP');
-        	    $('#simple_special_price').val(0);
+        	    $('#special_price').val(0);
         	}
 });
 
@@ -301,7 +301,7 @@ function clear_sets() {
 
 $('#mrp').keyup(function(){
     var mrp = $("#mrp").val();
-    $('#simple_special_price').val(0);
+    $('#special_price').val(0);
 
 });
 
@@ -327,13 +327,13 @@ $('#mini_quantity').keyup(function(){
     
 });
 
-$('#set_unit,#unit_set,#simple_special_price,#unit_select').on('change', function() {
+$('#set_unit,#unit_set,#special_price,#unit_select').on('change', function() {
     
     // var discount_mrp = $('#discount_mrp').val();
     // var selling_price_bind = $('#selling_price_bind').val();
     var value = $('#set_unit').val();
     var unit_set = $('#unit_set').val();
-    var simple_special_price =  $('#simple_special_price').val();
+    var special_price =  $('#special_price').val();
     var value1 = $('#set_unit option:selected').text();
     var unit_select = $('#unit_select option:selected').text();
     
@@ -360,11 +360,11 @@ $('#set_unit,#unit_set,#simple_special_price,#unit_select').on('change', functio
     var setdata5 = Number(unit_set)* Number(maximum_quantity_2);
     var setdata6 = Number(unit_set)* Number(maximum_quantity_3);
     
-    var selling_price_set_1 = Number(simple_special_price) - Number(discount_mrp_1);
-    var selling_price_set_2 = Number(simple_special_price) - Number(discount_mrp_2);
-    var selling_price_set_3 = Number(simple_special_price) - Number(discount_mrp_3);
+    var selling_price_set_1 = Number(special_price) - Number(discount_mrp_1);
+    var selling_price_set_2 = Number(special_price) - Number(discount_mrp_2);
+    var selling_price_set_3 = Number(special_price) - Number(discount_mrp_3);
 
-    $( "#selling_price" ).val(simple_special_price*unit_set);
+    $( "#selling_price" ).val(special_price*unit_set);
     $( "#row1col1" ).text(setdata+' ' +value1);
     $( "#row2col1" ).text(setdata2+' ' +value1);
     $( "#row3col1" ).text(setdata3+' ' +value1);
@@ -377,16 +377,16 @@ $('#set_unit,#unit_set,#simple_special_price,#unit_select').on('change', functio
     $( "#row2col3" ).text(unit_select+' Discount = ₹ ' +Number(unit_set)*Number(discount_mrp_2));
     $( "#row3col3" ).text(unit_select+' Discount = ₹ ' +Number(unit_set)*Number(discount_mrp_3));
     
-    $( "#row1col4" ).text('1 '+unit_select+' = ₹' +(simple_special_price-discount_mrp_1)*unit_set);
-    $( "#row2col4" ).text('1 '+unit_select+' = ₹' +(simple_special_price-discount_mrp_2)*unit_set);
-    $( "#row3col4" ).text('1 '+unit_select+' = ₹' +(simple_special_price-discount_mrp_3)*unit_set);
+    $( "#row1col4" ).text('1 '+unit_select+' = ₹' +(special_price-discount_mrp_1)*unit_set);
+    $( "#row2col4" ).text('1 '+unit_select+' = ₹' +(special_price-discount_mrp_2)*unit_set);
+    $( "#row3col4" ).text('1 '+unit_select+' = ₹' +(special_price-discount_mrp_3)*unit_set);
     
     $( "#selling_price_bind" ).val(selling_price_set_1);
     $( "#selling_price_bind1" ).val(selling_price_set_2);
     $( "#selling_price_bind2" ).val(selling_price_set_3);
 });
 
-$('#simple_special_price').on('change', function() {
+$('#special_price').on('change', function() {
     var value = $( this ).val();
     var unitValue = $('#unit_set').val();
     var maxdata = Number(value)* Number(unitValue);
@@ -395,7 +395,7 @@ $('#simple_special_price').on('change', function() {
 
 $(document).on('change', '#discount_mrp', function(){  
      var curr_value = Number($(this).val());
-     var selling_price = $('#simple_special_price').val();
+     var selling_price = $('#special_price').val();
      var total = Number(selling_price)-Number(curr_value);
      var unit_set =  $('#unit_set').val();
      var setvlaue = total * unit_set;
@@ -413,7 +413,7 @@ $(document).on('change', '#discount_mrp1', function(){
     // $("#selling_price_bind1").val(total);
     
      var curr_value = Number($(this).val());
-     var selling_price = $('#simple_special_price').val();
+     var selling_price = $('#special_price').val();
      var total = Number(selling_price)-Number(curr_value);
      var unit_set =  $('#unit_set').val();
      var setvlaue = total * unit_set;
@@ -431,7 +431,7 @@ $(document).on('change', '#discount_mrp2', function(){
     // $("#selling_price_bind1").val(total);
     
      var curr_value = Number($(this).val());
-     var selling_price = $('#simple_special_price').val();
+     var selling_price = $('#special_price').val();
      var total = Number(selling_price)-Number(curr_value);
      var unit_set =  $('#unit_set').val();
      var setvlaue = total * unit_set;
@@ -648,7 +648,7 @@ $('#set_unit1,#unit_set1,#selling_price1,#unit_select1').on('change', function()
     var selling_price_bind = $('#selling_price_bind').val();
     var value = $('#set_unit1').val();
     var unit_set = $('#unit_set1').val();
-    var simple_special_price =  $('#selling_price1').val();
+    var special_price =  $('#selling_price1').val();
     var value1 = $('#set_unit1 option:selected').text();
     var unit_select = $('#unit_select1 option:selected').text();
     
@@ -675,11 +675,11 @@ $('#set_unit1,#unit_set1,#selling_price1,#unit_select1').on('change', function()
     var setdata5 = Number(unit_set)* Number(maximum_quantity_2);
     var setdata6 = Number(unit_set)* Number(maximum_quantity_3);
     
-    var selling_price_set_1 = Number(simple_special_price) - Number(discount_mrp_1);
-    var selling_price_set_2 = Number(simple_special_price) - Number(discount_mrp_2);
-    var selling_price_set_3 = Number(simple_special_price) - Number(discount_mrp_3);
+    var selling_price_set_1 = Number(special_price) - Number(discount_mrp_1);
+    var selling_price_set_2 = Number(special_price) - Number(discount_mrp_2);
+    var selling_price_set_3 = Number(special_price) - Number(discount_mrp_3);
 
-    $( "#selling_price1" ).val(simple_special_price*unit_set);
+    $( "#selling_price1" ).val(special_price*unit_set);
     $( "#row11col1" ).text(setdata+' ' +value1);
     $( "#row22col1" ).text(setdata2+' ' +value1);
     $( "#row33col1" ).text(setdata3+' ' +value1);
@@ -692,9 +692,9 @@ $('#set_unit1,#unit_set1,#selling_price1,#unit_select1').on('change', function()
     $( "#row22col3" ).text(unit_select+' Discount = ₹ ' +Number(unit_set)*Number(discount_mrp_2));
     $( "#row33col3" ).text(unit_select+' Discount = ₹ ' +Number(unit_set)*Number(discount_mrp_3));
     
-    $( "#row11col4" ).text('1 '+unit_select+' = ₹' +(simple_special_price-discount_mrp_1)*unit_set);
-    $( "#row22col4" ).text('1 '+unit_select+' = ₹' +(simple_special_price-discount_mrp_2)*unit_set);
-    $( "#row33col4" ).text('1 '+unit_select+' = ₹' +(simple_special_price-discount_mrp_3)*unit_set);
+    $( "#row11col4" ).text('1 '+unit_select+' = ₹' +(special_price-discount_mrp_1)*unit_set);
+    $( "#row22col4" ).text('1 '+unit_select+' = ₹' +(special_price-discount_mrp_2)*unit_set);
+    $( "#row33col4" ).text('1 '+unit_select+' = ₹' +(special_price-discount_mrp_3)*unit_set);
     
     $( "#selling_price_set_1" ).val(selling_price_set_1);
     $( "#selling_price_set_2" ).val(selling_price_set_2);
