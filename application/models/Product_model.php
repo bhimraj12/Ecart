@@ -183,7 +183,7 @@ class Product_model extends CI_Model
         if ($pro_type == 'simple_product') {
             $pro_variance_data = [
                 'product_id' => $p_id,
-                'price' => $data['simple_price'],
+                'price' => $data['price'],
                 'purchase_rate' => $data['purchase_rate'],
                 'unit' => $data['unit'],
                 'unit_set' => $data['unit_set'],
@@ -220,7 +220,7 @@ class Product_model extends CI_Model
         } elseif ($pro_type == 'digital_product') {
             $pro_variance_data = [
                 'product_id' => $p_id,
-                'price' => $data['simple_price'],
+                'price' => $data['price'],
                 'purchase_rate' => $data['purchase_rate'],
                 'unit' => $data['unit'],
                 'unit_set' => $data['unit_set'],

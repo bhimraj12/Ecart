@@ -363,7 +363,7 @@
                                                                     <div class="form-group">
                                                                         <label for="type" class="col-md-2">Price:</label>
                                                                         <div class="col-md-12">
-                                                                            <input type="number" name="simple_price" class="form-control stock-simple-mustfill-field price" value="<?= $product_variants[0]['price'] ?>" min='0' step="0.01">
+                                                                            <input type="number" name="price" class="form-control stock-simple-mustfill-field price" value="<?= $product_variants[0]['price'] ?>" min='0' step="0.01">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
@@ -580,7 +580,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="type" class="col-md-2">Price:</label>
                                                                                 <div class="col-md-12">
-                                                                                    <input type="number" name="simple_price" class="form-control stock-simple-mustfill-field price" min='0' step="0.01">
+                                                                                    <input type="number" name="price" class="form-control stock-simple-mustfill-field price" min='0' step="0.01">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">

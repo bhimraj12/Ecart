@@ -2723,7 +2723,7 @@ $(document).on('click', '.reset-settings', function (e) {
                 '<option value="digital_product">Digital Product</option><option value="variable_product">Variable Product</option> </select></div></div>' +
                 '<div id="product-general-settings"><div id="general_price_section" class="collapse"><div class="form-group"> ' +
                 '<label for="type" class="col-md-2">Price:</label>' +
-                '<div class="col-md-12"> <input type="number" name="simple_price" class="form-control stock-simple-mustfill-field price" min="0" step="0.01"></div></div>' +
+                '<div class="col-md-12"> <input type="number" name="price" class="form-control stock-simple-mustfill-field price" min="0" step="0.01"></div></div>' +
                 '<div class="form-group"> <label for="type" class="col-md-2">Special Price:</label><div class="col-md-12">' +
                 ' <input type="number" name="special_price" class="form-control discounted_price" min="0"></div></div>' +
                 '<div class="form-group simple_stock_management"><div class="col"> ' +

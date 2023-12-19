@@ -1727,7 +1727,7 @@ Defined Methods:-
 
             if(product_type == simple_product):
                 simple_product_stock_status:null|0|1   {1=in stock | 0=out stock}
-                simple_price:100
+                price:100
                 special_price:90
                 weight : 1  {optional}
                 height : 1 {optional}
@@ -1738,7 +1738,7 @@ Defined Methods:-
                 variant_stock_status: 0             {optional}//{0 =>'Simple_Product_Stock_Active' 1 => "Product_Level" 2 => "Variable_Level"	}
             
            if(product_type == digital_product):
-                simple_price:100
+                price:100
                 special_price:90
                 
        */
@@ -1824,8 +1824,8 @@ Defined Methods:-
         // If product type is simple or digital	 		
         if (isset($_POST['product_type']) && $_POST['product_type'] == 'simple_product' || $_POST['product_type'] == 'digital_product') {
 
-            $this->form_validation->set_rules('simple_price', 'Price', 'trim|required|numeric|greater_than_equal_to[' . $this->input->post('special_price') . ']|xss_clean');
-            $this->form_validation->set_rules('special_price', 'Special Price', 'trim|numeric|less_than_equal_to[' . $this->input->post('simple_price') . ']|xss_clean');
+            $this->form_validation->set_rules('price', 'Price', 'trim|required|numeric|greater_than_equal_to[' . $this->input->post('special_price') . ']|xss_clean');
+            $this->form_validation->set_rules('special_price', 'Special Price', 'trim|numeric|less_than_equal_to[' . $this->input->post('price') . ']|xss_clean');
 
 
             if (isset($_POST['simple_product_stock_status']) && in_array($_POST['simple_product_stock_status'], array('0', '1'))) {
@@ -2570,7 +2570,7 @@ Defined Methods:-
 
             if(product_type == simple_product):
                 simple_product_stock_status:null|0|1   {1=in stock | 0=out stock}
-                simple_price:100
+                price:100
                 special_price:90
                 product_sku:test
                 product_total_stock:100
@@ -2580,7 +2580,7 @@ Defined Methods:-
                 breadth : 1 {optional}
                 length : 1 {optional}
             if(product_type == digital_product):
-                simple_price:100
+                price:100
                 special_price:90
        */
         if (!$this->verify_token()) {
@@ -2665,8 +2665,8 @@ Defined Methods:-
         // If product type is simple			
         if (isset($_POST['product_type']) && $_POST['product_type'] == 'simple_product') {
 
-            $this->form_validation->set_rules('simple_price', 'Price', 'trim|required|numeric|greater_than_equal_to[' . $this->input->post('special_price') . ']|xss_clean');
-            $this->form_validation->set_rules('special_price', 'Special Price', 'trim|numeric|less_than_equal_to[' . $this->input->post('simple_price') . ']|xss_clean');
+            $this->form_validation->set_rules('price', 'Price', 'trim|required|numeric|greater_than_equal_to[' . $this->input->post('special_price') . ']|xss_clean');
+            $this->form_validation->set_rules('special_price', 'Special Price', 'trim|numeric|less_than_equal_to[' . $this->input->post('price') . ']|xss_clean');
 
 
             if (isset($_POST['simple_product_stock_status']) && in_array($_POST['simple_product_stock_status'], array('0', '1'))) {
