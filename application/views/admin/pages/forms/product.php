@@ -438,7 +438,7 @@
 <div class="form-group">
     <label for="type" class="col-md-2">MRP Price:</label>
     <div class="col-md-12">
-        <input type="number" name="simple_price" class="form-control stock-simple-mustfill-field price" min='0' step="0.01">
+        <input type="number" name="simple_price" class="form-control stock-simple-mustfill-field price" value="<?= $product_variants[0]['price'] ?>" min='0' step="0.01">
     </div>
     <div class="invalid-feedback">
         Please provide a valid MRP.
@@ -448,14 +448,14 @@
 <div class="form-group" class="col-md-2">
     <label for="type" class="col-md-2">Purchase Rate:</label>
     <div class="col-md-12">
-        <input type="number" name="purchase_rate" class="form-control purchase_rate" value="" min='0' step="0.01">
+        <input type="number" name="purchase_rate" class="form-control purchase_rate" value="<?= $product_variants[0]['purchase_rate'] ?>" value="" min='0' step="0.01">
     </div>
 </div>
 
 <div class="form-group">
     <label for="type" class="col-md-2">Per Piece Price / Special Price:</label>
     <div class="col-md-12">
-        <input type="number" name="special_price" id="special_price"  placeholder="Piece Price" class="form-control discounted_price" min='0' step="0.01">
+        <input type="number" name="special_price" id="special_price"  placeholder="Piece Price" value="<?= $product_variants[0]['special_price'] ?>" class="form-control discounted_price" min='0' step="0.01">
     </div>
 </div>
 
@@ -464,7 +464,7 @@
 <div class="form-row">
     <div class="col-md-2 mb-3">
         <label for="validationCustom04">Set Price</label>
-        <input type="text" class="form-control" name="selling_price" id="selling_price"  placeholder="Set Price" readonly>
+        <input type="text" class="form-control" name="selling_price" id="selling_price" value="<?= $product_variants[0]['selling_price'] ?>" placeholder="Set Price" readonly>
         <div class="invalid-feedback">
             Please provide a valid state.
         </div>
@@ -490,19 +490,19 @@
             <tbody id="dynamic_bulk">
                 <tr id="row1">
                     <td>
-                        <input type="number" class="form-control" id="mini_quantitty_bind" name="minimum_quantity[]" value="<?= $product_variants[0]['mini_quantity_bind'] ?? '' ?>">
+                        <input type="number" class="form-control" id="mini_quantitty_bind" name="minimum_quantity[]" value="<?= $product_set[0]['minimum_quantity'] ?? '' ?>">
                         <div id="row1col1"></div>
                     </td>
                     <td>
-                        <input type="number" class="form-control" id="maximum_quantity" name="maximum_quantity[]" value="<?= $product_variants[0]['maximum_quantity'] ?? '' ?>">
+                        <input type="number" class="form-control" id="maximum_quantity" name="maximum_quantity[]" value="<?= $product_set[0]['maximum_quantity'] ?? '' ?>">
                         <div id="row1col2"></div>
                     </td>
                     <td>
-                        <input type="number" class="form-control" id="discount_mrp" name="discount_mrp[]" value="<?= $product_variants[0]['discount_mrp'] ?? '' ?>" step="any">
+                        <input type="number" class="form-control" id="discount_mrp" name="discount_mrp[]" value="<?= $product_set[0]['discount_mrp'] ?? '' ?>" step="any">
                         <div id="row1col3"></div>
                     </td>
                     <td>
-                        <input type="number" class="form-control" id="selling_price_bind" name="selling_price_set[]" value="<?= $product_variants[0]['selling_price_bind'] ?? '' ?>" step="any">
+                        <input type="number" class="form-control" id="selling_price_bind" name="selling_price_set[]" value="<?= $product_set[0]['selling_price_set'] ?? '' ?>" step="any">
                         <div id="row1col4"></div>
                     </td>
                     <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
@@ -512,38 +512,38 @@
                 <!-- Add more rows as needed with similar structure -->
 <tr id="row2">
     <td>
-        <input type="number" class="form-control" id="mini_quantitty_bind2" name="minimum_quantity[]" value="<?= $product_variants[1]['mini_quantity_bind'] ?? '' ?>">
+        <input type="number" class="form-control" id="mini_quantitty_bind2" name="minimum_quantity[]" value="<?= $product_set[1]['minimum_quantity'] ?? '' ?>">
         <div id="row2col1"></div>
     </td>
     <td>
-        <input type="number" class="form-control" id="maximum_quantity2" name="maximum_quantity[]" value="<?= $product_variants[1]['maximum_quantity'] ?? '' ?>">
+        <input type="number" class="form-control" id="maximum_quantity2" name="maximum_quantity[]" value="<?= $product_set[1]['maximum_quantity'] ?? '' ?>">
         <div id="row2col2"></div>
     </td>
     <td>
-        <input type="number" class="form-control" id="discount_mrp2" name="discount_mrp[]" value="<?= $product_variants[1]['discount_mrp'] ?? '' ?>" step="any">
+        <input type="number" class="form-control" id="discount_mrp2" name="discount_mrp[]" value="<?= $product_set[1]['discount_mrp'] ?? '' ?>" step="any">
         <div id="row2col3"></div>
     </td>
     <td>
-        <input type="number" class="form-control" id="selling_price_bind2" name="selling_price_set[]" value="<?= $product_variants[1]['selling_price_bind'] ?? '' ?>" step="any">
+        <input type="number" class="form-control" id="selling_price_bind2" name="selling_price_set[]" value="<?= $product_set[1]['selling_price_set'] ?? '' ?>" step="any">
         <div id="row2col4"></div>
     </td>
     <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
 </tr>
 <tr id="row3">
     <td>
-        <input type="number" class="form-control" id="mini_quantitty_bind3" name="minimum_quantity[]" value="<?= $product_variants[2]['mini_quantity_bind'] ?? '' ?>">
+        <input type="number" class="form-control" id="mini_quantitty_bind3" name="minimum_quantity[]" value="<?= $product_set[2]['minimum_quantity'] ?? '' ?>">
         <div id="row3col1"></div>
     </td>
     <td>
-        <input type="number" class="form-control" id="maximum_quantity3" name="maximum_quantity[]" value="<?= $product_variants[2]['maximum_quantity'] ?? '' ?>">
+        <input type="number" class="form-control" id="maximum_quantity3" name="maximum_quantity[]" value="<?= $product_set[2]['maximum_quantity'] ?? '' ?>">
         <div id="row3col2"></div>
     </td>
     <td>
-        <input type="number" class="form-control" id="discount_mrp3" name="discount_mrp[]" value="<?= $product_variants[2]['discount_mrp'] ?? '' ?>" step="any">
+        <input type="number" class="form-control" id="discount_mrp3" name="discount_mrp[]" value="<?= $product_set[2]['discount_mrp'] ?? '' ?>" step="any">
         <div id="row3col3"></div>
     </td>
     <td>
-        <input type="number" class="form-control" id="selling_price_bind3" name="selling_price_set[]" value="<?= $product_variants[2]['selling_price_bind'] ?? '' ?>" step="any">
+        <input type="number" class="form-control" id="selling_price_bind3" name="selling_price_set[]" value="<?= $product_set[2]['selling_price_set'] ?? '' ?>" step="any">
         <div id="row3col4"></div>
     </td>
     <!--<td><button type="button" name="add3" id="add3" class="btn btn-success">Add</button></td>-->
