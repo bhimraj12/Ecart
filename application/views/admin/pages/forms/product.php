@@ -464,7 +464,7 @@
 <div class="form-row">
     <div class="col-md-2 mb-3">
         <label for="validationCustom04">Set Price</label>
-        <input type="text" class="form-control" name="selling_price" id="selling_price" value="<?= $product_variants[0]['selling_price'] ?>" placeholder="Set Price" readonly>
+        <input type="text" class="form-control" name="set_price" id="set_price" value="<?= $product_variants[0]['set_price'] ?>" placeholder="Set Price" readonly>
         <div class="invalid-feedback">
             Please provide a valid state.
         </div>
