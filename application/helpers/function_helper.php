@@ -502,7 +502,7 @@ function fetch_product($user_id = NULL, $filter = NULL, $id = NULL, $category_id
             $product[$i]['tax_id'] = ((isset($product[$i]['tax_id']) && intval($product[$i]['tax_id']) > 0) && $product[$i]['tax_id'] != "") ? $product[$i]['tax_id'] : '0';
             $product[$i]['attributes'] = get_attribute_values_by_pid($product[$i]['id']);
             $product[$i]['variants'] = get_variants_values_by_pid($product[$i]['id']);
-            $set[$i]['variants'] = get_set_values_by_pid($product[$i]['id']);
+            $product[$i]['sets'] = get_set_values_by_pid($product[$i]['id']);
             $variants =   get_variants_values_by_pid($product[$i]['id']);
             $set = get_set_values_by_pid($_GET['edit_id']);
             $total_stock = 0;

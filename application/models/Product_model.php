@@ -203,7 +203,7 @@ class Product_model extends CI_Model
                     $set['discount_price_set'] = isset($this->input->post('discount_price_set')[$key]) ? floatval($this->input->post('discount_price_set')[$key]) : 0;
                     $set['selling_price_set'] = isset($this->input->post('selling_price_set')[$key]) ? floatval($this->input->post('selling_price_set')[$key]) : 0;
                     $set['Product_id'] = $p_id;
-                    $this->db->insert('product_Set', $set);
+                    $this->db->insert('product_set', $set);
                 }
             }
             
@@ -1291,7 +1291,7 @@ class Product_model extends CI_Model
     public function showSets($id)
     {
         $this->db->select("*");
-        $this->db->from('smitox_product_Set');
+        $this->db->from('product_set');
         $this->db->where('Product_id', $id);
         return $this->db->get()->result();
     }
