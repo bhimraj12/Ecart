@@ -94,3 +94,8 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+//Live
+// 'username' => 'u205421129_smitox',
+// 'password' => 'Smitox@123',
+// 'database' => 'u205421129_eshop_vendor',
