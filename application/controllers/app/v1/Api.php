@@ -6484,4 +6484,14 @@ Defined Methods:-
         $data = $this->my_fatoorah->InitiatePayment();
         print_R($data);
     }
+
+    public function view_customer_detail($id)
+    {
+
+        // if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
+            return $this->Customer_model->get_customer_detail($id);
+        // } else {
+        //     redirect('admin/login', 'refresh');
+        // }
+    }
 }

@@ -244,4 +244,15 @@ class Customer_model extends CI_Model
 
        return $result;
    }
+
+   public function get_customer_detail($id)
+   {
+       $search_res = $this->db->select(' u.*,a.name as area_name,c.name as city_name')->join('cities c', 'u.city=c.id', 'left')->join('areas a', 'u.area=a.id', 'left');;
+
+       $search_res->join('`users_groups` `ug`', '`u`.`id` = `ug`.`user_id`');
+
+       $cat_search_res = $search_res->where('u.id', $id)->order_by($sort, "desc")->limit($limit, $offset)->get('users u')->result_array();
+
+       print_r(json_encode($cat_search_res));
+   }
 }
