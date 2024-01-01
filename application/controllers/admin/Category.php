@@ -61,7 +61,8 @@ class Category extends CI_Controller
         } else {
             $seller_id = $this->input->get('seller_id', true);
             $ignore_status = isset($_GET['ignore_status']) && $_GET['ignore_status'] == 1 ? 1 : '';
-            $response['data'] = $this->category_model->get_seller_categories($seller_id);
+            $response['data'] = $this->data['category_result'] = $this->category_model->get_categories(NULL, '', '', 'row_order', 'ASC', 'true', '', $ignore_status, $seller_id);
+
             echo json_encode($response);
             return;
         }
