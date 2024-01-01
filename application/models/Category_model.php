@@ -61,32 +61,39 @@ class Category_model extends CI_Model
 
     public function get_seller_categories($seller_id)
     {
+    
         $level = 0;
         $this->db->select('category_ids');
         $where = 'user_id = ' . $seller_id;
         $this->db->where($where);
         $result = $this->db->get('seller_data')->result_array();
-        $count_res = $this->db->count_all_results('seller_data');
-        $result = explode(",", $result[0]['category_ids']);
-        $categories =  fetch_details('categories', "status = 1", '*', "", "", "", "", "id", $result);
-        $i = 0;
-        foreach ($categories as $p_cat) {
-            $categories[$i]['children'] = $this->sub_categories($p_cat['id'], $level);
-            $categories[$i]['text'] = output_escaping($p_cat['name']);
-            $categories[$i]['name'] = output_escaping($categories[$i]['name']);
-            $categories[$i]['state'] = ['opened' => true];
-            $categories[$i]['icon'] = "jstree-folder";
-            $categories[$i]['level'] = $level;
-            $categories[$i]['image'] = get_image_url($categories[$i]['image'], 'thumb', 'md');
-            $categories[$i]['banner'] = get_image_url($categories[$i]['banner'], 'thumb', 'md');
-            $i++;
+    
+        if (!empty($result) && $result[0]['category_ids'] !== null) {
+            $count_res = $this->db->count_all_results('seller_data');
+            $result = explode(",", $result[0]['category_ids']);
+            $categories =  fetch_details('categories', "status = 1", '*', "", "", "", "", "id", $result);
+            $i = 0;
+            foreach ($categories as $p_cat) {
+                $categories[$i]['children'] = $this->sub_categories($p_cat['id'], $level);
+                $categories[$i]['text'] = output_escaping($p_cat['name']);
+                $categories[$i]['name'] = output_escaping($categories[$i]['name']);
+                $categories[$i]['state'] = ['opened' => true];
+                $categories[$i]['icon'] = "jstree-folder";
+                $categories[$i]['level'] = $level;
+                $categories[$i]['image'] = get_image_url($categories[$i]['image'], 'thumb', 'md');
+                $categories[$i]['banner'] = get_image_url($categories[$i]['banner'], 'thumb', 'md');
+                $i++;
+            }
+            if (isset($categories[0])) {
+                $categories[0]['total'] = $count_res;
+            }
+            return  $categories;
+        } else {
+            // Handle the case where category_ids is null or result is empty
+            return [];
         }
-        if (isset($categories[0])) {
-            $categories[0]['total'] = $count_res;
-        }
-        return  $categories;
     }
-
+    
     public function sub_categories($id, $level)
     {
         $level = $level + 1;
