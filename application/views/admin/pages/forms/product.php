@@ -385,24 +385,25 @@
                                                                     
                                                                     <div class="form-group row mt-3 <?= $product_details[0]['type'] == "digital_product" ? 'd-none' : '' ?>" id="product-dimensions"> -->
  
-                                                                    <div class="col-md-4 mb-3">
+
+    <div class="col-md-4 mb-3">
     <label for="validationCustom03">Unit</label>
     <select class="custom-select input-sm" name="unit" id="unit" required>
-        <option value="Chart">Chart</option>
-        <option value="Dozens">Dozens</option>
-        <option value="Kg">Kg</option>
-        <option value="Litre">Litre</option>
-        <option value="Meter">Meter</option>
-        <option value="Metric Tons">Metric Tons</option>
-        <option value="Nos.">Nos.</option>
-        <option value="Packet">Packet</option>
-        <option value="Pairs">Pairs</option>
-        <option value="Piece">Piece</option>
-        <option value="Pieces">Pieces</option>
-        <option value="Pounds">Pounds</option>
-        <option value="Quintal">Quintal</option>
-        <option value="Sets">Sets</option>
-        <option value="Tons">Tons</option>
+        <option value="Chart" <?= ($product_variants[0]['unit'] == 'Chart') ? 'selected' : '' ?>>Chart</option>
+        <option value="Dozens" <?= ($product_variants[0]['unit'] == 'Dozens') ? 'selected' : '' ?>>Dozens</option>
+        <option value="Kg" <?= ($product_variants[0]['unit'] == 'Kg') ? 'selected' : '' ?>>Kg</option>
+        <option value="Litre" <?= ($product_variants[0]['unit'] == 'Litre') ? 'selected' : '' ?>>Litre</option>
+        <option value="Meter" <?= ($product_variants[0]['unit'] == 'Meter') ? 'selected' : '' ?>>Meter</option>
+        <option value="Metric Tons" <?= ($product_variants[0]['unit'] == 'Metric Tons') ? 'selected' : '' ?>>Metric Tons</option>
+        <option value="Nos." <?= ($product_variants[0]['unit'] == 'Nos.') ? 'selected' : '' ?>>Nos.</option>
+        <option value="Packet" <?= ($product_variants[0]['unit'] == 'Packet') ? 'selected' : '' ?>>Packet</option>
+        <option value="Pairs" <?= ($product_variants[0]['unit'] == 'Pairs') ? 'selected' : '' ?>>Pairs</option>
+        <option value="Piece" <?= ($product_variants[0]['unit'] == 'Piece') ? 'selected' : '' ?>>Piece</option>
+        <option value="Pieces" <?= ($product_variants[0]['unit'] == 'Pieces') ? 'selected' : '' ?>>Pieces</option>
+        <option value="Pounds" <?= ($product_variants[0]['unit'] == 'Pounds') ? 'selected' : '' ?>>Pounds</option>
+        <option value="Quintal" <?= ($product_variants[0]['unit'] == 'Quintal') ? 'selected' : '' ?>>Quintal</option>
+        <option value="Sets" <?= ($product_variants[0]['unit'] == 'Sets') ? 'selected' : '' ?>>Sets</option>
+        <option value="Tons" <?= ($product_variants[0]['unit'] == 'Tons') ? 'selected' : '' ?>>Tons</option>
     </select>
     <div class="invalid-feedback">
         Please Enter Unit.
@@ -410,30 +411,35 @@
 </div>
 
 <div class="col-md-4 mb-3" id="select_units">
-    <label for="validationCustom03">Net Weight / Content</label>
+
+<label for="validationCustom03">Net Weight / Content</label>
     <div class="input-group">
-        <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" required>
+        <!-- Set the value based on a PHP variable (e.g., $product_variants[0]['net_weight']) -->
+        <input type="number" class="form-control" step="any" min="0" name="unit_set" id="unit_set" placeholder="" value="<?= isset($product_variants[0]['unit_set']) ? $product_variants[0]['unit_set'] : '' ?>" required>
+     
         <select class="custom-select input-sm" name="set_unit" id="set_unit" required>
-            <!-- New options -->
-            <option value="">Open this select Unit</option>
-            <option value="Chart">Chart</option>
-            <option value="Dozens">Dozens</option>
-            <option value="Kg">Kg</option>
-            <option value="Litre">Litre</option>
-            <option value="Meter">Meter</option>
-            <option value="Metric Tons">Metric Tons</option>
-            <option value="Nos.">Nos.</option>
-            <option value="Packet">Packet</option>
-            <option value="Pairs">Pairs</option>
-            <option value="Piece">Piece</option>
-            <option value="Pieces">Pieces</option>
-            <option value="Pounds">Pounds</option>
-            <option value="Quintal">Quintal</option>
-            <option value="Sets">Sets</option>
-            <option value="Tons">Tons</option>
+            <option value="" <?= ($product_variants[0]['set_unit'] == '') ? 'selected' : '' ?>>Open this select Unit</option>
+            <option value="Chart" <?= ($product_variants[0]['set_unit'] == 'Chart') ? 'selected' : '' ?>>Chart</option>
+            <option value="Dozens" <?= ($product_variants[0]['set_unit'] == 'Dozens') ? 'selected' : '' ?>>Dozens</option>
+            <option value="Kg" <?= ($product_variants[0]['set_unit'] == 'Kg') ? 'selected' : '' ?>>Kg</option>
+            <option value="Litre" <?= ($product_variants[0]['set_unit'] == 'Litre') ? 'selected' : '' ?>>Litre</option>
+            <option value="Meter" <?= ($product_variants[0]['set_unit'] == 'Meter') ? 'selected' : '' ?>>Meter</option>
+            <option value="Metric Tons" <?= ($product_variants[0]['set_unit'] == 'Metric Tons') ? 'selected' : '' ?>>Metric Tons</option>
+            <option value="Nos." <?= ($product_variants[0]['set_unit'] == 'Nos.') ? 'selected' : '' ?>>Nos.</option>
+            <option value="Packet" <?= ($product_variants[0]['set_unit'] == 'Packet') ? 'selected' : '' ?>>Packet</option>
+            <option value="Pairs" <?= ($product_variants[0]['set_unit'] == 'Pairs') ? 'selected' : '' ?>>Pairs</option>
+            <option value="Piece" <?= ($product_variants[0]['set_unit'] == 'Piece') ? 'selected' : '' ?>>Piece</option>
+            <option value="Pieces" <?= ($product_variants[0]['set_unit'] == 'Pieces') ? 'selected' : '' ?>>Pieces</option>
+            <option value="Pounds" <?= ($product_variants[0]['set_unit'] == 'Pounds') ? 'selected' : '' ?>>Pounds</option>
+            <option value="Quintal" <?= ($product_variants[0]['set_unit'] == 'Quintal') ? 'selected' : '' ?>>Quintal</option>
+            <option value="Sets" <?= ($product_variants[0]['set_unit'] == 'Sets') ? 'selected' : '' ?>>Sets</option>
+            <option value="Tons" <?= ($product_variants[0]['set_unit'] == 'Tons') ? 'selected' : '' ?>>Tons</option>
         </select>
     </div>
 </div>
+
+<!-- Rest of your HTML code... -->
+
 
 <div class="form-group">
     <label for="type" class="col-md-2">MRP Price:</label>
@@ -475,9 +481,9 @@
         <input type="number" class="col-md-12 form-control" name="minimum_order_quantity" id="mini_quantity1" min="1" value="<?= (isset($product_details[0]['minimum_order_quantity'])) ? $product_details[0]['minimum_order_quantity'] : 1; ?>" placeholder='Minimum Order Quantity'>
     </div>
 
-    <!-- Add any additional fields related to product dimensions here -->
-
+    <div class="col-md-12">
     <p>SELL ONLINE IN BULK / WHOLESALE &nbsp;&nbsp;<button class="btn btn-danger" type="button" id="add_bulk">Add In Bulk</button></p>
+                                                            </div>
     <div id="add_bulk_products" >
         <table class="table">
             <thead>
