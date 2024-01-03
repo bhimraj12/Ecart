@@ -195,19 +195,36 @@ class Product_model extends CI_Model
                 'breadth' => (isset($data['breadth'])) ? $data['breadth'] : 0,
                 'length' => (isset($data['length'])) ? $data['length'] : 0,
             ];
-            foreach ($this->input->post('minimum_quantity') as $key => $value) {
-                if (!empty($this->input->post('maximum_quantity')[$key]) && $this->input->post('maximum_quantity')[$key] != 0) {
-                    $set['minimum_quantity'] = isset($value) ? floatval($value) : 0;
-                    $set['maximum_quantity'] = isset($this->input->post('maximum_quantity')[$key]) ? floatval($this->input->post('maximum_quantity')[$key]) : 0;
-                    $set['discount_mrp'] = isset($this->input->post('discount_mrp')[$key]) ? floatval($this->input->post('discount_mrp')[$key]) : 0;
-                    $set['discount_price_set'] = isset($this->input->post('discount_price_set')[$key]) ? floatval($this->input->post('discount_price_set')[$key]) : 0;
-                    $set['selling_price_set'] = isset($this->input->post('selling_price_set')[$key]) ? floatval($this->input->post('selling_price_set')[$key]) : 0;
-                    $set['Product_id'] = $p_id;
-                    $this->db->insert('product_set', $set);
+            
+            if (isset($data['edit_product_id'])) {
+
+                    $this->db->delete('product_set', ['Product_id' => $p_id]);
+
+                foreach ($this->input->post('minimum_quantity') as $key => $value) {
+                    if (!empty($this->input->post('maximum_quantity')[$key]) && $this->input->post('maximum_quantity')[$key] != 0) {
+                        $set['minimum_quantity'] = isset($value) ? floatval($value) : 0;
+                        $set['maximum_quantity'] = isset($this->input->post('maximum_quantity')[$key]) ? floatval($this->input->post('maximum_quantity')[$key]) : 0;
+                        $set['discount_mrp'] = isset($this->input->post('discount_mrp')[$key]) ? floatval($this->input->post('discount_mrp')[$key]) : 0;
+                        $set['discount_price_set'] = isset($this->input->post('discount_price_set')[$key]) ? floatval($this->input->post('discount_price_set')[$key]) : 0;
+                        $set['selling_price_set'] = isset($this->input->post('selling_price_set')[$key]) ? floatval($this->input->post('selling_price_set')[$key]) : 0;
+                        $set['Product_id'] = $p_id;
+                        $this->db->insert('product_set', $set);
+                    }
+                }
+            } else {
+                foreach ($this->input->post('minimum_quantity') as $key => $value) {
+                    if (!empty($this->input->post('maximum_quantity')[$key]) && $this->input->post('maximum_quantity')[$key] != 0) {
+                        $set['minimum_quantity'] = isset($value) ? floatval($value) : 0;
+                        $set['maximum_quantity'] = isset($this->input->post('maximum_quantity')[$key]) ? floatval($this->input->post('maximum_quantity')[$key]) : 0;
+                        $set['discount_mrp'] = isset($this->input->post('discount_mrp')[$key]) ? floatval($this->input->post('discount_mrp')[$key]) : 0;
+                        $set['discount_price_set'] = isset($this->input->post('discount_price_set')[$key]) ? floatval($this->input->post('discount_price_set')[$key]) : 0;
+                        $set['selling_price_set'] = isset($this->input->post('selling_price_set')[$key]) ? floatval($this->input->post('selling_price_set')[$key]) : 0;
+                        $set['Product_id'] = $p_id;
+                        $this->db->insert('product_set', $set);
+                    }
                 }
             }
-            
-            
+
             if (isset($data['edit_product_id'])) {
                 if (isset($_POST['reset_settings']) && trim($_POST['reset_settings']) == '1') {
                     $this->db->insert('product_variants', $pro_variance_data);
