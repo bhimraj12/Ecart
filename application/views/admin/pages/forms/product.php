@@ -1135,7 +1135,7 @@
                             </div>
                             <label for="pro_input_description">Extra Description </label>
                             <div class="mb-3">
-                                <textarea name="extra_input_description" class="textarea addr_editor" placeholder="Place some text here"><?= (isset($product_details[0]['id'])) ? output_escaping(str_replace('\r\n', '&#13;&#10;', $product_details[0]['extra_description'])) : ''; ?></textarea>
+                            <textarea name="extra_input_description" class="textarea addr_editor" placeholder="Place some text here"><?= (isset($product_details[0]['id']) && isset($product_details[0]['extra_description'])) ? output_escaping(str_replace('\r\n', '&#13;&#10;', $product_details[0]['extra_description'])) : ''; ?></textarea>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <div class="form-group" id="error_box">
