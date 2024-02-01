@@ -2,109 +2,107 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-
 class Api extends CI_Controller
 {
 
     /*
----------------------------------------------------------------------------
-Defined Methods:-
----------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
+    Defined Methods:-
+    ---------------------------------------------------------------------------
 
-    1. get_categories    
+    1. get_categories
     2. get_areas_by_city_id
     3. get_cities
     4. get_products
     5. get_settings
     6. get_slider_images
     7. validate_promo_code
-        
+
     8. user-order
-        -place_order
-        -get_orders
-        -update_order_item_status
-        -get_invoice_html   (not used)
+    -place_order
+    -get_orders
+    -update_order_item_status
+    -get_invoice_html   (not used)
 
     9. user-rating
-        -set_product_rating
-        -delete_product_rating
-        -get_product_rating        
-        -get_product_review_images        
+    -set_product_rating
+    -delete_product_rating
+    -get_product_rating
+    -get_product_review_images
 
-   10. cart
-        -get_user_cart
-        -remove_from_cart
-        -manage_cart(Add/Update)
+    10. cart
+    -get_user_cart
+    -remove_from_cart
+    -manage_cart(Add/Update)
 
-   11. user-registration
-        -login
-        -update_fcm
-        -reset_password
-        -get_login_identity
-        -verify_user
-        -register_user
-        -update_user
-        -delete_user
-    
-   12. favorites
-        -add_to_favorites
-        -remove_from_favorites
-        -get_favorites
+    11. user-registration
+    -login
+    -update_fcm
+    -reset_password
+    -get_login_identity
+    -verify_user
+    -register_user
+    -update_user
+    -delete_user
 
-   13. user_addresses
-        -add_address
-        -update_address
-        -delete_address
-        -get_address
-    
-   13. sections
-        -get_sections
-        -get_notifications
+    12. favorites
+    -add_to_favorites
+    -remove_from_favorites
+    -get_favorites
 
+    13. user_addresses
+    -add_address
+    -update_address
+    -delete_address
+    -get_address
 
-   14. make_payments
-        -get_paypal_link
-        -paypal_transaction_webview
-        -app_payment_status
-        -ipn
+    13. sections
+    -get_sections
+    -get_notifications
 
-   15. add_transaction   
+    14. make_payments
+    -get_paypal_link
+    -paypal_transaction_webview
+    -app_payment_status
+    -ipn
 
-   16. get_offer_images
+    15. add_transaction
 
-   17. get_faqs
+    16. get_offer_images
 
-   18. stripe_webhook
-   19. transactions
-   20. generate_paytm_checksum
-   21. generate_paytm_txn_token
-   22. validate_paytm_checksum
-   23. validate_refer_code
-   24. flutterwave_webview
-   25. flutterwave_payment_response
-   26. delete_order
-   27. get_ticket_types
-   28. add_ticket
-   29. edit_ticket
-   30. send_message
-   31. get_tickets
-   32. get_messages
-   33. send_bank_transfer_proof
-   34. get_zipcodes
-   35. is_product_delivarable
-   36. check_cart_products_delivarable
-   37. get_sellers
-   38. get_promo_codes
-   39. add_product_faqs
-   40. get_product_faqs
-   41. send_withdrawal_request
-   42. get_withdrawal_request
-   43. rozarpay_create_order
-   44. update_order_status
----------------------------------------------------------------------------
----------------------------------------------------------------------------
+    17. get_faqs
 
-*/
+    18. stripe_webhook
+    19. transactions
+    20. generate_paytm_checksum
+    21. generate_paytm_txn_token
+    22. validate_paytm_checksum
+    23. validate_refer_code
+    24. flutterwave_webview
+    25. flutterwave_payment_response
+    26. delete_order
+    27. get_ticket_types
+    28. add_ticket
+    29. edit_ticket
+    30. send_message
+    31. get_tickets
+    32. get_messages
+    33. send_bank_transfer_proof
+    34. get_zipcodes
+    35. is_product_delivarable
+    36. check_cart_products_delivarable
+    37. get_sellers
+    38. get_promo_codes
+    39. add_product_faqs
+    40. get_product_faqs
+    41. send_withdrawal_request
+    42. get_withdrawal_request
+    43. rozarpay_create_order
+    44. update_order_status
+    ---------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
+
+     */
 
     public function __construct()
     {
@@ -214,14 +212,14 @@ Defined Methods:-
     public function get_categories()
     {
         /*
-            id:15               // optional
-            limit:25            // { default - 25 } optional
-            offset:0            // { default - 0 } optional
-            sort:               id / name
-                                // { default -row_id } optional
-            order:DESC/ASC      // { default - ASC } optional
-            has_child_or_item:false { default - true}  optional
-        */
+        id:15               // optional
+        limit:25            // { default - 25 } optional
+        offset:0            // { default - 0 } optional
+        sort:               id / name
+        // { default -row_id } optional
+        order:DESC/ASC      // { default - ASC } optional
+        has_child_or_item:false { default - true}  optional
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -250,7 +248,7 @@ Defined Methods:-
         $id = (!empty($_POST['id']) && isset($_POST['id'])) ? $_POST['id'] : '';
         $cat_res = $this->category_model->get_categories($id, $limit, $offset, $sort, $order, strval(trim($has_child_or_item)));
 
-        $popular_categories = $this->category_model->get_categories(NULL, "", "", 'clicks', 'DESC', 'false', "", "", "");
+        $popular_categories = $this->category_model->get_categories(null, "", "", 'clicks', 'DESC', 'false', "", "", "");
 
         $this->response['error'] = (empty($cat_res)) ? true : false;
         $this->response['total'] = !empty($cat_res) ? $cat_res[0]['total'] : 0;
@@ -265,13 +263,13 @@ Defined Methods:-
     //change API name get_areas_by_city_id to get_zipcode_by_city_id
     public function get_zipcode_by_city_id()
     {
-        /*  id:'57' 
-                limit:25            // { default - 25 } optional
-                offset:0            // { default - 0 } optional
-                sort:               // { a.name / a.id } optional
-                order:DESC/ASC      // { default - ASC } optional
-                search:value        // {optional} 
-            */
+        /*  id:'57'
+        limit:25            // { default - 25 } optional
+        offset:0            // { default - 0 } optional
+        sort:               // { a.name / a.id } optional
+        order:DESC/ASC      // { default - ASC } optional
+        search:value        // {optional}
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -304,10 +302,10 @@ Defined Methods:-
     public function get_cities()
     {
         /*
-           sort:               // { c.name / c.id } optional
-           order:DESC/ASC      // { default - ASC } optional
-           search:value        // {optional} 
-       */
+        sort:               // { c.name / c.id } optional
+        order:DESC/ASC      // { default - ASC } optional
+        search:value        // {optional}
+         */
         $this->form_validation->set_rules('sort', 'sort', 'trim|xss_clean');
         $this->form_validation->set_rules('order', 'order', 'trim|xss_clean');
         $this->form_validation->set_rules('limit', 'limit', 'trim|numeric|xss_clean');
@@ -336,28 +334,28 @@ Defined Methods:-
 
     /* 4.get_products
 
-        id:101              // optional
-        category_id:29      // optional
-        user_id:15          // optional
-        search:keyword      // optional
-        tags:multiword tag1, tag2, another tag      // optional
-        attribute_value_ids : 34,23,12 // { Use only for filteration } optional
-        limit:25            // { default - 25 } optional
-        offset:0            // { default - 0 } optional
-        sort:p.id / p.date_added / pv.price
-                            // { default - p.id } optional
-        order:DESC/ASC      // { default - DESC } optional
-        is_similar_products:1 // { default - 0 } optional
-        top_rated_product: 1 // { default - 0 } optional
-        discount: 5             // optional
-        min_price:10000          // optional
-        max_price:50000          // optional
-        seller_id:1255           //{optional}
-        zipcode:1           //{optional}
-        product_ids: 19,20             // optional
-        product_variant_ids: 44,45,40             // optional
+    id:101              // optional
+    category_id:29      // optional
+    user_id:15          // optional
+    search:keyword      // optional
+    tags:multiword tag1, tag2, another tag      // optional
+    attribute_value_ids : 34,23,12 // { Use only for filteration } optional
+    limit:25            // { default - 25 } optional
+    offset:0            // { default - 0 } optional
+    sort:p.id / p.date_added / pv.price
+    // { default - p.id } optional
+    order:DESC/ASC      // { default - DESC } optional
+    is_similar_products:1 // { default - 0 } optional
+    top_rated_product: 1 // { default - 0 } optional
+    discount: 5             // optional
+    min_price:10000          // optional
+    max_price:50000          // optional
+    seller_id:1255           //{optional}
+    zipcode:1           //{optional}
+    product_ids: 19,20             // optional
+    product_variant_ids: 44,45,40             // optional
 
-    */
+     */
 
     public function get_products()
     {
@@ -394,7 +392,7 @@ Defined Methods:-
             if ($sort == 'pv.price') {
                 $sort = "price";
             }
-            $seller_id = (isset($_POST['seller_id']) && !empty(trim($_POST['seller_id']))) ? $this->input->post('seller_id', true) : NULL;
+            $seller_id = (isset($_POST['seller_id']) && !empty(trim($_POST['seller_id']))) ? $this->input->post('seller_id', true) : null;
             $filters['search'] = (isset($_POST['search']) && !empty($_POST['search'])) ? $_POST['search'] : '';
             $filters['tags'] = (isset($_POST['tags'])) ? $_POST['tags'] : "";
             $filters['attribute_value_ids'] = (isset($_POST['attribute_value_ids'])) ? $_POST['attribute_value_ids'] : null;
@@ -460,21 +458,19 @@ Defined Methods:-
         print_r(json_encode($this->response));
     }
 
-
     //5.get_settings
     public function get_settings()
     {
         /*
-            type : payment_method // { default : all  } optional            
-            user_id:  15 { optional }
-        */
+        type : payment_method // { default : all  } optional
+        user_id:  15 { optional }
+         */
         if (!$this->verify_token()) {
             return false;
         }
         $type = (isset($_POST['type']) && $_POST['type'] == 'payment_method') ? 'payment_method' : 'all';
         $this->form_validation->set_rules('type', 'Setting Type', 'trim|xss_clean');
         $this->form_validation->set_rules('user_id', 'User id', 'trim|numeric|xss_clean');
-
 
         if (!$this->form_validation->run()) {
 
@@ -610,7 +606,7 @@ Defined Methods:-
                 $res[$i]['data'] = $cat_res;
             } else if (strtolower($res[$i]['type']) == 'products') {
                 $id = (!empty($res[$i]['type_id']) && isset($res[$i]['type_id'])) ? $res[$i]['type_id'] : '';
-                $pro_res = fetch_product(NULL, NULL, $id);
+                $pro_res = fetch_product(null, null, $id);
                 $res[$i]['data'] = $pro_res['product'];
             } else {
                 $res[$i]['data'] = [];
@@ -627,11 +623,11 @@ Defined Methods:-
     public function validate_promo_code()
     {
         /*
-            promo_code:'NEWOFF10'
-            user_id:28
-            final_total:'300'
+        promo_code:'NEWOFF10'
+        user_id:28
+        final_total:'300'
 
-        */
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -656,29 +652,29 @@ Defined Methods:-
     public function place_order()
     {
         /*
-            user_id:5
-            mobile:9974692496
-            email:testmail123@gmail.com // only enter when ordered product is digital product and one of them is not downloadable(download_allowed = 0)
-            product_variant_id: 1,2,3
-            quantity: 3,3,1
-            total:60.0
-            delivery_charge:20.0
-            tax_amount:10
-            tax_percentage:10
-            final_total:55
-            latitude:40.1451
-            longitude:-45.4545
-            promo_code:NEW20 {optional}
-            payment_method: Paypal / Payumoney / COD / PAYTM
-            address_id:17
-            delivery_date:10/12/2012
-            delivery_time:Today - Evening (4:00pm to 7:00pm)
-            is_wallet_used:1 {By default 0}
-            wallet_balance_used:1
-            active_status:awaiting {optional}
-            order_note:text      //{optional}
-      
-        */
+        user_id:5
+        mobile:9974692496
+        email:testmail123@gmail.com // only enter when ordered product is digital product and one of them is not downloadable(download_allowed = 0)
+        product_variant_id: 1,2,3
+        quantity: 3,3,1
+        total:60.0
+        delivery_charge:20.0
+        tax_amount:10
+        tax_percentage:10
+        final_total:55
+        latitude:40.1451
+        longitude:-45.4545
+        promo_code:NEW20 {optional}
+        payment_method: Paypal / Payumoney / COD / PAYTM
+        address_id:17
+        delivery_date:10/12/2012
+        delivery_time:Today - Evening (4:00pm to 7:00pm)
+        is_wallet_used:1 {By default 0}
+        wallet_balance_used:1
+        active_status:awaiting {optional}
+        order_note:text      //{optional}
+
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -696,7 +692,7 @@ Defined Methods:-
         ------------------------------
         If Wallet Balance Is Used
         ------------------------------
-        */
+         */
         $product_variant_id = explode(',', $_POST['product_variant_id']);
         $product_variant = $this->db->select('p.type,p.download_allowed')
             ->join('products p ', 'pv.product_id=p.id', 'left')
@@ -735,7 +731,7 @@ Defined Methods:-
             print_r(json_encode($this->response));
             return;
         } else {
-            $_POST['order_note'] = (isset($_POST['order_note']) && !empty($_POST['order_note'])) ? $this->input->post("order_note", true) : NULL;
+            $_POST['order_note'] = (isset($_POST['order_note']) && !empty($_POST['order_note'])) ? $this->input->post("order_note", true) : null;
             /* checking for product availability */
             $area_id = fetch_details('addresses', ['id' => $_POST['address_id']], ['area_id', 'area', 'pincode']);
             $zipcode = $area_id[0]['pincode'];
@@ -798,6 +794,28 @@ Defined Methods:-
         }
     }
 
+    public function get_cod_tax($id)
+    {
+        // Get customer details
+        $search_res = $this->db->select(' u.id,u.cod_type');
+
+        $customer_detail = $search_res->where('u.id', $id)->get('users u')->result_array();
+
+        // Get tax details
+        $search_res = $this->db->select(' * ');
+        $tax_search_res = $search_res->where('id', 1)->get('taxes')->result_array();
+
+        // Combine customer and tax details into an array
+        $result = array(
+            'customer_detail' => $customer_detail,
+            'tax_detail' => $tax_search_res,
+        );
+
+        // Print the combined result as JSON
+        print_r(json_encode($result));
+
+    }
+
     //get_orders
     public function get_orders()
     {
@@ -805,8 +823,8 @@ Defined Methods:-
         // offset:0    active_status: received  {received,delivered,cancelled,processed,returned}     // optional
         // limit:25           // { default - 0 } optional
         // sort: id / date_added // { default - id } optional
-        // order:DESC/ASC      // { default - DESC } optional        
-        // download_invoice:0 // { default - 0 } optional       
+        // order:DESC/ASC      // { default - DESC } optional
+        // download_invoice:0 // { default - 0 } optional
 
         if (!$this->verify_token()) {
             return false;
@@ -829,7 +847,7 @@ Defined Methods:-
             $multiple_status = (isset($_POST['active_status']) && !empty($_POST['active_status'])) ? explode(',', $_POST['active_status']) : false;
             $download_invoice = (isset($_POST['download_invoice']) && !empty($_POST['download_invoice'])) ? $_POST['download_invoice'] : 1;
 
-            $order_details = fetch_orders(false, $_POST['user_id'], $multiple_status, false, $limit, $offset, $sort, $order, $download_invoice, false, false, $search, NULL, NULL, NULL, '', true);
+            $order_details = fetch_orders(false, $_POST['user_id'], $multiple_status, false, $limit, $offset, $sort, $order, $download_invoice, false, false, $search, null, null, null, '', true);
 
             if (!empty($order_details)) {
 
@@ -847,9 +865,9 @@ Defined Methods:-
     }
 
     /*
-        status: cancelled / returned
-        order_id:1201 //this is order_item_id
-    */
+    status: cancelled / returned
+    order_id:1201 //this is order_item_id
+     */
     public function update_order_item_status()
     {
         if (!$this->verify_token()) {
@@ -898,7 +916,7 @@ Defined Methods:-
         return false;
     }
 
-    // get_invoice_html    
+    // get_invoice_html
     // order_id:214
     public function get_invoice_html()
     {
@@ -907,7 +925,6 @@ Defined Methods:-
         }
 
         $this->form_validation->set_rules('order_id', 'Order id', 'trim|required|xss_clean');
-
 
         if (!$this->form_validation->run()) {
             $this->response['error'] = true;
@@ -948,7 +965,7 @@ Defined Methods:-
                     $this->data['settings'] = get_settings('system_settings', true);
                     $response['error'] = false;
                     $response['message'] = 'Invoice Generated Successfully';
-                    $response['data'] = $this->load->view('admin/invoice-template', $this->data, TRUE);
+                    $response['data'] = $this->load->view('admin/invoice-template', $this->data, true);
                 } else {
                     $response['error'] = true;
                     $response['message'] = 'No Order Details Found !';
@@ -968,12 +985,12 @@ Defined Methods:-
     public function set_product_rating()
     {
         /*
-            user_id: 21
-            product_id: 33
-            rating: 4.2
-            comment: 'Done' {optional}
-            images[]:[]
-      */
+        user_id: 21
+        product_id: 33
+        rating: 4.2
+        comment: 'Done' {optional}
+        images[]:[]
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -1037,7 +1054,7 @@ Defined Methods:-
                 }
 
                 //Deleting Uploaded Images if any overall error occured
-                if ($images_info_error != NULL || !$this->form_validation->run()) {
+                if ($images_info_error != null || !$this->form_validation->run()) {
                     if (isset($images_new_name_arr) && !empty($images_new_name_arr || !$this->form_validation->run())) {
                         foreach ($images_new_name_arr as $key => $val) {
                             unlink(FCPATH . REVIEW_IMG_PATH . $images_new_name_arr[$key]);
@@ -1046,7 +1063,7 @@ Defined Methods:-
                 }
             }
 
-            if ($images_info_error != NULL) {
+            if ($images_info_error != null) {
                 $this->response['error'] = true;
                 $this->response['csrfName'] = $this->security->get_csrf_token_name();
                 $this->response['csrfHash'] = $this->security->get_csrf_hash();
@@ -1084,7 +1101,7 @@ Defined Methods:-
     {
         /*
         rating_id:32
-        */
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -1108,12 +1125,12 @@ Defined Methods:-
     // get_product_rating
     /*
     product_id : 12
-    user_id : 1 		{optional}
+    user_id : 1         {optional}
     limit:25                // { default - 25 } optional
     offset:0                // { default - 0 } optional
-    sort: type   			// { default - type } optional
+    sort: type               // { default - type } optional
     order:DESC/ASC          // { default - DESC } optional
-  */
+     */
     public function get_product_rating()
     {
         if (!$this->verify_token()) {
@@ -1142,12 +1159,11 @@ Defined Methods:-
 
         // update category clicks
         $category_id = fetch_details('products', ['id' => $this->input->post('product_id', true)], 'category_id');
-        $this->db->set('clicks', 'clicks+1', FALSE);
+        $this->db->set('clicks', 'clicks+1', false);
         $this->db->where('id', $category_id[0]['category_id']);
         $this->db->update('categories');
 
         $pr_rating = fetch_details('products', ['id' => $this->input->post('product_id', true)], 'rating');
-
 
         $rating = $this->rating_model->fetch_rating((isset($_POST['product_id'])) ? $_POST['product_id'] : '', (isset($_POST['user_id'])) ? $_POST['user_id'] : '', $limit, $offset, $sort, $order, '', $has_images);
         if (!empty($rating)) {
@@ -1176,12 +1192,12 @@ Defined Methods:-
     public function get_user_cart()
     {
         /*
-          user_id:2
-          delivery_pincode:370001 //optional when standard shipping is on
-          only_delivery_charge:0 (default:0)// if 1 it's only returen shiprocket delivery charge OR return all cart information
-          address_id:2 // only when only_delivery_charge is 1
-          is_saved_for_later: 1 { default:0 }
-        */
+        user_id:2
+        delivery_pincode:370001 //optional when standard shipping is on
+        only_delivery_charge:0 (default:0)// if 1 it's only returen shiprocket delivery charge OR return all cart information
+        address_id:2 // only when only_delivery_charge is 1
+        is_saved_for_later: 1 { default:0 }
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -1222,7 +1238,6 @@ Defined Methods:-
                 print_r(json_encode($this->response));
                 return;
             }
-
 
             $product_availability = is_array($product_availability) ? $product_availability : [];
             $product_not_delivarable = array_filter($product_availability, function ($product) {
@@ -1294,7 +1309,6 @@ Defined Methods:-
                     $parcels_details = check_parcels_deliveriblity($parcels, $delivery_pincode);
                 }
             }
-
 
             if (empty($cart_user_data)) {
                 $this->response['error'] = true;
@@ -1371,10 +1385,10 @@ Defined Methods:-
     public function remove_from_cart()
     {
         /*
-            user_id:2           
-            product_variant_id:23 
-            address_id : 2 // optional   
-      */
+        user_id:2
+        product_variant_id:23
+        address_id : 2 // optional
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -1382,7 +1396,6 @@ Defined Methods:-
         $this->form_validation->set_rules('user_id', 'User', 'trim|numeric|required|xss_clean');
         $this->form_validation->set_rules('product_variant_id', 'Product Variant', 'trim|required|xss_clean');
         $this->form_validation->set_rules('address_id', 'Address Id', 'trim|xss_clean|numeric');
-
 
         if (!$this->form_validation->run()) {
             $this->response['error'] = true;
@@ -1407,7 +1420,7 @@ Defined Methods:-
                     'delivery_charge' => isset($delivery_charge) && !empty($delivery_charge) ? str_replace(",", "", $delivery_charge) : '',
                     'sub_total' => strval($cart_total_response['sub_total']),
                     'total_items' => (isset($cart_total_response[0]['total_items'])) ? strval($cart_total_response[0]['total_items']) : "0",
-                    'max_items_cart' => $settings['max_items_cart']
+                    'max_items_cart' => $settings['max_items_cart'],
                 ];
             } else {
                 $this->response['data'] = [];
@@ -1427,7 +1440,7 @@ Defined Methods:-
         is_saved_for_later: 1 { default:0 }
         qty:2 // pass 0 to remove qty
         address_id : 2 // optional
-     */
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -1456,7 +1469,6 @@ Defined Methods:-
                 print_r(json_encode($this->response));
                 return false;
             }
-
 
             $clear_cart = (isset($_POST['clear_cart']) && $_POST['clear_cart'] != "") ? $this->input->post('clear_cart', true) : 0;
             if ($clear_cart == true) {
@@ -1593,11 +1605,11 @@ Defined Methods:-
     public function login()
     {
         /* Parameters to be passed
-            mobile: 9874565478
-            
-            password: 12345678
-            fcm_id: FCM_ID
-        */
+        mobile: 9874565478
+
+        password: 12345678
+        fcm_id: FCM_ID
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -1645,7 +1657,7 @@ Defined Methods:-
                     $tempRow['username'] = (isset($row['username']) && !empty($row['username'])) ? $row['username'] : '';
                     $tempRow['email'] = (isset($row['email']) && !empty($row['email'])) ? $row['email'] : '';
                     $tempRow['mobile'] = (isset($row['mobile']) && !empty($row['mobile'])) ? $row['mobile'] : '';
-                    if (empty($row['image']) || file_exists(FCPATH . USER_IMG_PATH . $row['image']) == FALSE) {
+                    if (empty($row['image']) || file_exists(FCPATH . USER_IMG_PATH . $row['image']) == false) {
                         $tempRow['image'] = base_url() . NO_USER_IMAGE;
                     } else {
                         $tempRow['image'] = base_url() . USER_IMG_PATH . $row['image'];
@@ -1679,6 +1691,7 @@ Defined Methods:-
                     $tempRow['longitude'] = (isset($row['longitude']) && !empty($row['longitude'])) ? $row['longitude  '] : '';
                     $tempRow['created_at'] = (isset($row['created_at']) && !empty($row['created_at'])) ? $row['created_at'] : '';
                     $tempRow['type'] = (isset($row['type']) && !empty($row['type'])) ? $row['type'] : '';
+                    $tempRow['cod_type'] = (isset($row['cod_type']) && !empty($row['cod_type'])) ? $row['cod_type'] : '';
 
                     $rows[] = $tempRow;
                 }
@@ -1716,9 +1729,9 @@ Defined Methods:-
     public function update_fcm()
     {
         /* Parameters to be passed
-            user_id:12
-            fcm_id: FCM_ID
-        */
+        user_id:12
+        fcm_id: FCM_ID
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -1734,8 +1747,8 @@ Defined Methods:-
             return false;
         }
 
-        if (isset($_POST['fcm_id']) && $_POST['fcm_id'] != NULL && !empty($_POST['fcm_id'])) {
-            if (isset($_POST['user_id']) && $_POST['user_id'] != NULL) {
+        if (isset($_POST['fcm_id']) && $_POST['fcm_id'] != null && !empty($_POST['fcm_id'])) {
+            if (isset($_POST['user_id']) && $_POST['user_id'] != null) {
                 delete_details(['fcm_id' => $_POST['fcm_id']], 'user_fcm');
                 $user_res = update_details(['fcm_id' => $_POST['fcm_id']], ['id' => $_POST['user_id']], 'users');
             } else {
@@ -1763,9 +1776,9 @@ Defined Methods:-
     public function reset_password()
     {
         /* Parameters to be passed
-            mobile_no:7894561235            
-            new: pass@123
-        */
+        mobile_no:7894561235
+        new: pass@123
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -1787,7 +1800,7 @@ Defined Methods:-
             if (!$this->ion_auth->reset_password($identity, $_POST['new'])) {
                 $response['error'] = true;
                 $response['message'] = strip_tags($this->ion_auth->messages());
-                ;
+
                 $response['data'] = array();
                 echo json_encode($response);
                 return false;
@@ -1822,13 +1835,12 @@ Defined Methods:-
 
     //verify-user
 
-
     public function verify_user()
     {
         /* Parameters to be passed
-            mobile: 9874565478
-            email: test@gmail.com 
-        */
+        mobile: 9874565478
+        email: test@gmail.com
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -1953,24 +1965,24 @@ Defined Methods:-
     public function update_user()
     {
         /*
-            user_id:34
-            username:hiten{optional}
-            dob:12/5/1982{optional}
-            mobile:7852347890 {optional}
-            email:amangoswami@gmail.com	{optional}
-            address:Time Square	{optional}
-            area:ravalwadi	{optional}
-            city:23	{optional}
-            pincode:56	    {optional}
-            latitude:45.453	{optional}
-            longitude:45.453	{optional}
-            //file
-            image:[]
-            //optional parameters
-            referral_code:Userscode
-            old:12345
-            new:345234
-        */
+        user_id:34
+        username:hiten{optional}
+        dob:12/5/1982{optional}
+        mobile:7852347890 {optional}
+        email:amangoswami@gmail.com    {optional}
+        address:Time Square    {optional}
+        area:ravalwadi    {optional}
+        city:23    {optional}
+        pincode:56        {optional}
+        latitude:45.453    {optional}
+        longitude:45.453    {optional}
+        //file
+        image:[]
+        //optional parameters
+        referral_code:Userscode
+        old:12345
+        new:345234
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -2025,7 +2037,7 @@ Defined Methods:-
                         return;
                     } else {
                         $user_details = fetch_details('users', ['id' => $_POST['user_id']], "*");
-                        if (empty($user_details[0]['image']) || file_exists(FCPATH . USER_IMG_PATH . $user_details[0]['image']) == FALSE) {
+                        if (empty($user_details[0]['image']) || file_exists(FCPATH . USER_IMG_PATH . $user_details[0]['image']) == false) {
                             $user_details[0]['image'] = base_url() . NO_USER_IMAGE;
                         } else {
                             $user_details[0]['image'] = base_url() . USER_IMG_PATH . $user_details[0]['image'];
@@ -2078,8 +2090,8 @@ Defined Methods:-
                     $image_info_error = 'Profile Image :' . $this->upload->display_errors();
                 }
 
-                if ($image_info_error != NULL || !$this->form_validation->run()) {
-                    if (isset($image_new_name) && $image_new_name != NULL) {
+                if ($image_info_error != null || !$this->form_validation->run()) {
+                    if (isset($image_new_name) && $image_new_name != null) {
                         unlink(FCPATH . USER_IMG_PATH . $image_new_name);
                     }
                 }
@@ -2141,7 +2153,7 @@ Defined Methods:-
                     $tempRow['password'] = (isset($row['password']) && !empty($row['password'])) ? $row['password'] : '';
                     $tempRow['email'] = (isset($row['email']) && !empty($row['email'])) ? $row['email'] : '';
                     $tempRow['mobile'] = (isset($row['mobile']) && !empty($row['mobile'])) ? $row['mobile'] : '';
-                    if (empty($row['image']) || file_exists(FCPATH . USER_IMG_PATH . $row['image']) == FALSE) {
+                    if (empty($row['image']) || file_exists(FCPATH . USER_IMG_PATH . $row['image']) == false) {
                         $tempRow['image'] = base_url() . NO_USER_IMAGE;
                     } else {
                         $tempRow['image'] = base_url() . USER_IMG_PATH . $row['image'];
@@ -2194,7 +2206,7 @@ Defined Methods:-
                     $tempRow['password'] = (isset($row['password']) && !empty($row['password'])) ? $row['password'] : '';
                     $tempRow['email'] = (isset($row['email']) && !empty($row['email'])) ? $row['email'] : '';
                     $tempRow['mobile'] = (isset($row['mobile']) && !empty($row['mobile'])) ? $row['mobile'] : '';
-                    if (empty($row[0]['image']) || file_exists(FCPATH . USER_IMG_PATH . $row[0]['image']) == FALSE) {
+                    if (empty($row[0]['image']) || file_exists(FCPATH . USER_IMG_PATH . $row[0]['image']) == false) {
                         $tempRow['image'] = base_url() . NO_USER_IMAGE;
                     } else {
                         $tempRow['image'] = base_url() . USER_IMG_PATH . $row[0]['image'];
@@ -2246,10 +2258,10 @@ Defined Methods:-
     public function delete_user()
     {
         /*
-            user_id:15
-            mobile:9874563214
-            password:12345695
-        */
+        user_id:15
+        mobile:9874563214
+        password:12345695
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -2380,7 +2392,7 @@ Defined Methods:-
                                 $delete['seller_data'] = 1;
                             }
                             if (isset($delete['seller_data']) && !empty($delete['seller_data']) && isset($delete['seller_commission']) && !empty($delete['seller_commission'])) {
-                                $deleted = TRUE;
+                                $deleted = true;
                             }
                         }
                         delete_details(['id' => $_POST['user_id']], 'users');
@@ -2413,9 +2425,9 @@ Defined Methods:-
     public function add_to_favorites()
     {
         /*
-            user_id:15
-            product_id:60
-        */
+        user_id:15
+        product_id:60
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -2453,9 +2465,9 @@ Defined Methods:-
     public function remove_from_favorites()
     {
         /*
-         user_id:12
-         product_id:23 {optional}
-        */
+        user_id:12
+        product_id:23 {optional}
+         */
         $this->form_validation->set_rules('user_id', 'User ID', 'trim|numeric|required|xss_clean');
         $this->form_validation->set_rules('product_id', 'Product Id', 'trim|numeric|xss_clean');
         if (!$this->form_validation->run()) {
@@ -2487,10 +2499,10 @@ Defined Methods:-
     public function get_favorites()
     {
         /*
-         user_id:12
-         limit : 10 {optional}
-         offset: 0 {optional}
-        */
+        user_id:12
+        limit : 10 {optional}
+        offset: 0 {optional}
+         */
         $this->form_validation->set_rules('user_id', 'User ID', 'trim|numeric|required|xss_clean');
         $this->form_validation->set_rules('limit', 'limit', 'trim|numeric|xss_clean');
         $this->form_validation->set_rules('offset', 'offset', 'trim|numeric|xss_clean');
@@ -2537,7 +2549,6 @@ Defined Methods:-
         }
         print_r(json_encode($this->response));
     }
-
 
     //13. add_address
     public function add_address()
@@ -2643,8 +2654,8 @@ Defined Methods:-
     public function get_address()
     {
         /*
-            user_id:3    
-        */
+        user_id:3
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -2680,22 +2691,22 @@ Defined Methods:-
     public function get_sections()
     {
         /*
-                limit:10            // { default - 25 } {optional}
-                offset:0            // { default - 0 } {optional}
-                user_id:12              {optional}
-                section_id:4            {optional}
-                attribute_value_ids : 34,23,12 // 
-                top_rated_product: 1 // { default - 0 } optional
-                p_limit:10          // { default - 10 } {optional}
-                p_offset:10         // { default - 0 } {optional}    
-                p_sort:pv.price      // { default - pid } {optional}
-                p_order:asc         // { default - desc } {optional}
-                discount: 5 // { default - 5 } optional
-                min_price:10000          // optional
-                max_price:50000          // optional
-                zipcode:1          // optional
+        limit:10            // { default - 25 } {optional}
+        offset:0            // { default - 0 } {optional}
+        user_id:12              {optional}
+        section_id:4            {optional}
+        attribute_value_ids : 34,23,12 //
+        top_rated_product: 1 // { default - 0 } optional
+        p_limit:10          // { default - 10 } {optional}
+        p_offset:10         // { default - 0 } {optional}
+        p_sort:pv.price      // { default - pid } {optional}
+        p_order:asc         // { default - desc } {optional}
+        discount: 5 // { default - 5 } optional
+        min_price:10000          // optional
+        max_price:50000          // optional
+        zipcode:1          // optional
 
-            */
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -2712,7 +2723,6 @@ Defined Methods:-
         $this->form_validation->set_rules('zipcode', ' Zipcode ', 'trim|xss_clean');
         $this->form_validation->set_rules('min_price', ' Min Price ', 'trim|xss_clean|numeric|less_than_equal_to[' . $this->input->post('max_price') . ']');
         $this->form_validation->set_rules('max_price', ' Max Price ', 'trim|xss_clean|numeric|greater_than_equal_to[' . $this->input->post('min_price') . ']');
-
 
         if (!$this->form_validation->run()) {
             $this->response['error'] = true;
@@ -2767,9 +2777,9 @@ Defined Methods:-
                         $filters['product_type'] = (isset($sections[$i]['product_type'])) ? $sections[$i]['product_type'] : null;
                     }
                 }
-                $categories = (isset($sections[$i]['categories']) && !empty($sections[$i]['categories']) && $sections[$i]['categories'] != NULL) ? explode(',', $sections[$i]['categories']) : null;
+                $categories = (isset($sections[$i]['categories']) && !empty($sections[$i]['categories']) && $sections[$i]['categories'] != null) ? explode(',', $sections[$i]['categories']) : null;
 
-                $products = fetch_product($user_id, (isset($filters)) ? $filters : null, (isset($product_ids) && !empty($product_ids)) ? $product_ids : null, $categories, $p_limit, $p_offset, $p_sort, $p_order, NULL, $zipcode, NULL);
+                $products = fetch_product($user_id, (isset($filters)) ? $filters : null, (isset($product_ids) && !empty($product_ids)) ? $product_ids : null, $categories, $p_limit, $p_offset, $p_sort, $p_order, null, $zipcode, null);
                 if (!empty($products['product'])) {
                     $this->response['error'] = false;
                     $this->response['message'] = "Sections retrived successfully";
@@ -2833,10 +2843,10 @@ Defined Methods:-
     public function get_paypal_link()
     {
         /*
-            user_id : 2
-            order_id : 1
-            amount : 150
-        */
+        user_id : 2
+        order_id : 1
+        amount : 150
+         */
 
         $this->form_validation->set_rules('user_id', 'User ID', 'trim|numeric|required|xss_clean');
         $this->form_validation->set_rules('order_id', 'Order ID', 'trim|required|xss_clean');
@@ -2867,10 +2877,10 @@ Defined Methods:-
     public function paypal_transaction_webview()
     {
         /*
-            user_id : 2
-            order_id : 1
-            amount : 1000
-        */
+        user_id : 2
+        order_id : 1
+        amount : 1000
+         */
 
         header("Content-Type: html");
 
@@ -3050,7 +3060,7 @@ Defined Methods:-
                             'final_total' => $orders['order_data'][0]['final_total'],
                             'otp' => $orders['order_data'][0]['otp'],
                             'address' => $orders['order_data'][0]['address'],
-                            'payment_method' => $orders['order_data'][0]['payment_method']
+                            'payment_method' => $orders['order_data'][0]['payment_method'],
                         );
 
                         $overall_order_data = array(
@@ -3063,7 +3073,7 @@ Defined Methods:-
                             'otp_msg' => 'Here is your OTP. Please, give it to delivery boy only while getting your order.',
                         );
 
-                        send_mail($userData[1], 'Order received successfully', $this->load->view('admin/pages/view/email-template.php', $overall_order_data, TRUE));
+                        send_mail($userData[1], 'Order received successfully', $this->load->view('admin/pages/view/email-template.php', $overall_order_data, true));
 
                         $this->transaction_model->add_transaction($data);
 
@@ -3095,7 +3105,7 @@ Defined Methods:-
                                 'title' => $fcm_admin_subject,
                                 'body' => $fcm_admin_msg,
                                 'type' => "place_order",
-                                'content_available' => true
+                                'content_available' => true,
                             );
                             send_notification($fcmMsg, $user_fcm_id);
                         }
@@ -3129,17 +3139,17 @@ Defined Methods:-
     public function add_transaction()
     {
         /*
-            transaction_type : transaction / wallet  // { optional - default is transaction }
-            user_id : 15 
-            order_id:  23
-            type : COD / stripe / razorpay / paypal / paystack / flutterwave - for transaction | credit / debit - for wallet
-            payment_method:razorpay / paystack / flutterwave        // used for waller credit option, required when transaction_type - wallet and type - credit
-            txn_id : 201567892154 
-            amount : 450
-            status : success / failure
-            message : Done 
-            skip_verify_transaction:false   // { optional }
-        */
+        transaction_type : transaction / wallet  // { optional - default is transaction }
+        user_id : 15
+        order_id:  23
+        type : COD / stripe / razorpay / paypal / paystack / flutterwave - for transaction | credit / debit - for wallet
+        payment_method:razorpay / paystack / flutterwave        // used for waller credit option, required when transaction_type - wallet and type - credit
+        txn_id : 201567892154
+        amount : 450
+        status : success / failure
+        message : Done
+        skip_verify_transaction:false   // { optional }
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -3261,7 +3271,6 @@ Defined Methods:-
             //$this->transaction_model->add_transaction($_POST);
             $order_item_id = fetch_details('order_items', ['order_id' => $_POST['order_id']], 'id,sub_total');
 
-
             $_POST['order_item_id'] = $order_item_id[$i]['id'];
             $trans_data = [
                 'transaction_type' => $transaction_type,
@@ -3274,9 +3283,7 @@ Defined Methods:-
                 'message' => $this->response['message'],
             ];
 
-
             $res = $this->transaction_model->add_transaction($trans_data);
-
 
             // $res = $this->transaction_model->get_transactions($user_id, $transaction_type);
             $this->response['error'] = false;
@@ -3306,7 +3313,7 @@ Defined Methods:-
                 $res[$i]['data'] = $cat_res;
             } else if (strtolower($res[$i]['type']) == 'products') {
                 $id = (!empty($res[$i]['type_id']) && isset($res[$i]['type_id'])) ? $res[$i]['type_id'] : '';
-                $pro_res = fetch_product(NULL, NULL, $id);
+                $pro_res = fetch_product(null, null, $id);
                 $res[$i]['data'] = $pro_res['product'];
             } else {
                 $res[$i]['data'] = [];
@@ -3327,11 +3334,11 @@ Defined Methods:-
         }
 
         /*
-            limit:25                // { default - 25 } optional
-            offset:0                // { default - 0 } optional
-            sort: id   			    // { default - id } optional
-            order:DESC/ASC          // { default - DESC } optional
-        */
+        limit:25                // { default - 25 } optional
+        offset:0                // { default - 0 } optional
+        sort: id                   // { default - id } optional
+        order:DESC/ASC          // { default - DESC } optional
+         */
 
         $this->form_validation->set_rules('sort', 'sort', 'trim|xss_clean');
         $this->form_validation->set_rules('limit', 'limit', 'trim|numeric|xss_clean');
@@ -3363,7 +3370,7 @@ Defined Methods:-
         $credentials = $this->stripe->get_credentials();
         $request_body = file_get_contents('php://input');
 
-        $event = json_decode($request_body, FALSE);
+        $event = json_decode($request_body, false);
 
         log_message('error', 'Stripe Webhook --> ' . var_export($event, true));
 
@@ -3391,7 +3398,6 @@ Defined Methods:-
             $currency = (isset($event->data->object->currency)) ? $event->data->object->currency : "";
             $balance_transaction = 0;
         }
-
 
         /* Wallet refill has unique format for order ID - wallet-refill-user-{user_id}-{system_time}-{3 random_number}  */
         if (empty($order_id)) {
@@ -3459,7 +3465,7 @@ Defined Methods:-
                                 'final_total' => $order['order_data'][0]['final_total'],
                                 'otp' => $order['order_data'][0]['otp'],
                                 'address' => $order['order_data'][0]['address'],
-                                'payment_method' => $order['order_data'][0]['payment_method']
+                                'payment_method' => $order['order_data'][0]['payment_method'],
                             );
 
                             $overall_order_data = array(
@@ -3472,7 +3478,7 @@ Defined Methods:-
                                 'otp_msg' => 'Here is your OTP. Please, give it to delivery boy only while getting your order.',
                             );
                             if (isset($user[0]['email']) && !empty($user[0]['email'])) {
-                                send_mail($user[0]['email'], 'Order received successfully', $this->load->view('admin/pages/view/email-template.php', $overall_order_data, TRUE));
+                                send_mail($user[0]['email'], 'Order received successfully', $this->load->view('admin/pages/view/email-template.php', $overall_order_data, true));
                             }
                             /* No need to add because the transaction is already added just update the transaction status */
                             if (!empty($transaction)) {
@@ -3520,7 +3526,7 @@ Defined Methods:-
                                     'title' => $fcm_admin_subject,
                                     'body' => $fcm_admin_msg,
                                     'type' => "place_order",
-                                    'content_available' => true
+                                    'content_available' => true,
                                 );
                                 send_notification($fcmMsg, $user_fcm_id);
                             }
@@ -3535,7 +3541,7 @@ Defined Methods:-
                         ->set_output(json_encode(
                             array(
                                 'message' => '304 Not Modified - order/transaction id not found',
-                                'error' => true
+                                'error' => true,
                             )
                         ));
                 }
@@ -3623,16 +3629,16 @@ Defined Methods:-
     public function transactions()
     {
         /*
-            user_id:73 
-            id: 1001                // { optional}
-            transaction_type:transaction / wallet //razorpay { default - transaction } optional
-            type : COD / stripe / razorpay / paypal / paystack /refund/ flutterwave - for transaction | credit / debit - for wallet // { optional }
-            search : Search keyword // { optional }
-            limit:25                // { default - 25 } optional
-            offset:0                // { default - 0 } optional
-            sort: id / date_created // { default - id } optional
-            order:DESC/ASC          // { default - DESC } optional
-        */
+        user_id:73
+        id: 1001                // { optional}
+        transaction_type:transaction / wallet //razorpay { default - transaction } optional
+        type : COD / stripe / razorpay / paypal / paystack /refund/ flutterwave - for transaction | credit / debit - for wallet // { optional }
+        search : Search keyword // { optional }
+        limit:25                // { default - 25 } optional
+        offset:0                // { default - 0 } optional
+        sort: id / date_created // { default - id } optional
+        order:DESC/ASC          // { default - DESC } optional
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -3673,13 +3679,13 @@ Defined Methods:-
     public function generate_paytm_checksum()
     {
         /*
-            order_id:1001
-            amount:1099
-            user_id:73              //{ optional } 
-            industry_type:Industry  //{ optional } 
-            channel_id:WAP          //{ optional }
-            website:website link    //{ optional }
-        */
+        order_id:1001
+        amount:1099
+        user_id:73              //{ optional }
+        industry_type:Industry  //{ optional }
+        channel_id:WAP          //{ optional }
+        website:website link    //{ optional }
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -3713,7 +3719,7 @@ Defined Methods:-
 
             /**
              * Generate checksum by parameters we have
-             * Find your Merchant Key in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys 
+             * Find your Merchant Key in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys
              */
             $paytm_checksum = $this->paytm->generateSignature($paytm_params, $settings['paytm_merchant_key']);
 
@@ -3738,13 +3744,13 @@ Defined Methods:-
     public function generate_paytm_txn_token()
     {
         /*
-            amount:100.00
-            order_id:102
-            user_id:73
-            industry_type:      //{optional}
-            channel_id:      //{optional}
-            website:      //{optional}
-        */
+        amount:100.00
+        order_id:102
+        user_id:73
+        industry_type:      //{optional}
+        channel_id:      //{optional}
+        website:      //{optional}
+         */
         $this->form_validation->set_rules('order_id', 'Order ID', 'trim|required|xss_clean');
         $this->form_validation->set_rules('amount', 'Amount', 'trim|numeric|required|xss_clean');
         $this->form_validation->set_rules('user_id', 'User ID', 'trim|required|xss_clean');
@@ -3784,14 +3790,13 @@ Defined Methods:-
 
             /*
              * Generate checksum by parameters we have in body
-             * Find your Merchant Key in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys 
+             * Find your Merchant Key in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys
              */
             $checksum = $this->paytm->generateSignature(json_encode($paytmParams["body"], JSON_UNESCAPED_SLASHES), $credentials['paytm_merchant_key']);
 
             $paytmParams["head"] = array(
-                "signature" => $checksum
+                "signature" => $checksum,
             );
-
 
             $post_data = json_encode($paytmParams, JSON_UNESCAPED_SLASHES);
 
@@ -3833,14 +3838,14 @@ Defined Methods:-
     public function validate_paytm_checksum()
     {
         /*
-            paytm_checksum:PAYTM_CHECKSUM
-            order_id:1001
-            amount:1099
-            user_id:73              //{ optional } 
-            industry_type:Industry  //{ optional } 
-            channel_id:WAP          //{ optional }
-            website:website link    //{ optional }
-        */
+        paytm_checksum:PAYTM_CHECKSUM
+        order_id:1001
+        amount:1099
+        user_id:73              //{ optional }
+        industry_type:Industry  //{ optional }
+        channel_id:WAP          //{ optional }
+        website:website link    //{ optional }
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -3887,9 +3892,9 @@ Defined Methods:-
     // validate_refer_code
     public function validate_refer_code()
     {
-        /* 
-            referral_code:USERS_CODE_TO_BE_VALIDATED
-        */
+        /*
+        referral_code:USERS_CODE_TO_BE_VALIDATED
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -3909,12 +3914,12 @@ Defined Methods:-
 
     public function flutterwave_webview()
     {
-        /* 
-            amount:100
-            user_id:73
-            order_id:101 (optional)
-            reference:eShop-165232013-400  // { optional }
-        */
+        /*
+        amount:100
+        user_id:73
+        order_id:101 (optional)
+        reference:eShop-165232013-400  // { optional }
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -4038,8 +4043,8 @@ Defined Methods:-
     public function delete_order()
     {
         /*
-            order_id:1
-        */
+        order_id:1
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -4103,12 +4108,12 @@ Defined Methods:-
     public function add_ticket()
     {
         /*
-            ticket_type_id:1
-            subject:product_image not displying
-            email:test@gmail.com
-            description:its not showing images of products in web
-            user_id:1
-        */
+        ticket_type_id:1
+        subject:product_image not displying
+        email:test@gmail.com
+        description:its not showing images of products in web
+        user_id:1
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -4119,7 +4124,6 @@ Defined Methods:-
         $this->form_validation->set_rules('subject', 'Subject', 'trim|required|xss_clean');
         $this->form_validation->set_rules('email', 'email', 'trim|required|xss_clean');
         $this->form_validation->set_rules('description', 'description', 'trim|required|xss_clean');
-
 
         if (!$this->form_validation->run()) {
             $this->response['error'] = true;
@@ -4165,15 +4169,15 @@ Defined Methods:-
     public function edit_ticket()
     {
         /*
-            ticket_id:1
-            ticket_type_id:1
-            subject:product_image not displying
-            email:test@gmail.com
-            description:its not showing attachments of products in web
-            user_id:1
-            status:3 or 5 [3 -> resolved, 5 -> reopened]
-            [1 -> pending, 2 -> opened, 3 -> resolved, 4 -> closed, 5 -> reopened]
-        */
+        ticket_id:1
+        ticket_type_id:1
+        subject:product_image not displying
+        email:test@gmail.com
+        description:its not showing attachments of products in web
+        user_id:1
+        status:3 or 5 [3 -> resolved, 5 -> reopened]
+        [1 -> pending, 2 -> opened, 3 -> resolved, 4 -> closed, 5 -> reopened]
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -4186,7 +4190,6 @@ Defined Methods:-
         $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean');
         $this->form_validation->set_rules('description', 'Description', 'trim|required|xss_clean');
         $this->form_validation->set_rules('status', 'Status', 'trim|required|xss_clean');
-
 
         if (!$this->form_validation->run()) {
             $this->response['error'] = true;
@@ -4239,7 +4242,7 @@ Defined Methods:-
                 'description' => $description,
                 'status' => $status,
                 'ticket_id' => $ticket_id,
-                'edit_ticket' => $ticket_id
+                'edit_ticket' => $ticket_id,
             );
             if (!$this->ticket_model->add_ticket($data)) {
                 $result = $this->ticket_model->get_tickets($ticket_id, $ticket_type_id, $user_id);
@@ -4259,12 +4262,12 @@ Defined Methods:-
     public function send_message()
     {
         /*
-            user_type:user
-            user_id:1
-            ticket_id:1	
-            message:test	
-            attachments[]:files  {optional} {type allowed -> image,video,document,spreadsheet,archive}
-        */
+        user_type:user
+        user_id:1
+        ticket_id:1
+        message:test
+        attachments[]:files  {optional} {type allowed -> image,video,document,spreadsheet,archive}
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -4283,7 +4286,6 @@ Defined Methods:-
             $user_id = $this->input->post('user_id', true);
             $ticket_id = $this->input->post('ticket_id', true);
             $message = (isset($_POST['message']) && !empty(trim($_POST['message']))) ? $this->input->post('message', true) : "";
-
 
             $user = fetch_users($user_id);
             if (empty($user)) {
@@ -4307,7 +4309,6 @@ Defined Methods:-
                 'allowed_types' => $allowed_media_types,
                 'max_size' => 8000,
             ];
-
 
             if (!empty($_FILES['attachments']['name'][0]) && isset($_FILES['attachments']['name'])) {
                 $other_image_cnt = count($_FILES['attachments']['name']);
@@ -4343,7 +4344,7 @@ Defined Methods:-
                 }
 
                 //Deleting Uploaded attachments if any overall error occured
-                if ($images_info_error != NULL || !$this->form_validation->run()) {
+                if ($images_info_error != null || !$this->form_validation->run()) {
                     if (isset($images_new_name_arr) && !empty($images_new_name_arr || !$this->form_validation->run())) {
                         foreach ($images_new_name_arr as $key => $val) {
                             unlink(FCPATH . TICKET_IMG_PATH . $images_new_name_arr[$key]);
@@ -4351,7 +4352,7 @@ Defined Methods:-
                     }
                 }
             }
-            if ($images_info_error != NULL) {
+            if ($images_info_error != null) {
                 $this->response['error'] = true;
                 $this->response['message'] = $images_info_error;
                 print_r(json_encode($this->response));
@@ -4361,7 +4362,7 @@ Defined Methods:-
                 'user_type' => $user_type,
                 'user_id' => $user_id,
                 'ticket_id' => $ticket_id,
-                'message' => $message
+                'message' => $message,
             );
             if (!empty($_FILES['attachments']['name'][0]) && isset($_FILES['attachments']['name'])) {
                 $data['attachments'] = $images_new_name_arr;
@@ -4394,7 +4395,7 @@ Defined Methods:-
                             'type' => "ticket_message",
                             'type_id' => $ticket_id,
                             'chat' => json_encode($result['data']),
-                            'content_available' => true
+                            'content_available' => true,
                         );
                         send_notification($fcmMsg, $fcm_ids);
                     }
@@ -4416,16 +4417,16 @@ Defined Methods:-
     {
         /*
         31. get_tickets
-            ticket_id: 1001                // { optional}
-            ticket_type_id: 1001                // { optional}
-            user_id: 1001                // { optional}
-            status:   [1 -> pending, 2 -> opened, 3 -> resolved, 4 -> closed, 5 -> reopened]// { optional}
-            search : Search keyword // { optional }
-            limit:25                // { default - 25 } optional
-            offset:0                // { default - 0 } optional
-            sort: id | date_created | last_updated                // { default - id } optional
-            order:DESC/ASC          // { default - DESC } optional
-        */
+        ticket_id: 1001                // { optional}
+        ticket_type_id: 1001                // { optional}
+        user_id: 1001                // { optional}
+        status:   [1 -> pending, 2 -> opened, 3 -> resolved, 4 -> closed, 5 -> reopened]// { optional}
+        search : Search keyword // { optional }
+        limit:25                // { default - 25 } optional
+        offset:0                // { default - 0 } optional
+        sort: id | date_created | last_updated                // { default - id } optional
+        order:DESC/ASC          // { default - DESC } optional
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -4463,15 +4464,15 @@ Defined Methods:-
     {
         /*
         32. get_messages
-            ticket_id: 1001            
-            user_type: 1001                // { optional}
-            user_id: 1001                // { optional}
-            search : Search keyword // { optional }
-            limit:25                // { default - 25 } optional
-            offset:0                // { default - 0 } optional
-            sort: id | date_created | last_updated                // { default - id } optional
-            order:DESC/ASC          // { default - DESC } optional
-        */
+        ticket_id: 1001
+        user_type: 1001                // { optional}
+        user_id: 1001                // { optional}
+        search : Search keyword // { optional }
+        limit:25                // { default - 25 } optional
+        offset:0                // { default - 0 } optional
+        sort: id | date_created | last_updated                // { default - id } optional
+        order:DESC/ASC          // { default - DESC } optional
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -4508,7 +4509,7 @@ Defined Methods:-
         /*
         order_id:1
         attachments:file  {optional} {type allowed -> image,video,document,spreadsheet,archive}
-      */
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -4577,7 +4578,7 @@ Defined Methods:-
                     }
                 }
                 //Deleting Uploaded attachments if any overall error occured
-                if ($images_info_error != NULL || !$this->form_validation->run()) {
+                if ($images_info_error != null || !$this->form_validation->run()) {
                     if (isset($images_new_name_arr) && !empty($images_new_name_arr || !$this->form_validation->run())) {
                         foreach ($images_new_name_arr as $key => $val) {
                             unlink(FCPATH . DIRECT_BANK_TRANSFER_IMG_PATH . $images_new_name_arr[$key]);
@@ -4585,7 +4586,7 @@ Defined Methods:-
                     }
                 }
             }
-            if ($images_info_error != NULL) {
+            if ($images_info_error != null) {
                 $this->response['error'] = true;
                 $this->response['message'] = $images_info_error;
                 print_r(json_encode($this->response));
@@ -4638,10 +4639,10 @@ Defined Methods:-
     public function get_zipcodes()
     {
         /*
-              limit:10 {optional}
-              offset:0 {optional}
-              search:0 {optional}
-          */
+        limit:10 {optional}
+        offset:0 {optional}
+        search:0 {optional}
+         */
         $this->form_validation->set_rules('limit', 'limit', 'trim|numeric|xss_clean');
         $this->form_validation->set_rules('offset', 'offset', 'trim|numeric|xss_clean');
         $this->form_validation->set_rules('search', 'search', 'trim|xss_clean');
@@ -4667,9 +4668,9 @@ Defined Methods:-
     {
         /*
         32. is_product_delivarable
-            product_id:10 
-            zipcode:132456
-        */
+        product_id:10
+        zipcode:132456
+         */
         $this->form_validation->set_rules('product_id', 'Product Id', 'trim|numeric|xss_clean|required');
         $this->form_validation->set_rules('zipcode', 'Zipcode', 'trim|xss_clean|required');
 
@@ -4714,12 +4715,11 @@ Defined Methods:-
     {
         /*
         33. check_cart_products_delivarable
-            address_id:10 
-            user_id:12
-        */
+        address_id:10
+        user_id:12
+         */
         $this->form_validation->set_rules('address_id', 'Area Id', 'trim|numeric|xss_clean|required');
         $this->form_validation->set_rules('user_id', 'User Id', 'trim|xss_clean|required');
-
 
         if (!$this->verify_token()) {
             return false;
@@ -4779,8 +4779,8 @@ Defined Methods:-
     public function get_sellers()
     {
         /*
-            zipcode:1  //{optional}
-        */
+        zipcode:1  //{optional}
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -4903,15 +4903,15 @@ Defined Methods:-
     public function get_product_faqs()
     {
         /*
-            id:2    // {optional}
-            product_id:25   // {optional}
-            user_id:1       // {optional}
-            search : Search keyword // { optional }
-            limit:25                // { default - 10 } optional
-            offset:0                // { default - 0 } optional
-            sort: id                // { default - id } optional
-            order:DESC/ASC          // { default - DESC } optional
-        */
+        id:2    // {optional}
+        product_id:25   // {optional}
+        user_id:1       // {optional}
+        search : Search keyword // { optional }
+        limit:25                // { default - 10 } optional
+        offset:0                // { default - 0 } optional
+        sort: id                // { default - id } optional
+        order:DESC/ASC          // { default - DESC } optional
+         */
 
         if (!$this->verify_token()) {
             return false;
@@ -4948,10 +4948,10 @@ Defined Methods:-
     //41.send_withdrawal_request
     public function send_withdrawal_request()
     {
-        /* 
-             user_id:15
-             payment_address: 12343535
-             amount: 560           
+        /*
+        user_id:15
+        payment_address: 12343535
+        amount: 560
          */
 
         if (!$this->verify_token()) {
@@ -5008,10 +5008,10 @@ Defined Methods:-
     //42.get_withdrawal_request
     public function get_withdrawal_request()
     {
-        /* 
-             user_id:15
-             limit:10
-             offset:10
+        /*
+        user_id:15
+        limit:10
+        offset:10
          */
 
         if (!$this->verify_token()) {
@@ -5053,7 +5053,6 @@ Defined Methods:-
         $event = json_decode($request_body, true);
         log_message('error', 'paystack Webhook --> ' . var_export($event, true));
         log_message('error', 'paystack Webhook SERVER Variable --> ' . var_export($_SERVER, true));
-
 
         if (!empty($event['data'])) {
 
@@ -5135,7 +5134,6 @@ Defined Methods:-
                     if (isset($order['order_data'][0]['user_id'])) {
                         $user = fetch_details('users', ['id' => $order['order_data'][0]['user_id']]);
 
-
                         $overall_total = array(
                             'total_amount' => $order['order_data'][0]['total'],
                             'delivery_charge' => $order['order_data'][0]['delivery_charge'],
@@ -5146,9 +5144,8 @@ Defined Methods:-
                             'final_total' => $order['order_data'][0]['final_total'],
                             'otp' => $order['order_data'][0]['otp'],
                             'address' => $order['order_data'][0]['address'],
-                            'payment_method' => $order['order_data'][0]['payment_method']
+                            'payment_method' => $order['order_data'][0]['payment_method'],
                         );
-
 
                         $overall_order_data = array(
                             'cart_data' => $order['order_data'][0]['order_items'],
@@ -5160,9 +5157,8 @@ Defined Methods:-
                             'otp_msg' => 'Here is your OTP. Please, give it to delivery boy only while getting your order.',
                         );
 
-
                         if (isset($user[0]['email']) && !empty($user[0]['email'])) {
-                            send_mail($user[0]['email'], 'Order received successfully', $this->load->view('admin/pages/view/email-template.php', $overall_order_data, TRUE));
+                            send_mail($user[0]['email'], 'Order received successfully', $this->load->view('admin/pages/view/email-template.php', $overall_order_data, true));
                         }
 
                         /* No need to add because the transaction is already added just update the transaction status */
@@ -5184,8 +5180,6 @@ Defined Methods:-
                             ];
                             $this->transaction_model->add_transaction($data);
                         }
-
-
 
                         $status = json_encode(array(array('received', date("d-m-Y h:i:sa"))));
                         update_details(['status' => $status], ['order_id' => $order_id], 'order_items', false);
@@ -5214,7 +5208,7 @@ Defined Methods:-
                                 'title' => $fcm_admin_subject,
                                 'body' => $fcm_admin_msg,
                                 'type' => "place_order",
-                                'content_available' => true
+                                'content_available' => true,
                             );
                             send_notification($fcmMsg, $user_fcm_id);
                         }
@@ -5232,7 +5226,7 @@ Defined Methods:-
                     ->set_output(json_encode(
                         array(
                             'message' => '304 Not Modified - order/transaction id not found',
-                            'error' => true
+                            'error' => true,
                         )
                     ));
             }
@@ -5286,9 +5280,8 @@ Defined Methods:-
 
         $local_secret_hash = $credentials['secret_hash'];
 
-
         $request_body = file_get_contents('php://input');
-        $event = json_decode($request_body, FALSE);
+        $event = json_decode($request_body, false);
 
         log_message('error', 'Flutterwave Webhook --> ' . var_export($event, true));
         log_message('error', 'Flutterwave Webhook SERVER Variable --> ' . var_export($_SERVER, true));
@@ -5333,7 +5326,6 @@ Defined Methods:-
             }
         }
 
-
         $signature = (isset($_SERVER['HTTP_VERIF_HASH'])) ? $_SERVER['HTTP_VERIF_HASH'] : '';
 
         /* comparing our local signature with received signature */
@@ -5341,7 +5333,6 @@ Defined Methods:-
             log_message('error', 'FlutterWave Webhook - Invalid Signature - JSON DATA --> ' . var_export($event, true));
             log_message('error', 'FlutterWave Server Variable invalid --> ' . var_export($_SERVER, true));
         }
-
 
         if ($event->event == 'charge.completed' && $event->data->status == 'successful') {
             if (!empty($order_id)) {
@@ -5389,7 +5380,7 @@ Defined Methods:-
                             'final_total' => $order['order_data'][0]['final_total'],
                             'otp' => $order['order_data'][0]['otp'],
                             'address' => $order['order_data'][0]['address'],
-                            'payment_method' => $order['order_data'][0]['payment_method']
+                            'payment_method' => $order['order_data'][0]['payment_method'],
                         );
 
                         $overall_order_data = array(
@@ -5402,9 +5393,8 @@ Defined Methods:-
                             'otp_msg' => 'Here is your OTP. Please, give it to delivery boy only while getting your order.',
                         );
 
-
                         if (isset($user[0]['email']) && !empty($user[0]['email'])) {
-                            send_mail($user[0]['email'], 'Order received successfully', $this->load->view('admin/pages/view/email-template.php', $overall_order_data, TRUE));
+                            send_mail($user[0]['email'], 'Order received successfully', $this->load->view('admin/pages/view/email-template.php', $overall_order_data, true));
                         }
                         /* No need to add because the transaction is already added just update the transaction status */
                         if (!empty($transaction)) {
@@ -5442,7 +5432,7 @@ Defined Methods:-
                                 'title' => $fcm_admin_subject,
                                 'body' => $fcm_admin_msg,
                                 'type' => "place_order",
-                                'content_available' => true
+                                'content_available' => true,
                             );
                             send_notification($fcmMsg, $user_fcm_id);
                         }
@@ -5460,7 +5450,7 @@ Defined Methods:-
                     ->set_output(json_encode(
                         array(
                             'message' => '304 Not Modified - order/transaction id not found',
-                            'error' => true
+                            'error' => true,
                         )
                     ));
             }
@@ -5485,8 +5475,8 @@ Defined Methods:-
 
     public function razorpay_create_order()
     {
-        /* 
-             order_id:15
+        /*
+        order_id:15
          */
 
         if (!$this->verify_token()) {
@@ -5531,11 +5521,10 @@ Defined Methods:-
         }
     }
 
-
     /*
-        status: cancelled / returned
-        order_id:1201 // this is order_item_id
-    */
+    status: cancelled / returned
+    order_id:1201 // this is order_item_id
+     */
     public function update_order_status()
     {
         if (!$this->verify_token()) {
@@ -5557,7 +5546,6 @@ Defined Methods:-
                 print_r(json_encode($this->response));
                 return false;
             }
-
 
             // check for bank receipt if available
             $order_method = fetch_details('orders', ['id' => $_POST['order_id']], 'payment_method');
@@ -5698,8 +5686,6 @@ Defined Methods:-
                 }
             }
 
-
-
             if ($order_id != $transaction_response['order_id']) {
                 $response['error'] = true;
                 $response['message'] = "Order id is not matched with transaction order id.";
@@ -5784,7 +5770,7 @@ Defined Methods:-
                                 'final_total' => $order['order_data'][0]['final_total'],
                                 'otp' => $order['order_data'][0]['otp'],
                                 'address' => $order['order_data'][0]['address'],
-                                'payment_method' => $order['order_data'][0]['payment_method']
+                                'payment_method' => $order['order_data'][0]['payment_method'],
                             );
                             $overall_order_data = array(
                                 'cart_data' => $order['order_data'][0]['order_items'],
@@ -5797,7 +5783,7 @@ Defined Methods:-
                             );
 
                             if (isset($user[0]['email']) && !empty($user[0]['email'])) {
-                                send_mail($user[0]['email'], 'Order received successfully', $this->load->view('admin/pages/view/email-template.php', $overall_order_data, TRUE));
+                                send_mail($user[0]['email'], 'Order received successfully', $this->load->view('admin/pages/view/email-template.php', $overall_order_data, true));
                             }
 
                             /* No need to add because the transaction is already added just update the transaction status */
@@ -5847,7 +5833,7 @@ Defined Methods:-
                                     'title' => $fcm_admin_subject,
                                     'body' => $fcm_admin_msg,
                                     'type' => "place_order",
-                                    'content_available' => true
+                                    'content_available' => true,
                                 );
                                 send_notification($fcmMsg, $user_fcm_id);
                             }
@@ -5940,13 +5926,13 @@ Defined Methods:-
 
                 unset($data[0]['password']);
 
-                if (empty($data[0]['image']) || file_exists(FCPATH . USER_IMG_PATH . $data[0]['image']) == FALSE) {
+                if (empty($data[0]['image']) || file_exists(FCPATH . USER_IMG_PATH . $data[0]['image']) == false) {
                     $data[0]['image'] = base_url() . NO_USER_IMAGE;
                 } else {
                     $data[0]['image'] = base_url() . USER_IMG_PATH . $data[0]['image'];
                 }
                 $data = array_map(function ($value) {
-                    return $value === NULL ? "" : $value;
+                    return $value === null ? "" : $value;
                 }, $data[0]);
 
                 if (isset($data['active']) && !empty($data) && $data['active'] == 0) {
@@ -6009,7 +5995,7 @@ Defined Methods:-
                     'friends_code' => $this->input->post('friends_code', true),
                     'latitude' => $this->input->post('latitude', true),
                     'longitude' => $this->input->post('longitude', true),
-                    'active' => 1
+                    'active' => 1,
                 ];
                 $res = insert_details($additional_data, "users");
                 $user_id = $this->db->insert_id();
@@ -6018,7 +6004,7 @@ Defined Methods:-
                     'group_id' => 2,
                 ];
                 insert_details($user_details, "users_groups");
-                if ($res != FALSE) {
+                if ($res != false) {
                     $where = (!empty($mobile)) ? ['mobile' => $mobile] : ['email' => $email];
                     $where = (!empty($user_id)) && isset($user_id) ? ['id' => $user_id] : '';
 
@@ -6029,7 +6015,7 @@ Defined Methods:-
                     unset($data[0]['apikey']);
 
                     $data = array_map(function ($value) {
-                        return $value === NULL ? "" : $value;
+                        return $value === null ? "" : $value;
                     }, $data[0]);
 
                     $this->response['error'] = false;
@@ -6049,9 +6035,9 @@ Defined Methods:-
     public function download_link_hash()
     {
         /*
-           order_item_id : 100
-           user_id : 100
-        */
+        order_item_id : 100
+        user_id : 100
+         */
         if (!$this->verify_token()) {
             return false;
         }
@@ -6067,7 +6053,7 @@ Defined Methods:-
         }
         $order_item_id = (isset($_POST['order_item_id']) && (trim($_POST['order_item_id'])) != "") ? $this->input->post('order_item_id', true) : '';
         $user_id = (isset($_POST['user_id']) && (trim($_POST['user_id'])) != "") ? $this->input->post('user_id', true) : '';
-        ;
+
         $oreder_item_data = fetch_details('order_items', ['id' => $order_item_id], '*');
         $transaction_data = fetch_details('transactions', ['order_id' => $oreder_item_data[0]['order_id']], 'status');
 
@@ -6105,9 +6091,9 @@ Defined Methods:-
 
     public function check_shiprocket_serviceability()
     {
-        /* 
-            product_variant_id:15
-            delivery_pincode:370001
+        /*
+        product_variant_id:15
+        delivery_pincode:370001
          */
         if (!$this->verify_token()) {
             return false;
@@ -6171,7 +6157,6 @@ Defined Methods:-
                                 'weight' => $product_variant_detail[0]['weight'],
                             ];
 
-
                             $check_deliveribility = $this->shiprocket->check_serviceability($availibility_data);
 
                             $shiprocket_data = shiprocket_recomended_data($check_deliveribility);
@@ -6230,9 +6215,9 @@ Defined Methods:-
     }
     public function check_user_status()
     {
-        /* 
-           user_id:15
-           
+        /*
+        user_id:15
+
          */
         if (!$this->verify_token()) {
             return false;
@@ -6261,9 +6246,9 @@ Defined Methods:-
         }
     }
 
-    /* 
-        user_id:15
-    */
+    /*
+    user_id:15
+     */
     public function delete_social_account()
     {
 
@@ -6391,7 +6376,7 @@ Defined Methods:-
                             $delete['seller_data'] = 1;
                         }
                         if (isset($delete['seller_data']) && !empty($delete['seller_data']) && isset($delete['seller_commission']) && !empty($delete['seller_commission'])) {
-                            $deleted = TRUE;
+                            $deleted = true;
                         }
                     }
                     delete_details(['id' => $_POST['user_id']], 'users');
@@ -6417,12 +6402,11 @@ Defined Methods:-
     }
     public function instamojo_webview()
     {
-        /* 
-            user_id:73
-            order_id:101 
-            amount:100 // only pass while wallet refill
-        */
-
+        /*
+        user_id:73
+        order_id:101
+        amount:100 // only pass while wallet refill
+         */
 
         $this->form_validation->set_rules('user_id', 'User ID', 'trim|required|numeric|xss_clean');
         $this->form_validation->set_rules('order_id', 'Order ID', 'trim|required|xss_clean');
@@ -6442,7 +6426,6 @@ Defined Methods:-
             $amount = $_POST['amount'];
             $user = fetch_users($user_id);
             $order = fetch_orders($order_id, $user_id);
-
 
             if (empty($user) || !isset($user[0]['mobile'])) {
                 $response['error'] = true;
@@ -6489,7 +6472,7 @@ Defined Methods:-
     {
 
         // if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
-            return $this->Customer_model->get_customer_detail($id);
+        return $this->Customer_model->get_customer_detail($id);
         // } else {
         //     redirect('admin/login', 'refresh');
         // }
