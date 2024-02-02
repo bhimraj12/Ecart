@@ -6477,4 +6477,60 @@ class Api extends CI_Controller
         //     redirect('admin/login', 'refresh');
         // }
     }
+
+    public function update_order_data()
+    {
+        $amount_paid = $_POST['amount_paid'];
+        $order_id = $_POST['order_id'];
+        $total = $_POST['total'];
+        $sub_total = $_POST['sub_total'];
+        $quantity = $_POST['quantity'];
+        $delivery_charge = $_POST['delivery_charge'];
+        // Update orders table
+        $order_data = array(
+            'delivery_charge' => $delivery_charge,
+            'total' => $total,
+            'total_payable' => $amount_paid,
+            'final_total' => $total
+        );
+        $this->db->where('id', $order_id);
+        $order_update_result = $this->db->update('orders', $order_data);
+    
+        // Update order_changes table
+        $order_changes_data = array(
+            'delivery_charge' => $delivery_charge,
+            'sub_total' => $sub_total,
+            'total' => $total
+        );
+    
+        $this->db->where('order_id', $order_id);
+        $order_changes_update_result = $this->db->update('order_charges', $order_changes_data);
+    
+        // Update order_items table
+        $order_items_data = array(
+            'quantity' => $quantity,
+            'price' =>   $total,
+            'sub_total' => $sub_total
+        );
+    
+        $this->db->where('order_id', $order_id);
+        $order_items_update_result = $this->db->update('order_items', $order_items_data);
+    
+        // Update transactions table
+        $transactions_data = array(
+            'amount' => $total
+        );
+    
+        $this->db->where('order_id', $order_id);
+        $transactions_update_result = $this->db->update('transactions', $transactions_data);
+    
+        // Check if any update failed
+        if ($order_update_result && $order_changes_update_result && $order_items_update_result && $transactions_update_result) {
+            echo json_encode(['success' => true, 'message' => 'Data updated successfully']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to update data']);
+        }
+    }
+    
+
 }
