@@ -435,13 +435,12 @@
                                        <thead>
             <tr>
             <th data-field="id" data-visible="true" data-sortable="true">ID</th>
-<th data-field="user_id" data-visible="true" data-sortable="true">User ID</th>
 <th data-field="name" data-visible="true" data-sortable="true">Product Name</th>
 <th data-field="qty" data-visible="true" data-sortable="true">Quantity</th>
-<th data-field="date_created" data-visible="true" data-sortable="true">Date Created</th>
 <th data-field="username" data-visible="true" data-sortable="true">User Name</th>
 <th data-field="email" data-visible="true" data-sortable="true">Email</th>
 <th data-field="mobile" data-visible="true" data-sortable="true">Mobile</th>
+<th data-field="date_created" data-visible="true" data-sortable="true">Date Created</th>
 
             </tr>
         </thead>
@@ -500,13 +499,13 @@ function populateCartList(cartList) {
                 var row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${item.id}</td>
-                    <td>${item.user_id}</td>
                     <td>${item.name}</td>
                     <td>${item.qty}</td>
-                    <td>${item.date_created}</td>
                     <td>${item.username}</td>
                     <td>${item.email}</td>
                     <td>${item.mobile}</td>
+                    <td>${item.date_created}</td>
+
                 `;
                 tableBody.appendChild(row);
             });
