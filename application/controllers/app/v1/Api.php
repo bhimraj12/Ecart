@@ -6531,6 +6531,37 @@ class Api extends CI_Controller
             echo json_encode(['success' => false, 'message' => 'Failed to update data']);
         }
     }
+
+    public function get_all_users_carts()
+    {
+        if (!$this->verify_token()) {
+            return false;
+        }
+
+        $this->db->select('cart.*, users.username,users.email,users.mobile, product_variants.product_id, products.category_id,products.name');
+        $this->db->from('cart');
+        $this->db->join('users', 'users.id = cart.user_id');
+        $this->db->join('product_variants', 'product_variants.id = cart.product_variant_id');
+        $this->db->join('products', 'products.id = product_variants.product_id');
+
+        $query = $this->db->get();
+        $result = $query->result();
+      
+        if (empty($result)) {
+            $this->response['error'] = true;
+            $this->response['message'] = 'Cart Is Empty !';
+            $this->response['data'] = array();
+            print_r(json_encode($this->response));
+            return;
+        }
+
+        $this->response['error'] = false;
+        $this->response['message'] = 'Data Retrieved Successfully !';
+        $this->response['data'] = $result;
+        print_r(json_encode($this->response));
+        return;
+
+    }
     
 
 }
