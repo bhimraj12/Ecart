@@ -382,6 +382,15 @@ $doctor_brown_for_app = get_settings('doctor_brown'); ?>
                         </ul>
                     </li>
                 <?php } ?>
+                <?php if (has_permissions('read', 'cart_lists')) { ?>
+    <li class="nav-item">
+        <a href="<?= base_url('admin/pages/view/add_cartdata.php') ?>" class="nav-link">
+            <i class="fas fa-shopping-cart nav-icon"></i>
+            <p>Cart Lists</p>
+        </a>
+    </li>
+<?php } ?>
+
                 <?php if (has_permissions('read', 'customers')) { ?>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">

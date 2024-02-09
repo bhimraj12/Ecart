@@ -556,6 +556,7 @@ $config['system_modules'] = [
     'new_offer_images' => array('create', 'read', 'delete'),
     'promo_code' => array('create', 'read', 'update', 'delete'),
     'featured_section' => array('create', 'read', 'update', 'delete'),
+    'cart_lists' => array('create', 'read', 'update', 'delete'),
     'customers' => array('read', 'update'),
     'return_request' => array('read', 'update'),
     'delivery_boy' => array('create', 'read', 'update', 'delete'),

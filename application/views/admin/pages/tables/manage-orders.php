@@ -363,6 +363,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#order_items_table">Order Items</a>
                                 </li>
+
+                                <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#cart_list_table">Cart List</a>
+        </li>
                             </ul>
                             <div class="tab-content">
                                 <div id="orders_table" class="tab-pane active"><br>
@@ -437,3 +441,97 @@
     </section>
     <!-- /.content -->
 </div>
+<div id="cart_list_table" class="tab-pane fade">
+            <br>
+            <!-- Cart List Table HTML -->
+            <table id="cartListTable" class='table-striped'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Date Created</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                    </tr>
+                </thead>
+                <tbody id="cartListTableBody">
+                    <!-- Cart List table body will be populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Fetch data from the endpoint and populate the table
+        function fetchCartList() {
+            // Add a debugging statement before making the AJAX request
+console.log("Attempting to fetch data from the endpoint...");
+
+$.ajax({
+    url: 'https://smitox-testing.online/admin/customer/get_all_users_carts',
+    type: 'GET',
+    dataType: 'json',
+    success: function(response) {
+        console.log("Successfully fetched data:", response);
+        // Process the response data here
+    },
+    error: function(xhr, status, error) {
+        console.error("Error fetching data:", error);
+        // Handle the error here
+    }
+});
+
+            // Make an AJAX request
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://smitox-testing.online/admin/customer/get_all_users_carts', true);
+
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // Parse JSON response
+                    var cartList = JSON.parse(xhr.responseText);
+
+                    // Clear previous table data
+                    document.getElementById('cartListTableBody').innerHTML = '';
+
+                    // Populate the table with fetched data
+                    cartList.forEach(function (item) {
+                        var row = '<tr>' +
+                            '<td>' + item.id + '</td>' +
+                            '<td>' + item.user_id + '</td>' +
+                            '<td>' + item.name + '</td>' +
+                            '<td>' + item.qty + '</td>' +
+                            '<td>' + item.date_created + '</td>' +
+                            '<td>' + item.username + '</td>' +
+                            '<td>' + item.email + '</td>' +
+                            '<td>' + item.mobile + '</td>' +
+                            '</tr>';
+                        document.getElementById('cartListTableBody').innerHTML += row;
+                    });
+                } else {
+                    console.error(xhr.statusText);
+                }
+            };
+
+            xhr.onerror = function () {
+                console.error('Request failed');
+            };
+
+            // Send the request
+            xhr.send();
+        }
+
+        // Fetch cart list when the tab is clicked
+        document.getElementById('cart_list_table').addEventListener('click', function () {
+            fetchCartList();
+        });
+
+        // Fetch cart list initially (optional)
+        fetchCartList();
+    </script>
