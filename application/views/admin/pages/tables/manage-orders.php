@@ -430,6 +430,27 @@
                                         </thead>
                                     </table>
                                 </div>
+                                <div id="cart_list_table" class="tab-pane fade">
+                                <table class='table-striped' data-toggle="table" data-url="<?= base_url('admin/customer/get_all_users_carts') ?>" data-click-to-select="true" data-side-pagination="server" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-search="true" data-show-columns="true" data-show-refresh="true" data-trim-on-search="false" data-sort-name="oi.id" data-sort-order="desc" data-mobile-responsive="true" data-toolbar="" data-show-export="true" data-maintain-selected="true" data-export-types='["txt","excel","csv"]' data-export-options='{"fileName": "order-item-list","ignoreColumn": ["state"] }' data-query-params="orders_query_params">
+                                       <thead>
+            <tr>
+            <th data-field="id" data-visible="true" data-sortable="true">ID</th>
+<th data-field="user_id" data-visible="true" data-sortable="true">User ID</th>
+<th data-field="name" data-visible="true" data-sortable="true">Product Name</th>
+<th data-field="qty" data-visible="true" data-sortable="true">Quantity</th>
+<th data-field="date_created" data-visible="true" data-sortable="true">Date Created</th>
+<th data-field="username" data-visible="true" data-sortable="true">User Name</th>
+<th data-field="email" data-visible="true" data-sortable="true">Email</th>
+<th data-field="mobile" data-visible="true" data-sortable="true">Mobile</th>
+
+            </tr>
+        </thead>
+        <tbody id="cartListTableBody">
+            <!-- Cart List table body will be populated dynamically -->
+        </tbody>
+    </table>
+</div>
+
                             </div>
 
                         </div><!-- .card-innr -->
@@ -441,97 +462,70 @@
     </section>
     <!-- /.content -->
 </div>
-<div id="cart_list_table" class="tab-pane fade">
-            <br>
-            <!-- Cart List Table HTML -->
-            <table id="cartListTable" class='table-striped'>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>User ID</th>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Date Created</th>
-                        <th>User Name</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
-                    </tr>
-                </thead>
-                <tbody id="cartListTableBody">
-                    <!-- Cart List table body will be populated dynamically -->
-                </tbody>
-            </table>
-        </div>
-    </div>
+
+
 
     <!-- Include jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        // Fetch data from the endpoint and populate the table
-        function fetchCartList() {
-            // Add a debugging statement before making the AJAX request
-console.log("Attempting to fetch data from the endpoint...");
+// Fetch data from the endpoint and populate the table
+function fetchCartList() {
+    // Make an AJAX request
+    $.ajax({
+        url: base_url + 'admin/customer/get_all_users_carts',
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            console.log("Successfully fetched data:", response);
+            // Call function to populate the table with the retrieved data
+            populateCartList(response.data);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching data:", error);
+            // Handle the error here
+        }
+    });
+}
 
-$.ajax({
-    url: base_url +'admin/customer/get_all_users_carts',
-    type: 'GET',
-    dataType: 'json',
-    success: function(response) {
-        console.log("Successfully fetched data:", response);
-        // Process the response data here
-    },
-    error: function(xhr, status, error) {
-        console.error("Error fetching data:", error);
-        // Handle the error here
+// Function to populate the cart list table with data
+function populateCartList(cartList) {
+    var tableBody = document.getElementById('cartListTableBody');
+    tableBody.innerHTML = ''; // Clear previous table data
+
+    if (cartList && Array.isArray(cartList)) {
+        if (cartList.length > 0) {
+            cartList.forEach(function(item) {
+                var row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.id}</td>
+                    <td>${item.user_id}</td>
+                    <td>${item.name}</td>
+                    <td>${item.qty}</td>
+                    <td>${item.date_created}</td>
+                    <td>${item.username}</td>
+                    <td>${item.email}</td>
+                    <td>${item.mobile}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } else {
+            console.log('No data available.');
+        }
+    } else {
+        console.error('Invalid data format: expected an array');
     }
+}
+
+// Fetch cart list when the tab is clicked
+document.getElementById('cart_list_table').addEventListener('click', function() {
+    fetchCartList();
 });
 
-            // Make an AJAX request
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', base_url +'admin/customer/get_all_users_carts', true);
+// Fetch cart list initially (optional)
+fetchCartList();
 
-            xhr.onload = function () {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    // Parse JSON response
-                    var cartList = JSON.parse(xhr.responseText);
 
-                    // Clear previous table data
-                    document.getElementById('cartListTableBody').innerHTML = '';
 
-                    // Populate the table with fetched data
-                    cartList.forEach(function (item) {
-                        var row = '<tr>' +
-                            '<td>' + item.id + '</td>' +
-                            '<td>' + item.user_id + '</td>' +
-                            '<td>' + item.name + '</td>' +
-                            '<td>' + item.qty + '</td>' +
-                            '<td>' + item.date_created + '</td>' +
-                            '<td>' + item.username + '</td>' +
-                            '<td>' + item.email + '</td>' +
-                            '<td>' + item.mobile + '</td>' +
-                            '</tr>';
-                        document.getElementById('cartListTableBody').innerHTML += row;
-                    });
-                } else {
-                    console.error(xhr.statusText);
-                }
-            };
-
-            xhr.onerror = function () {
-                console.error('Request failed');
-            };
-
-            // Send the request
-            xhr.send();
-        }
-
-        // Fetch cart list when the tab is clicked
-        document.getElementById('cart_list_table').addEventListener('click', function () {
-            fetchCartList();
-        });
-
-        // Fetch cart list initially (optional)
-        fetchCartList();
-    </script>
+</script>
