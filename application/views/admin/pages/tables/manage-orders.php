@@ -475,7 +475,7 @@
 console.log("Attempting to fetch data from the endpoint...");
 
 $.ajax({
-    url: 'https://smitox-testing.online/admin/customer/get_all_users_carts',
+    url: base_url +'admin/customer/get_all_users_carts',
     type: 'GET',
     dataType: 'json',
     success: function(response) {
@@ -490,7 +490,7 @@ $.ajax({
 
             // Make an AJAX request
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'https://smitox-testing.online/admin/customer/get_all_users_carts', true);
+            xhr.open('GET', base_url +'admin/customer/get_all_users_carts', true);
 
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300) {
