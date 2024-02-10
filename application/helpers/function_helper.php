@@ -1787,9 +1787,9 @@ function get_cart_total($user_id, $product_variant_id = false, $is_saved_for_lat
     $t->db->where(['p.status' => '1', 'pv.status' => 1, 'sd.status' => 1]);
     $t->db->group_by('c.id')->order_by('c.id', "DESC");
     $data = $t->db->get('cart c')->result_array();
-//     echo "<pre>";
-// print_r($data);
-// die;
+    //     echo "<pre>";
+    // print_r($data);
+    // die;
 
     $total = array();
     $variant_id = array();
@@ -1822,10 +1822,20 @@ function get_cart_total($user_id, $product_variant_id = false, $is_saved_for_lat
         $variant_id[$i] = $data[$i]['id'];
         $quantity[$i] = intval($data[$i]['qty']);
 
-        if (floatval($data[$i]['special_price']) > 0) {
-            $total[$i] = floatval($data[$i]['special_price'] + $special_price_tax_amount) * $data[$i]['qty'];
+        $productSetInfo = $t->db->select('minimum_quantity, maximum_quantity, selling_price_set')
+                ->where('product_id', $data[$i]['product_id'])
+                ->where('minimum_quantity <=', $data[$i]['qty'])
+                ->where('maximum_quantity >=', $data[$i]['qty'])
+                ->get('product_set')
+                ->row_array();
+        if ($productSetInfo && $data[$i]['qty'] >= $productSetInfo['minimum_quantity'] && $data[$i]['qty'] <= $productSetInfo['maximum_quantity']) {
+            $total[$i] = floatval($productSetInfo['selling_price_set']+ $special_price_tax_amount) * $data[$i]['qty'];
         } else {
-            $total[$i] = floatval($data[$i]['price'] + $price_tax_amount) * $data[$i]['qty'];
+            if (floatval($data[$i]['special_price']) > 0) {
+                $total[$i] = floatval($data[$i]['special_price'] + $special_price_tax_amount) * $data[$i]['qty'];
+            } else {
+                $total[$i] = floatval($data[$i]['price'] + $price_tax_amount) * $data[$i]['qty'];
+            }
         }
         $data[$i]['special_price'] = $data[$i]['special_price'] + $special_price_tax_amount;
         $data[$i]['price'] = $data[$i]['price'] + $price_tax_amount;

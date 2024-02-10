@@ -124,13 +124,22 @@ class Cart_model extends CI_Model
                 
                 $d['tax_percentage'] =  (isset($d['tax_percentage']) && !empty($d['tax_percentage'])) ? $d['tax_percentage'] : '';
                 $d['tax_amount'] =  (isset($tax_amount) && !empty($tax_amount)) ? str_replace(",", "", number_format($tax_amount,2)) : 0;
+                
+                $productSetInfo = $this->db->select('minimum_quantity, maximum_quantity, selling_price_set')
+                ->where('product_id', $d['id'])
+                ->get('product_set')
+                ->row_array();
+
+                if ($productSetInfo && $d['qty'] >= $productSetInfo['minimum_quantity'] && $d['qty'] <= $productSetInfo['maximum_quantity']) {
+                    $d['sub_total'] = $productSetInfo['selling_price_set'] * $d['qty'];
+                } else {
                 if (isset($d['special_price']) && $d['special_price'] != '' && $d['special_price'] != null && $d['special_price'] > 0 && $d['special_price'] < $d['price'] ? $d['special_price'] : $d['price']) {
                     $d['sub_total'] =  ($d['special_price'] * $d['qty']);
-    
                 }
                 else{
                     $d['sub_total'] =  ($d['price'] * $d['qty']);
                 }
+            }
                 $d['quantity_step_size'] =  (isset($d['quantity_step_size']) && !empty($d['quantity_step_size'])) ? $d['quantity_step_size'] : 1;
                 $d['total_allowed_quantity'] =  isset($d['total_allowed_quantity']) && !empty($d['total_allowed_quantity']) ? $d['total_allowed_quantity'] : '';
                 $d['product_variants'] = get_variants_values_by_id($d['product_variant_id']);
