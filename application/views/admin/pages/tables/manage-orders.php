@@ -615,6 +615,16 @@
             url: base_url + 'admin/customer/get_all_users_carts',
             type: 'GET',
             dataType: 'json',
+            data: function(params) {
+                // Construct query parameters based on Bootstrap table attributes
+                return {
+                    limit: params.limit,
+                    offset: params.offset,
+                    search: params.search,
+                    sort: params.sort,
+                    order: params.order
+                };
+            },
             success: function (response) {
                 console.log("Successfully fetched data:", response);
                 // Call function to populate the table with the retrieved data
@@ -667,7 +677,4 @@
 
     // Fetch cart list initially (optional)
     fetchCartList();
-
-
-
 </script>
