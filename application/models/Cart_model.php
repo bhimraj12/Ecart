@@ -64,7 +64,7 @@ class Cart_model extends CI_Model
         if (!empty($product_variant_id)) {
             $q->where('c.product_variant_id', $product_variant_id);
         }
-        $res =  $q->select('c.*,p.is_prices_inclusive_tax,p.name,p.type,p.id,p.slug as product_slug,p.image,p.short_description,p.seller_id,p.minimum_order_quantity,p.quantity_step_size,p.pickup_location,pv.weight,p.total_allowed_quantity,pv.price,pv.special_price,pv.id as product_variant_id,tax.percentage as tax_percentage')->order_by('c.id', 'DESC')->get('cart c')->result_array();
+        $res =  $q->select('c.*,p.is_prices_inclusive_tax,p.name,p.type,p.id,p.slug as product_slug,p.image,p.short_description,p.seller_id,p.minimum_order_quantity,p.quantity_step_size,p.pickup_location,pv.weight,p.total_allowed_quantity,pv.price,pv.special_price,pv.id as product_variant_id,tax.percentage as tax_percentage,pv.unit_set')->order_by('c.id', 'DESC')->get('cart c')->result_array();
 
 
         if (!empty($res)) {
@@ -130,16 +130,37 @@ class Cart_model extends CI_Model
                 ->get('product_set')
                 ->row_array();
 
-                if ($productSetInfo && $d['qty'] >= $productSetInfo['minimum_quantity'] && $d['qty'] <= $productSetInfo['maximum_quantity']) {
-                    $d['sub_total'] = $productSetInfo['selling_price_set'] * $d['qty'];
+                if (!empty($d['unit_set']) && $d['unit_set'] > 0) {
+                    $minimum_unit_set = $productSetInfo['minimum_quantity'] * $d['unit_set'];
+                    $maximum_unit_set = $productSetInfo['maximum_quantity'] * $d['unit_set'];
+
+                    if ($productSetInfo && $d['qty'] >=  $minimum_unit_set && $d['qty'] <= $maximum_unit_set) {
+                        $d['sub_total'] = $productSetInfo['selling_price_set']*$d['unit_set'] * $d['qty'];
+                    } else {
+                    if (isset($d['special_price']) && $d['special_price'] != '' && $d['special_price'] != null && $d['special_price'] > 0 && $d['special_price'] < $d['price'] ? $d['special_price'] : $d['price']) {
+                        $d['sub_total'] =  ($d['special_price'] * $d['qty']);
+                    }
+                    else{
+                        $d['sub_total'] =  ($d['price'] * $d['qty']);
+                    }
+                }
                 } else {
-                if (isset($d['special_price']) && $d['special_price'] != '' && $d['special_price'] != null && $d['special_price'] > 0 && $d['special_price'] < $d['price'] ? $d['special_price'] : $d['price']) {
-                    $d['sub_total'] =  ($d['special_price'] * $d['qty']);
+                    $minimum_unit_set = $productSetInfo['minimum_quantity'];
+                    $maximum_unit_set = $productSetInfo['maximum_quantity'];
+
+                    if ($productSetInfo && $d['qty'] >=  $minimum_unit_set && $d['qty'] <= $maximum_unit_set) {
+                        $d['sub_total'] = $productSetInfo['selling_price_set']* $d['qty'];
+                    } else {
+                    if (isset($d['special_price']) && $d['special_price'] != '' && $d['special_price'] != null && $d['special_price'] > 0 && $d['special_price'] < $d['price'] ? $d['special_price'] : $d['price']) {
+                        $d['sub_total'] =  ($d['special_price'] * $d['qty']);
+                    }
+                    else{
+                        $d['sub_total'] =  ($d['price'] * $d['qty']);
+                    }
                 }
-                else{
-                    $d['sub_total'] =  ($d['price'] * $d['qty']);
                 }
-            }
+                
+               
                 $d['quantity_step_size'] =  (isset($d['quantity_step_size']) && !empty($d['quantity_step_size'])) ? $d['quantity_step_size'] : 1;
                 $d['total_allowed_quantity'] =  isset($d['total_allowed_quantity']) && !empty($d['total_allowed_quantity']) ? $d['total_allowed_quantity'] : '';
                 $d['product_variants'] = get_variants_values_by_id($d['product_variant_id']);

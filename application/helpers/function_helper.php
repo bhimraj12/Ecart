@@ -1765,7 +1765,7 @@ function get_subcategory_option_html($subcategories, $selected_vals)
 function get_cart_total($user_id, $product_variant_id = false, $is_saved_for_later = '0', $address_id = '')
 {
     $t = &get_instance();
-    $t->db->select('(select sum(c.qty)  from cart c join product_variants pv on c.product_variant_id=pv.id join products p on p.id=pv.product_id join seller_data sd on sd.user_id=p.seller_id  where c.user_id="' . $user_id . '" and qty >= 0  and  is_saved_for_later = "' . $is_saved_for_later . '" and p.status=1 AND pv.status=1 AND sd.status=1) as total_items,(select count(c.id) from cart c join product_variants pv on c.product_variant_id=pv.id join products p on p.id=pv.product_id join seller_data sd on sd.user_id=p.seller_id where c.user_id="' . $user_id . '" and qty>=0 and  is_saved_for_later = "' . $is_saved_for_later . '" and p.status=1 AND pv.status=1 AND sd.status=1) as cart_count,`c`.qty,c.is_saved_for_later,p.is_prices_inclusive_tax,p.cod_allowed,p.type,p.download_allowed,p.minimum_order_quantity,p.slug,p.quantity_step_size,p.total_allowed_quantity, p.name, p.image, p.stock as product_stock, p.availability as product_availability, p.short_description,p.pickup_location,p.is_prices_inclusive_tax, pv.weight,`c`.user_id,pv.*,tax.percentage as tax_percentage,tax.title as tax_title');
+    $t->db->select('(select sum(c.qty)  from cart c join product_variants pv on c.product_variant_id=pv.id join products p on p.id=pv.product_id join seller_data sd on sd.user_id=p.seller_id  where c.user_id="' . $user_id . '" and qty >= 0  and  is_saved_for_later = "' . $is_saved_for_later . '" and p.status=1 AND pv.status=1 AND sd.status=1) as total_items,(select count(c.id) from cart c join product_variants pv on c.product_variant_id=pv.id join products p on p.id=pv.product_id join seller_data sd on sd.user_id=p.seller_id where c.user_id="' . $user_id . '" and qty>=0 and  is_saved_for_later = "' . $is_saved_for_later . '" and p.status=1 AND pv.status=1 AND sd.status=1) as cart_count,`c`.qty,c.is_saved_for_later,p.is_prices_inclusive_tax,p.cod_allowed,p.type,p.download_allowed,p.minimum_order_quantity,p.slug,p.quantity_step_size,p.total_allowed_quantity, p.name, p.image, p.stock as product_stock, p.availability as product_availability, p.short_description,p.pickup_location,p.is_prices_inclusive_tax, pv.weight,`c`.user_id,pv.*,tax.percentage as tax_percentage,tax.title as tax_title,pv.unit_set');
 
     if ($product_variant_id == true) {
         $t->db->where(['c.product_variant_id' => $product_variant_id, 'c.user_id' => $user_id, 'c.qty !=' => '0']);
@@ -1822,21 +1822,59 @@ function get_cart_total($user_id, $product_variant_id = false, $is_saved_for_lat
         $variant_id[$i] = $data[$i]['id'];
         $quantity[$i] = intval($data[$i]['qty']);
 
-        $productSetInfo = $t->db->select('minimum_quantity, maximum_quantity, selling_price_set')
-                ->where('product_id', $data[$i]['product_id'])
-                ->where('minimum_quantity <=', $data[$i]['qty'])
-                ->where('maximum_quantity >=', $data[$i]['qty'])
-                ->get('product_set')
-                ->row_array();
-        if ($productSetInfo && $data[$i]['qty'] >= $productSetInfo['minimum_quantity'] && $data[$i]['qty'] <= $productSetInfo['maximum_quantity']) {
-            $total[$i] = floatval($productSetInfo['selling_price_set']+ $special_price_tax_amount) * $data[$i]['qty'];
-        } else {
-            if (floatval($data[$i]['special_price']) > 0) {
-                $total[$i] = floatval($data[$i]['special_price'] + $special_price_tax_amount) * $data[$i]['qty'];
+        if (!empty($data[$i]['unit_set']) && $data[$i]['unit_set'] > 0) {
+            if($data[$i]['qty'] > $data[$i]['unit_set']){
+            $divied_qty = $data[$i]['qty'] / $data[$i]['unit_set'];
+            }else{
+            $divied_qty = $data[$i]['unit_set'] / $data[$i]['qty'];
+            }
+            $productSetInfo = $t->db->select('minimum_quantity, maximum_quantity, selling_price_set')
+            ->where('product_id', $data[$i]['product_id'])
+            ->where('minimum_quantity <=', $divied_qty)
+            ->where('maximum_quantity >=', $divied_qty)
+            ->get('product_set')
+            ->row_array();
+            $minimum_unit_set = $productSetInfo['minimum_quantity'] * $data[$i]['unit_set'];
+            $maximum_unit_set = $productSetInfo['maximum_quantity'] * $data[$i]['unit_set'];
+            if ($productSetInfo && $data[$i]['qty'] >= $minimum_unit_set && $data[$i]['qty'] <= $maximum_unit_set) {
+                $total[$i] = floatval($productSetInfo['selling_price_set']+ $special_price_tax_amount) * $data[$i]['unit_set'] * $data[$i]['qty'];
             } else {
-                $total[$i] = floatval($data[$i]['price'] + $price_tax_amount) * $data[$i]['qty'];
+                if (floatval($data[$i]['special_price']) > 0) {
+                    $total[$i] = floatval($data[$i]['special_price'] + $special_price_tax_amount) * $data[$i]['qty'];
+    
+                } else {
+                    $total[$i] = floatval($data[$i]['price'] + $price_tax_amount) * $data[$i]['qty'];
+                }
+            }
+        } else {
+
+            $productSetInfo = $t->db->select('minimum_quantity, maximum_quantity, selling_price_set')
+            ->where('product_id', $data[$i]['product_id'])
+            ->where('minimum_quantity <=', $data[$i]['qty'])
+            ->where('maximum_quantity >=', $data[$i]['qty'])
+            ->get('product_set')
+            ->row_array();
+
+            $minimum_unit_set = $productSetInfo['minimum_quantity'];
+            $maximum_unit_set = $productSetInfo['maximum_quantity'];
+
+            if ($productSetInfo && $data[$i]['qty'] >= $minimum_unit_set && $data[$i]['qty'] <= $maximum_unit_set) {
+                $total[$i] = floatval($productSetInfo['selling_price_set']+ $special_price_tax_amount) * $data[$i]['qty'];
+                log_message('debug', 'total: ' . $total[$i]);
+    
+            } else {
+                if (floatval($data[$i]['special_price']) > 0) {
+                    $total[$i] = floatval($data[$i]['special_price'] + $special_price_tax_amount) * $data[$i]['qty'];
+                    log_message('debug', 'else if total: ' . $total[$i]);
+    
+                } else {
+                    $total[$i] = floatval($data[$i]['price'] + $price_tax_amount) * $data[$i]['qty'];
+                    log_message('debug', 'else total: ' . $total[$i]);
+    
+                }
             }
         }
+        
         $data[$i]['special_price'] = $data[$i]['special_price'] + $special_price_tax_amount;
         $data[$i]['price'] = $data[$i]['price'] + $price_tax_amount;
 
