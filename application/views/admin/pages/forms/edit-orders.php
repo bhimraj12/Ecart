@@ -547,36 +547,72 @@
                                                                                     <div class="order-product-image">
                                                                                         <a href='<?= base_url() . $item['product_image'] ?>' data-toggle='lightbox' data-gallery='order-images'> <img src='<?= base_url() . $item['product_image'] ?>' class='h-75'></a>
                                                                                     </div>
-                                                                                    <div><span class="text-bold">Product Type : </span><small><?= ucwords(str_replace('_', ' ', $item['product_type'])); ?> </small></div>
-                                                                                    <div><span class="text-bold">Variant ID : </span><?= $item['product_variant_id'] ?> </div>
-                                                                                    <?php if (isset($item['product_variants']) && !empty($item['product_variants'])) { ?>
-                                                                                        <div><span class="text-bold">Variants : </span><?= str_replace(',', ' | ', $item['product_variants'][0]['variant_values']) ?> </div>
-                                                                                    <?php } ?>
-                                                                                    <div><span class="text-bold">Name : </span><small><?= $item['pname'] ?> </small></div>
-                                                                                    <div><span class="text-bold">Quantity : </span><?= $item['quantity'] ?> </div>
-                                                                                    <!-- <div><span class="text-bold">Price : </span><?= $item['price'] + $item['tax_amount'] ?></div> -->
-                                                                                    <div><span class="text-bold">Price : </span><?= $item['price'] ?></div>
-                                                                                    <div><span class="text-bold">Discounted Price : </span> <?= $item['discounted_price'] ?> </div>
-                                                                                    <div><span class="text-bold">Subtotal : </span><?= $item['price'] * $item['quantity'] ?> </div>
-                                                                                    <?php if (isset($item['product_type']) && ($item['product_type'] != 'digital_product')) { ?>
-                                                                                        <div><span class="text-bold">Pickup Location : </span><?= $item['pickup_location'] ?> </div>
-                                                                                        <?php if (isset($order_tracking_data[0]['shipment_id']) && !empty($order_tracking_data[0]['shipment_id'])) { ?>
-                                                                                            <div><span class="text-bold">Shipment Id : </span><?= $order_tracking_data[0]['shipment_id'] ?></div>
-                                                                                    <?php  }
-                                                                                    } ?>
-                                                                                    <?php
-                                                                                    $badges = ["awaiting" => "secondary", "received" => "primary", "processed" => "info", "shipped" => "warning", "delivered" => "success", "returned" => "danger", "cancelled" => "danger", "return_request_approved" => "success", "return_request_decline" => "danger", "return_request_pending" => "warning"]
-                                                                                    ?>
-                                                                                    <?php if (isset($item['updated_by'])) { ?>
-                                                                                        <div><span class="text-bold">Updated By : </span><?= $item['updated_by'] ?> </div>
-                                                                                    <?php } ?>
-                                                                                    <?php if (isset($item['deliver_by'])) { ?>
-                                                                                        <div><span class="text-bold">Deliver By : </span><?= $item['deliver_by'] ?> </div>
-                                                                                    <?php } ?>
-                                                                                    <div><span class="text-bold">Active Status : </span> <span class="badge ml-1 badge-<?= $badges[$item['active_status']] ?>"> <small><?= str_replace('_', ' ', $item['active_status']) ?></small></span></div>
-                                                                                    <div><span class="text-bold">View Product : </span> <a href=" <?= BASE_URL('admin/product/view-product?edit_id=' . $item['product_id'] . '') ?> " title="View Product" class="btn action-btn ml-1 btn-primary btn-xs">
-                                                                                            <i class="fa fa-eye"></i>
-                                                                                        </a></div>
+                                                                                    <div>
+    <span class="text-bold">Product Type:</span>
+    <small><?= ucwords(str_replace('_', ' ', $item['product_type'])); ?></small>
+</div>
+<div>
+    <span class="text-bold">Variant ID:</span>
+    <?= $item['product_variant_id'] ?>
+</div>
+<?php if (isset($item['product_variants']) && !empty($item['product_variants'])) { ?>
+    <div>
+        <span class="text-bold">Variants:</span>
+        <?= str_replace(',', ' | ', $item['product_variants'][0]['variant_values']) ?>
+    </div>
+<?php } ?>
+<div>
+    <span class="text-bold">Name:</span>
+    <small><?= $item['pname'] ?></small>
+</div>
+<div>
+    <span class="text-bold">Quantity:</span>
+    <input type="number" name="quantity" value="<?= $item['quantity'] ?>">
+</div>
+<div>
+    <span class="text-bold">Price:</span>
+    <input type="number" name="price" value="<?= $item['price'] ?>">
+</div>
+<div>
+    <span class="text-bold">Discounted Price:</span>
+    <?= $item['discounted_price'] ?>
+</div>
+<div>
+    <span class="text-bold">Subtotal:</span>
+    <?= $item['price'] * $item['quantity'] ?>
+</div>
+<?php if (isset($item['product_type']) && ($item['product_type'] != 'digital_product')) { ?>
+    <div>
+        <span class="text-bold">Pickup Location:</span>
+        <?= $item['pickup_location'] ?>
+    </div>
+    <?php if (isset($order_tracking_data[0]['shipment_id']) && !empty($order_tracking_data[0]['shipment_id'])) { ?>
+        <div>
+            <span class="text-bold">Shipment Id:</span>
+            <?= $order_tracking_data[0]['shipment_id'] ?>
+        </div>
+    <?php } ?>
+<?php } ?>
+<div>
+    <span class="text-bold">Active Status:</span>
+    <span class="badge ml-1 badge-<?= $badges[$item['active_status']] ?>">
+        <small><?= str_replace('_', ' ', $item['active_status']) ?></small>
+    </span>
+</div>
+<div>
+    <span class="text-bold">View Product:</span>
+    <a href="<?= BASE_URL('admin/product/view-product?edit_id=' . $item['product_id'] . '') ?>" title="View Product" class="btn action-btn ml-1 btn-primary btn-xs">
+        <i class="fa fa-eye"></i>
+    </a>
+</div>
+
+<!-- Single Update Button -->
+<div class="row mb-1 mt-1 order_item_mail_status">
+    <div class="col-md-7 text-center">
+        <!-- Update Button -->
+        <button class="btn btn-primary btn-xs action-btn ml-1 update_order_data" data-id="<?= $item['id'] ?>">Update</button>
+    </div>
+</div>
 
 
 
@@ -869,3 +905,37 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.update_order_data').on('click', function() {
+        var itemId = $(this).data('id');
+        var quantity = $('input[name="quantity"]').val();
+        var price = $('input[name="price"]').val();
+        var deliveryPrice = $('input[name="delivery_price"]').val(); // Assuming you have an input field for delivery price
+        
+        // Send the data via AJAX
+        $.ajax({
+            url: 'http://localhost:8000/app/v1/api/update_order_data',
+            method: 'POST',
+            data: {
+                order_id: itemId,
+                quantity: quantity,
+                price: price,
+                delivery_price: deliveryPrice
+            },
+            success: function(response) {
+                // Handle success response
+                console.log(response);
+                alert('Order data updated successfully!');
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                console.error(error);
+                alert('Failed to update order data. Please try again.');
+            }
+        });
+    });
+});
+</script>

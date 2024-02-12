@@ -561,7 +561,7 @@
                                         data-sort-name="cart.id" data-sort-order="desc" data-mobile-responsive="true"
                                         data-toolbar="" data-show-export="true" data-maintain-selected="true"
                                         data-export-types='["txt","excel","csv"]'
-                                        data-export-options='{"fileName": "order-item-list","ignoreColumn": ["state"] }'
+                                        data-export-options='{"fileName": "cart-item-list","ignoreColumn": ["state"] }'
                                         data-query-params="orders_query_params">
                                         <thead>
                                             <tr>
@@ -583,9 +583,8 @@
                                                     Added</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="cartListTableBody">
-                                            <!-- Cart List table body will be populated dynamically -->
-                                        </tbody>
+                                     
+
                                     </table>
                                 </div>
 
@@ -603,7 +602,7 @@
 
 
 
-<!-- Include jQuery and Bootstrap JS -->
+<!-- Include jQuery and Bootstrap JS
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -677,4 +676,4 @@
 
     // Fetch cart list initially (optional)
     fetchCartList();
-</script>
+</script> -->
