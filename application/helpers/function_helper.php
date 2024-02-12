@@ -1836,16 +1836,7 @@ function get_cart_total($user_id, $product_variant_id = false, $is_saved_for_lat
             ->row_array();
             $minimum_unit_set = $productSetInfo['minimum_quantity'] * $data[$i]['unit_set'];
             $maximum_unit_set = $productSetInfo['maximum_quantity'] * $data[$i]['unit_set'];
-            if ($productSetInfo && $data[$i]['qty'] >= $minimum_unit_set && $data[$i]['qty'] <= $maximum_unit_set) {
-                $total[$i] = floatval($productSetInfo['selling_price_set']+ $special_price_tax_amount) * $data[$i]['unit_set'] * $data[$i]['qty'];
-            } else {
-                if (floatval($data[$i]['special_price']) > 0) {
-                    $total[$i] = floatval($data[$i]['special_price'] + $special_price_tax_amount) * $data[$i]['qty'];
-    
-                } else {
-                    $total[$i] = floatval($data[$i]['price'] + $price_tax_amount) * $data[$i]['qty'];
-                }
-            }
+           
         } else {
 
             $productSetInfo = $t->db->select('minimum_quantity, maximum_quantity, selling_price_set')
@@ -1857,24 +1848,17 @@ function get_cart_total($user_id, $product_variant_id = false, $is_saved_for_lat
 
             $minimum_unit_set = $productSetInfo['minimum_quantity'];
             $maximum_unit_set = $productSetInfo['maximum_quantity'];
-
-            if ($productSetInfo && $data[$i]['qty'] >= $minimum_unit_set && $data[$i]['qty'] <= $maximum_unit_set) {
-                $total[$i] = floatval($productSetInfo['selling_price_set']+ $special_price_tax_amount) * $data[$i]['qty'];
-                log_message('debug', 'total: ' . $total[$i]);
-    
+        }
+        if ($productSetInfo && $data[$i]['qty'] >= $minimum_unit_set && $data[$i]['qty'] <= $maximum_unit_set) {
+            $total[$i] = floatval($productSetInfo['selling_price_set']+ $special_price_tax_amount) * $data[$i]['qty'];    
+        } else {
+            if (floatval($data[$i]['special_price']) > 0) {
+                $total[$i] = floatval($data[$i]['special_price'] + $special_price_tax_amount) * $data[$i]['qty'];    
             } else {
-                if (floatval($data[$i]['special_price']) > 0) {
-                    $total[$i] = floatval($data[$i]['special_price'] + $special_price_tax_amount) * $data[$i]['qty'];
-                    log_message('debug', 'else if total: ' . $total[$i]);
-    
-                } else {
-                    $total[$i] = floatval($data[$i]['price'] + $price_tax_amount) * $data[$i]['qty'];
-                    log_message('debug', 'else total: ' . $total[$i]);
-    
-                }
+                $total[$i] = floatval($data[$i]['price'] + $price_tax_amount) * $data[$i]['qty'];    
             }
         }
-        
+
         $data[$i]['special_price'] = $data[$i]['special_price'] + $special_price_tax_amount;
         $data[$i]['price'] = $data[$i]['price'] + $price_tax_amount;
 

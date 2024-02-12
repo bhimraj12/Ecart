@@ -134,22 +134,12 @@ class Cart_model extends CI_Model
                     $minimum_unit_set = $productSetInfo['minimum_quantity'] * $d['unit_set'];
                     $maximum_unit_set = $productSetInfo['maximum_quantity'] * $d['unit_set'];
 
-                    if ($productSetInfo && $d['qty'] >=  $minimum_unit_set && $d['qty'] <= $maximum_unit_set) {
-                        $d['sub_total'] = $productSetInfo['selling_price_set']*$d['unit_set'] * $d['qty'];
-                    } else {
-                    if (isset($d['special_price']) && $d['special_price'] != '' && $d['special_price'] != null && $d['special_price'] > 0 && $d['special_price'] < $d['price'] ? $d['special_price'] : $d['price']) {
-                        $d['sub_total'] =  ($d['special_price'] * $d['qty']);
-                    }
-                    else{
-                        $d['sub_total'] =  ($d['price'] * $d['qty']);
-                    }
-                }
                 } else {
                     $minimum_unit_set = $productSetInfo['minimum_quantity'];
                     $maximum_unit_set = $productSetInfo['maximum_quantity'];
-
-                    if ($productSetInfo && $d['qty'] >=  $minimum_unit_set && $d['qty'] <= $maximum_unit_set) {
-                        $d['sub_total'] = $productSetInfo['selling_price_set']* $d['qty'];
+                }
+                if ($productSetInfo && $d['qty'] >=  $minimum_unit_set && $d['qty'] <= $maximum_unit_set) {
+                        $d['sub_total'] = $productSetInfo['selling_price_set'] * $d['qty'];
                     } else {
                     if (isset($d['special_price']) && $d['special_price'] != '' && $d['special_price'] != null && $d['special_price'] > 0 && $d['special_price'] < $d['price'] ? $d['special_price'] : $d['price']) {
                         $d['sub_total'] =  ($d['special_price'] * $d['qty']);
@@ -157,7 +147,6 @@ class Cart_model extends CI_Model
                     else{
                         $d['sub_total'] =  ($d['price'] * $d['qty']);
                     }
-                }
                 }
                 
                
