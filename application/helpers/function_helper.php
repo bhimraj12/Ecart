@@ -2218,7 +2218,7 @@ function send_digital_product_mail($to, $subject, $message, $attachment)
     return $response;
 }
 
-function fetch_orders($order_id = NULL, $user_id = NULL, $status = NULL, $delivery_boy_id = NULL, $limit = NULL, $offset = NULL, $sort = NULL, $order = NULL, $download_invoice = false, $start_date = null, $end_date = null, $search = null, $city_id = null, $area_id = null, $seller_id = null, $order_type = '', $from_seller = false)
+function fetch_orders($order_id = NULL,$cod_type = NULL, $user_id = NULL, $status = NULL, $delivery_boy_id = NULL, $limit = NULL, $offset = NULL, $sort = NULL, $order = NULL, $download_invoice = false, $start_date = null, $end_date = null, $search = null, $city_id = null, $area_id = null, $seller_id = null, $order_type = '', $from_seller = false)
 {
 
     $t = &get_instance();
@@ -2309,7 +2309,7 @@ function fetch_orders($order_id = NULL, $user_id = NULL, $status = NULL, $delive
         $total = $row['total'];
     }
 
-    $search_res = $t->db->select(' o.*, u.username,u.country_code, p.name,p.type,p.download_allowed,p.pickup_location,a.name as order_recipient_person,pv.special_price,pv.price,oc.delivery_charge as seller_delivery_charge,oc.promo_discount as seller_promo_dicount')
+    $search_res = $t->db->select(' o.*, u.username,u.country_code, p.name,p.type,p.download_allowed,p.pickup_location,a.name as order_recipient_person,pv.special_price,pv.price,oc.delivery_charge as seller_delivery_charge,oc.promo_discount as seller_promo_dicount, pv.unit_set')
         ->join(' `users` u', 'u.id= o.user_id', 'left')
         ->join(' `order_items` oi', 'o.id= oi.order_id', 'left')
         ->join('product_variants pv', 'pv.id=oi.product_variant_id', 'left')
@@ -2381,7 +2381,7 @@ function fetch_orders($order_id = NULL, $user_id = NULL, $status = NULL, $delive
         $t->db->select('oi.*,p.id as product_id,p.is_cancelable,p.is_prices_inclusive_tax,p.cancelable_till,p.type,p.slug,p.download_allowed,p.download_link,sd.store_name,u.longitude as seller_longitude,u.mobile as seller_mobile,u.address as seller_address,u.latitude as seller_latitude,(select username from users where id=oi.delivery_boy_id) as delivery_boy_name ,sd.store_description,sd.rating as seller_rating,sd.logo as seller_profile,ot.courier_agency,ot.tracking_id,ot.awb_code,ot.url,u.username as seller_name,p.is_returnable,
         pv.special_price,pv.price as main_price,p.image,p.name,p.pickup_location,pv.weight,p.rating as product_rating,p.type,pr.rating as user_rating, pr.images as user_rating_images, pr.comment as user_rating_comment,oi.status as status,
         (Select count(id) from order_items where order_id = oi.order_id ) as order_counter ,
-        (Select count(active_status) from order_items where active_status ="cancelled" and order_id = oi.order_id ) as order_cancel_counter , (Select count(active_status) from order_items where active_status ="returned" and order_id = oi.order_id ) as order_return_counter ')
+        (Select count(active_status) from order_items where active_status ="cancelled" and order_id = oi.order_id ) as order_cancel_counter , (Select count(active_status) from order_items where active_status ="returned" and order_id = oi.order_id ) as order_return_counter,pv.unit_set ')
             ->join('product_variants pv', 'pv.id=oi.product_variant_id', 'left')
             ->join('products p', 'pv.product_id=p.id', 'left')
             ->join('product_rating pr', 'pv.product_id=pr.product_id ' . $pr_condition, 'left')
@@ -2466,8 +2466,6 @@ function fetch_orders($order_id = NULL, $user_id = NULL, $status = NULL, $delive
         $download_allowed = array();
         for ($k = 0; $k < count($order_item_data); $k++) {
 
-
-
             array_push($download_allowed, $order_item_data[$k]['download_allowed']);
             // $download_allowed = array_values(array_unique(array_column($order_item_data[$k], "download_allowed")));
 
@@ -2491,9 +2489,63 @@ function fetch_orders($order_id = NULL, $user_id = NULL, $status = NULL, $delive
                 } else {
                     $price_tax_amount = $price * ($order_item_data[$k]['tax_percent'] / 100);
                 }
+                
+                if (!empty($order_details[$i]['unit_set']) && $order_details[$i]['unit_set'] > 0) {
+                if($order_item_data[$k]['quantity'] > $order_details[$i]['unit_set']){
+                $divied_qty = $order_item_data[$k]['quantity'] / $order_details[$i]['unit_set'];
+                }else{
+                $divied_qty = $order_details[$i]['unit_set'] / $order_item_data[$k]['quantity'];
+                }
+                $productSetInfo = $t->db->select('minimum_quantity, maximum_quantity, selling_price_set')
+                ->where('product_id', $order_details[$i]['product_id'])
+                ->where('minimum_quantity <=', $divied_qty)
+                ->where('maximum_quantity >=', $divied_qty)
+                ->get('product_set')
+                ->row_array();
+
+                $minimum_unit_set = $productSetInfo['minimum_quantity'] * $order_details[$i]['unit_set'];
+                $maximum_unit_set = $productSetInfo['maximum_quantity'] * $order_details[$i]['unit_set'];
+               
+                } else {
+        
+                    $productSetInfo = $t->db->select('minimum_quantity, maximum_quantity, selling_price_set')
+                    ->where('product_id', $order_details[$i]['product_id'])
+                    ->where('minimum_quantity <=', $order_item_data[$k]['quantity'])
+                    ->where('maximum_quantity >=',$order_item_data[$k]['quantity'])
+                    ->get('product_set')
+                    ->row_array();
+        
+                    $minimum_unit_set = $productSetInfo['minimum_quantity'];
+                    $maximum_unit_set = $productSetInfo['maximum_quantity'];
+                }
+                $tax_search_res = $t->db->where('id', 1)->get('taxes')->result_array();
+                $advance = $tax_search_res->percentage;
+                if ($productSetInfo && $order_item_data[$k]['quantity'] >= $minimum_unit_set && $order_item_data[$k]['quantity'] <= $maximum_unit_set) {
+                    if($cod_type == 2){
+                        $item_subtotal += ((floatval($productSetInfo['selling_price_set']) * $order_item_data[$k]['quantity'])*$advance)/100;    
+                    }else{
+                        $item_subtotal += floatval($productSetInfo['selling_price_set']) * $order_item_data[$k]['quantity'];    
+                    }
+                } else {
+                    if (floatval($order_item_data[$k]['special_price']) > 0) {
+                        if($cod_type == 2){
+                        $item_subtotal += ((floatval($order_item_data[$k]['special_price']) * $order_item_data[$k]['quantity'])*$advance)/100;    
+                        }
+                        else{
+                            $item_subtotal += floatval($order_item_data[$k]['special_price']) * $order_item_data[$k]['quantity'];    
+                        }
+                    } else {
+                        if($cod_type == 2){
+                            $item_subtotal += ((floatval($order_item_data[$k]['price']) * $order_item_data[$k]['quantity'])*$advance)/100;    
+                        }
+                        else{
+                            $item_subtotal += floatval($order_item_data[$k]['price']) * $order_item_data[$k]['quantity'];    
+                        }
+                        }
+                }
                 $order_item_data[$k]['tax_amount'] = isset($price_tax_amount) && !empty($price_tax_amount) ?  (float)number_format($price_tax_amount, 2) : 0.00;
                 $order_item_data[$k]['net_amount'] = $order_item_data[$k]['price'] - $order_item_data[$k]['tax_amount'];
-                $item_subtotal += $order_item_data[$k]['sub_total'];
+                // $item_subtotal += $order_item_data[$k]['sub_total'];
                 $order_item_data[$k]['seller_name'] = (!empty($order_item_data[$k]['seller_name'])) ? $order_item_data[$k]['seller_name'] : '';
                 $order_item_data[$k]['store_description'] = (!empty($order_item_data[$k]['store_description'])) ? $order_item_data[$k]['store_description'] : '';
                 $order_item_data[$k]['seller_rating'] = (!empty($order_item_data[$k]['seller_rating'])) ? number_format($order_item_data[$k]['seller_rating'], 1) : "0";
@@ -2583,8 +2635,8 @@ function fetch_orders($order_id = NULL, $user_id = NULL, $status = NULL, $delive
 
             $order_details[$i]['total'] = strval($item_subtotal);
 
-            $order_details[$i]['final_total'] = strval($item_subtotal - $total_tax_amount +  $order_details[$i]['delivery_charge']);
-            $order_details[$i]['total_payable'] = strval($item_subtotal +  $order_details[$i]['delivery_charge'] - $order_details[$i]['promo_discount'] -  $order_details[$i]['wallet_balance']);
+            $order_details[$i]['final_total'] = strval($item_subtotal - 2000 +  $order_details[$i]['delivery_charge']);
+            $order_details[$i]['total_payable'] = strval($item_subtotal +  2000- $order_details[$i]['promo_discount'] -  $order_details[$i]['wallet_balance']);
         } else {
             $order_details[$i]['total'] = strval($order_details[$i]['total']);
         }
@@ -5180,3 +5232,4 @@ function cancel_shiprocket_order($shiprocket_order_id)
     $t->db->set($is_canceled)->where('shiprocket_order_id', $shiprocket_order_id)->update('order_tracking');
     return $res;
 }
+

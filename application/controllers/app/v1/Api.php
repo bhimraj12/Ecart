@@ -800,7 +800,7 @@ class Api extends CI_Controller
         $search_res = $this->db->select(' u.id,u.cod_type');
 
         $customer_detail = $search_res->where('u.id', $id)->get('users u')->result_array();
-
+ 
         // Get tax details
         $search_res = $this->db->select(' * ');
         $tax_search_res = $search_res->where('id', 1)->get('taxes')->result_array();
@@ -5492,12 +5492,15 @@ class Api extends CI_Controller
             return;
         } else {
             $order_id = (isset($_POST['order_id'])) ? $_POST['order_id'] : null;
-            $order = fetch_orders($order_id, false, false, false, false, false, false, false);
+            $cod_type = (isset($_POST['cod_type'])) ? $_POST['cod_type'] : null;
+
+            $order = fetch_orders($order_id,$cod_type, false, false, false, false, false, false, false);
+
             $settings = get_settings('system_settings', true);
 
             if (!empty($order) && !empty($settings)) {
                 $currency = $settings['supported_locals'];
-                $price = $order['order_data'][0]['total_payable'];
+                $price = $order['order_data'][1]['total_payable'];
                 $amount = intval($price * 100);
 
                 $this->load->library(['razorpay']);
@@ -6477,8 +6480,8 @@ class Api extends CI_Controller
         //     redirect('admin/login', 'refresh');
         // }
     }
-
-    public function update_order_data()
+    
+        public function update_order_data()
     {
         $amount_paid = $_POST['amount_paid'];
         $order_id = $_POST['order_id'];
@@ -6531,37 +6534,4 @@ class Api extends CI_Controller
             echo json_encode(['success' => false, 'message' => 'Failed to update data']);
         }
     }
-
-    public function get_all_users_carts()
-    {
-        if (!$this->verify_token()) {
-            return false;
-        }
-
-        $this->db->select('cart.*, users.username,users.email,users.mobile, product_variants.product_id, products.category_id,products.name');
-        $this->db->from('cart');
-        $this->db->join('users', 'users.id = cart.user_id');
-        $this->db->join('product_variants', 'product_variants.id = cart.product_variant_id');
-        $this->db->join('products', 'products.id = product_variants.product_id');
-
-        $query = $this->db->get();
-        $result = $query->result();
-      
-        if (empty($result)) {
-            $this->response['error'] = true;
-            $this->response['message'] = 'Cart Is Empty !';
-            $this->response['data'] = array();
-            print_r(json_encode($this->response));
-            return;
-        }
-
-        $this->response['error'] = false;
-        $this->response['message'] = 'Data Retrieved Successfully !';
-        $this->response['data'] = $result;
-        print_r(json_encode($this->response));
-        return;
-
-    }
-    
-
 }
