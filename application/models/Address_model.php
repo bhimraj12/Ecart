@@ -112,6 +112,12 @@ class Address_model extends CI_Model
         }
     }
 
+    function updateAddress($id, $data) {
+        // Update the address in the database
+        $this->db->where('id', $id);
+        $this->db->update('addresses', $data);
+    }
+
     function delete_address($data)
     {
         $this->db->delete('addresses', ['id' => $data['id']]);

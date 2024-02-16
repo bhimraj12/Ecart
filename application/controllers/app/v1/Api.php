@@ -115,7 +115,7 @@ class Api extends CI_Controller
         header("Pragma: no-cache");
 
         $this->load->library(['upload', 'jwt', 'ion_auth', 'form_validation', 'paypal_lib', 'Key', 'instamojo']);
-        $this->load->model(['category_model', 'order_model', 'rating_model', 'Area_model', 'cart_model', 'address_model', 'transaction_model', 'ticket_model', 'Order_model', 'notification_model', 'faq_model', 'Seller_model', 'Promo_code_model', 'media_model', 'product_model', 'Customer_model']);
+        $this->load->model(['category_model', 'order_model', 'rating_model', 'Area_model', 'cart_model', 'address_model','Address_model', 'transaction_model', 'ticket_model', 'Order_model', 'notification_model', 'faq_model', 'Seller_model', 'Promo_code_model', 'media_model', 'product_model', 'Customer_model']);
         $this->load->helper(['language', 'string']);
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
         $this->lang->load('auth');
@@ -2592,42 +2592,60 @@ class Api extends CI_Controller
     }
 
     //update_address
-    public function update_address()
+
+    public function update_address() 
     {
         if (!$this->verify_token()) {
             return false;
         }
 
-        $this->form_validation->set_rules('id', 'Id', 'trim|required|numeric|xss_clean');
-        $this->form_validation->set_rules('type', 'Type', 'trim|xss_clean');
-        $this->form_validation->set_rules('country_code', 'Country Code', 'trim|xss_clean');
-        $this->form_validation->set_rules('name', 'Name', 'trim|xss_clean');
-        $this->form_validation->set_rules('mobile', 'Mobile', 'trim|numeric|xss_clean');
-        $this->form_validation->set_rules('alternate_mobile', 'Alternative Mobile', 'trim|numeric|xss_clean');
-        $this->form_validation->set_rules('address', 'Address', 'trim|xss_clean');
-        $this->form_validation->set_rules('landmark', 'Landmark', 'trim|xss_clean');
-        // $this->form_validation->set_rules('area_id', 'Area', 'trim|xss_clean');
-        $this->form_validation->set_rules('general_area_name', 'Area', 'trim|xss_clean');
-        $this->form_validation->set_rules('city_id', 'City', 'trim|xss_clean');
-        $this->form_validation->set_rules('city_name', 'City', 'trim|xss_clean');
-        $this->form_validation->set_rules('area_name', 'Area', 'trim|xss_clean');
-        $this->form_validation->set_rules('pincode', 'Pincode', 'trim|numeric|xss_clean');
-        $this->form_validation->set_rules('state', 'State', 'trim|xss_clean');
-        $this->form_validation->set_rules('country', 'Country', 'trim|xss_clean');
+        // Get input data from the request
+        $id = $this->input->post('id');
+        $user_id = $this->input->post('user_id');
+        $is_default = $this->input->post('is_default', true);
 
-        if (!$this->form_validation->run()) {
-            $this->response['error'] = true;
-            $this->response['message'] = strip_tags(validation_errors());
-            $this->response['data'] = array();
-        } else {
-            $this->address_model->set_address($_POST);
-            $res = $this->address_model->get_address(null, $_POST['id'], true);
-            $this->response['error'] = false;
-            $this->response['message'] = 'Address updated Successfully';
-            $this->response['data'] = $res;
-        }
+        // Other fields
+        $name = $this->input->post('name');
+        $country_code = $this->input->post('country_code');
+        $mobile = $this->input->post('mobile');
+        $alternate_mobile = $this->input->post('alternate_mobile');
+        $address = $this->input->post('address');
+        $landmark = $this->input->post('landmark');
+        $area = $this->input->post('area');
+        $city = $this->input->post('city');
+        $pincode = $this->input->post('pincode');
+        $state = $this->input->post('state');
+        $country = $this->input->post('country');
+
+        // Validate input data if needed
+
+        // Prepare data for update
+        $data = array(
+            'user_id' => $user_id,
+            'is_default' => $is_default,
+            'name' => $name,
+            'country_code' => $country_code,
+            'mobile' => $mobile,
+            'alternate_mobile' => $alternate_mobile,
+            'address' => $address,
+            'landmark' => $landmark,
+            'area' => $area,
+            'city' => $city,
+            'pincode' => $pincode,
+            'state' => $state,
+            'country' => $country
+            // Add other fields as needed
+        );
+        // Update the address in the database
+        $this->Address_model->updateAddress($id, $data);
+
+        // Return a JSON response
+        $res = $this->address_model->get_address(null, $_POST['id'], true);
+        $this->response['error'] = false;
+        $this->response['message'] = 'Address updated Successfully';
+        $this->response['data'] = $res;
         print_r(json_encode($this->response));
-    }
+}
 
     //delete_address
     public function delete_address()
@@ -6566,6 +6584,43 @@ class Api extends CI_Controller
         return;
 
     }
+
+        // public function update_address()
+    // {
+    //     // if (!$this->verify_token()) {
+    //     //     return false;
+    //     // }
+
+    //     $this->form_validation->set_rules('id', 'Id', 'trim|required|numeric|xss_clean');
+    //     $this->form_validation->set_rules('type', 'Type', 'trim|xss_clean');
+    //     $this->form_validation->set_rules('country_code', 'Country Code', 'trim|xss_clean');
+    //     $this->form_validation->set_rules('name', 'Name', 'trim|xss_clean');
+    //     $this->form_validation->set_rules('mobile', 'Mobile', 'trim|numeric|xss_clean');
+    //     $this->form_validation->set_rules('alternate_mobile', 'Alternative Mobile', 'trim|numeric|xss_clean');
+    //     $this->form_validation->set_rules('address', 'Address', 'trim|xss_clean');
+    //     $this->form_validation->set_rules('landmark', 'Landmark', 'trim|xss_clean');
+    //     // $this->form_validation->set_rules('area_id', 'Area', 'trim|xss_clean');
+    //     $this->form_validation->set_rules('general_area_name', 'Area', 'trim|xss_clean');
+    //     $this->form_validation->set_rules('city_id', 'City', 'trim|xss_clean');
+    //     $this->form_validation->set_rules('city_name', 'City', 'trim|xss_clean');
+    //     $this->form_validation->set_rules('area_name', 'Area', 'trim|xss_clean');
+    //     $this->form_validation->set_rules('pincode', 'Pincode', 'trim|numeric|xss_clean');
+    //     $this->form_validation->set_rules('state', 'State', 'trim|xss_clean');
+    //     $this->form_validation->set_rules('country', 'Country', 'trim|xss_clean');
+
+    //     // if (!$this->form_validation->run()) {
+    //     //     $this->response['error'] = true;
+    //     //     $this->response['message'] = strip_tags(validation_errors());
+    //     //     $this->response['data'] = array();
+    //     // } else {
+    //         $this->address_model->set_address($_POST);
+    //         $res = $this->address_model->get_address(null, $_POST['id'], true);
+    //         $this->response['error'] = false;
+    //         $this->response['message'] = 'Address updated Successfully';
+    //         $this->response['data'] = $res;
+    //     // }
+    //     print_r(json_encode($this->response));
+    // }
     
 
 }
