@@ -3608,6 +3608,72 @@ $(document).on('click', '.update_delivery_boy_admin', function (e) {
         allowOutsideClick: false
     });
 });
+
+//seller boysss
+
+// $(document).on('click', '.update_status_admin_bulk', function (e) {
+//     var order_item_id = [];
+//     if ($('input[name="seller_id"]:checked').val() != undefined) {
+//         var seller_id = $('input[name="seller_id"]:checked').val();
+//     } else {
+//         var seller_id = $(this).data("seller_id");
+//     }
+//     var order_id = $('input[name="order_id"]').val();
+//     var status = $('.status').val();
+//     var deliver_by = $('#deliver_by').val();
+//     var order_item_ids = $('input[name="order_item_id"]:checked').serializeArray();
+//     var order_item_ids = $('input[name="order_item_id"]:checked').serializeArray();
+//     $.each(order_item_ids, function (i, field) {
+//         order_item_id.push(field.value);
+//     });
+
+//     Swal.fire({
+//         title: 'Are You Sure!',
+//         text: "You won't be able to revert this!",
+//         type: 'warning',
+//         showCancelButton: true,
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Yes, update it!',
+//         showLoaderOnConfirm: true,
+//         preConfirm: function () {
+//             return new Promise((resolve, reject) => {
+//                 $.ajax({
+//                     type: 'POST',
+//                     url: base_url + from + '/orders/update_order_status',
+//                     data: {
+//                         seller_id: seller_id,
+//                         order_id: order_id,
+//                         status: status,
+//                         deliver_by: deliver_by,
+//                         order_item_id: order_item_id,
+//                         [csrfName]: csrfHash
+//                     },
+
+//                     dataType: 'json',
+//                     success: function (result) {
+//                         console.log(result);
+//                         csrfName = result['csrfName'];
+//                         csrfHash = result['csrfHash'];
+//                         if (result['error'] == false) {
+//                             iziToast.success({
+//                                 message: result['message'],
+//                             });
+//                         } else {
+//                             iziToast.error({
+//                                 message: result['message'],
+//                             });
+//                         }
+//                         swal.close();
+//                         setTimeout(function () { location.reload(); }, 1000);
+//                     }
+//                 });
+//             });
+//         },
+//         allowOutsideClick: false
+//     });
+// });
+
 $(document).on('click', '.update_status_admin_bulk', function (e) {
     var order_item_id = [];
     if ($('input[name="seller_id"]:checked').val() != undefined) {

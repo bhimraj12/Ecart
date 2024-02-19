@@ -270,13 +270,13 @@
                                             <p>
                                                 <lable class="badge badge-success" style="font-size:13px;">Select status and radio button of seller which you want to update</lable>
                                             </p>
-                                            <div class="row">
+                                            <!-- <div class="row">
                                                 <div class="col-md-4 ">
                                                     <select name="status" class="form-control status">
                                                         <option value=''>Select Status</option>
                                                         <option value="delivered">Delivered</option>
                                                     </select>
-                                                </div>
+                                                </div> -->
 
                                                 <div class="col-md-4">
                                                     <a href="javascript:void(0);" title="Bulk Update" class="btn btn-primary col-sm-12 col-md-12 update_status_admin_bulk mr-1">
@@ -295,7 +295,7 @@
                                             <p>
                                                 <lable class="badge badge-success " style="font-size:13px;">Select status, delivery boy and radio button of seller which you want to update</lable>
                                             </p>
-                                            <div class="row delivery_boy ">
+                                            <!-- <div class="row delivery_boy ">
 
                                                 <div class="col-md-4 ">
                                                     <select name="status" class="form-control status">
@@ -317,7 +317,8 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <!-- <a href="javascript:void(0)" class="edit_order_tracking btn btn-success btn-xl" title="Order Tracking" data-order_id=' <?= $order_detls[0]['id']; ?>' data-seller_id=' <?= $sellers[$i] ?> ' data-courier_agency=' <?= $item['courier_agency'] ?> ' data-tracking_id=' <?= $item['tracking_id'] ?> ' data-url=' <?= $item['url'] ?> ' data-target="#transaction_modal" data-toggle="modal" style="height:35px;width:38px;"><i class="fa fa-map-marker-alt"></i></a> -->
-                                                    <a href="javascript:void(0)" class="edit_order_tracking btn btn-success btn-xl " title="Order Tracking" data-order_id=' <?= $order_detls[0]['id']; ?>' data-target="#transaction_modal" data-toggle="modal" style="height:35px;width:38px;"><i class="fa fa-map-marker-alt"></i></a>
+                                                    <!-- <a href="javascript:void(0)" class="edit_order_tracking btn btn-success btn-xl " title="Order Tracking" data-order_id=' <?= $order_detls[0]['id']; ?>' data-target="#transaction_modal" data-toggle="modal" style="height:35px;width:38px;"><i class="fa fa-map-marker-alt"></i></a>
+                                                     -->
                                                     <a href="javascript:void(0);" title="Bulk Update" data-id=' <?= $sellers[$i] ?> ' class="btn btn-primary ml-3 col-md-4 update_status_admin_bulk ">
                                                         Update
                                                     </a>
@@ -327,7 +328,7 @@
 
                                                 </div>
                                             </div>
-                                            <p>
+                                            <p> -->
                                                 <lable class="badge badge-warning mt-4 " style="font-size:13px;">Note : Select square box of item only when you want to update it as cancelled or returned.</lable>
                                             </p>
                                             <?php if ($shipping_method['shiprocket_shipping_method'] == 1) { ?>
@@ -917,24 +918,30 @@ $(document).ready(function() {
         
         // Send the data via AJAX
         $.ajax({
+            type: 'POST',
             url: 'http://localhost:8000/app/v1/api/update_order_data',
-            method: 'POST',
-            data: {
-                order_id: itemId,
-                quantity: quantity,
-                price: price,
-                delivery_price: deliveryPrice
-            },
+        data: {
+            amount_paid:2000,
+total:2000,
+            order_id: itemId,
+            quantity: 100,
+            sub_total: 200,
+            delivery_charge: 200,
+         
+        },
             success: function(response) {
                 // Handle success response
                 console.log(response);
                 alert('Order data updated successfully!');
             },
+
+
             error: function(xhr, status, error) {
-                // Handle error response
-                console.error(error);
-                alert('Failed to update order data. Please try again.');
-            }
+    // Handle error response
+    console.error("Error:", error);
+    var errorMessage = "Failed to update order data. Reason: " + error;
+    alert(errorMessage);
+}
         });
     });
 });
