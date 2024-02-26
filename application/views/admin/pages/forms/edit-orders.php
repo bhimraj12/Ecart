@@ -757,7 +757,7 @@
                                 ?>
                                 <tr>
                                     <th class="w-10px">Payable Total(<?= $settings['currency'] ?>)</th>
-                                    <td><input type="text" class="form-control" id="final_total" name="final_total" value="<?= $total; ?>" disabled></td>
+                                    <td><input type="text" class="form-control" id="final_total" name="final_total" value="<?= $total; ?>" ></td>
                                 </tr>
                                 <tr>
                                     <th class="w-10px">Payment Method</th>
