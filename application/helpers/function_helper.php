@@ -2218,7 +2218,7 @@ function send_digital_product_mail($to, $subject, $message, $attachment)
     return $response;
 }
 
-function fetch_orders($order_id = NULL, $cod_type = NULL, $user_id = NULL, $status = NULL, $delivery_boy_id = NULL, $limit = NULL, $offset = NULL, $sort = NULL, $order = NULL, $download_invoice = false, $start_date = null, $end_date = null, $search = null, $city_id = null, $area_id = null, $seller_id = null, $order_type = '', $from_seller = false)
+function fetch_orders($order_id = NULL, $user_id = NULL, $status = NULL, $delivery_boy_id = NULL, $limit = NULL, $offset = NULL, $sort = NULL, $order = NULL, $download_invoice = false, $start_date = null, $end_date = null, $search = null, $city_id = null, $area_id = null, $seller_id = null, $order_type = '', $from_seller = false)
 {
 
     $t = &get_instance();
@@ -2309,7 +2309,7 @@ function fetch_orders($order_id = NULL, $cod_type = NULL, $user_id = NULL, $stat
         $total = $row['total'];
     }
 
-    $search_res = $t->db->select(' o.*, u.username,u.country_code, p.name,p.type,p.download_allowed,p.pickup_location,a.name as order_recipient_person,pv.special_price,pv.price,oc.delivery_charge as seller_delivery_charge,oc.promo_discount as seller_promo_dicount, pv.unit_set')
+    $search_res = $t->db->select(' o.*, u.username,u.country_code, p.name,p.type,p.download_allowed,p.pickup_location,a.name as order_recipient_person,pv.special_price,pv.price,oc.delivery_charge as seller_delivery_charge,oc.promo_discount as seller_promo_dicount,, pv.unit_set')
         ->join(' `users` u', 'u.id= o.user_id', 'left')
         ->join(' `order_items` oi', 'o.id= oi.order_id', 'left')
         ->join('product_variants pv', 'pv.id=oi.product_variant_id', 'left')
@@ -2380,7 +2380,7 @@ function fetch_orders($order_id = NULL, $cod_type = NULL, $user_id = NULL, $stat
         $t->db->select('oi.*,p.id as product_id,p.is_cancelable,p.is_prices_inclusive_tax,p.cancelable_till,p.type,p.slug,p.download_allowed,p.download_link,sd.store_name,u.longitude as seller_longitude,u.mobile as seller_mobile,u.address as seller_address,u.latitude as seller_latitude,(select username from users where id=oi.delivery_boy_id) as delivery_boy_name ,sd.store_description,sd.rating as seller_rating,sd.logo as seller_profile,ot.courier_agency,ot.tracking_id,ot.awb_code,ot.url,u.username as seller_name,p.is_returnable,
         pv.special_price,pv.price as main_price,p.image,p.name,p.pickup_location,pv.weight,p.rating as product_rating,p.type,pr.rating as user_rating, pr.images as user_rating_images, pr.comment as user_rating_comment,oi.status as status,
         (Select count(id) from order_items where order_id = oi.order_id ) as order_counter ,
-        (Select count(active_status) from order_items where active_status ="cancelled" and order_id = oi.order_id ) as order_cancel_counter , (Select count(active_status) from order_items where active_status ="returned" and order_id = oi.order_id ) as order_return_counter, pv.unit_set ')
+        (Select count(active_status) from order_items where active_status ="cancelled" and order_id = oi.order_id ) as order_cancel_counter , (Select count(active_status) from order_items where active_status ="returned" and order_id = oi.order_id ) as order_return_counter,pv.unit_set  ')
             ->join('product_variants pv', 'pv.id=oi.product_variant_id', 'left')
             ->join('products p', 'pv.product_id=p.id', 'left')
             ->join('product_rating pr', 'pv.product_id=pr.product_id ' . $pr_condition, 'left')
@@ -2521,33 +2521,486 @@ function fetch_orders($order_id = NULL, $cod_type = NULL, $user_id = NULL, $stat
                 }
                 $tax_search_res = $t->db->where('id', 1)->get('taxes')->result_array();
                 $advance = $tax_search_res->percentage;
+                $advance = 10;
                 if ($productSetInfo && $order_item_data[$k]['quantity'] >= $minimum_unit_set && $order_item_data[$k]['quantity'] <= $maximum_unit_set) {
                     if(isset($cod_type) && $cod_type != null && $cod_type == 2){
-                        $item_subtotal = ((floatval($productSetInfo['selling_price_set']) * $order_item_data[$k]['quantity'])*$advance)/100;    
+                        $item_subtotal += ((floatval($productSetInfo['selling_price_set']) * $order_item_data[$k]['quantity'])*$advance)/100;    
                     }else{
-                        $item_subtotal = floatval($productSetInfo['selling_price_set']) * $order_item_data[$k]['quantity'];    
+                        $item_subtotal += floatval($productSetInfo['selling_price_set']) * $order_item_data[$k]['quantity'];    
                     }
                 } else {
                     if (floatval($order_item_data[$k]['special_price']) > 0) {
                         if(isset($cod_type) && $cod_type != null && $cod_type == 2){
-                            $item_subtotal = ((floatval($order_item_data[$k]['special_price']) * $order_item_data[$k]['quantity'])*$advance)/100;    
+                            $item_subtotal += ((floatval($order_item_data[$k]['special_price']) * $order_item_data[$k]['quantity'])*$advance)/100;    
                         }
                         else{
-                            $item_subtotal = floatval($order_item_data[$k]['special_price']) * $order_item_data[$k]['quantity'];    
+                            $item_subtotal += floatval($order_item_data[$k]['special_price']) * $order_item_data[$k]['quantity'];    
                         }
                     } else {
                         if(isset($cod_type) && $cod_type != null && $cod_type == 2){
-                            $item_subtotal = ((floatval($order_item_data[$k]['price']) * $order_item_data[$k]['quantity'])*$advance)/100;    
+                            $item_subtotal += ((floatval($order_item_data[$k]['price']) * $order_item_data[$k]['quantity'])*$advance)/100;    
                         }
                         else{
-                            $item_subtotal = floatval($order_item_data[$k]['price']) * $order_item_data[$k]['quantity'];    
+                            $item_subtotal += floatval($order_item_data[$k]['price']) * $order_item_data[$k]['quantity'];    
                         }
                         }
                 }
                 
                 $order_item_data[$k]['tax_amount'] = isset($price_tax_amount) && !empty($price_tax_amount) ?  (float)number_format($price_tax_amount, 2) : 0.00;
                 $order_item_data[$k]['net_amount'] = $order_item_data[$k]['price'] - $order_item_data[$k]['tax_amount'];
-                $item_subtotal += $order_item_data[$k]['sub_total'];
+                // $item_subtotal += $order_item_data[$k]['sub_total'];
+                $order_item_data[$k]['seller_name'] = (!empty($order_item_data[$k]['seller_name'])) ? $order_item_data[$k]['seller_name'] : '';
+                $order_item_data[$k]['store_description'] = (!empty($order_item_data[$k]['store_description'])) ? $order_item_data[$k]['store_description'] : '';
+                $order_item_data[$k]['seller_rating'] = (!empty($order_item_data[$k]['seller_rating'])) ? number_format($order_item_data[$k]['seller_rating'], 1) : "0";
+                $order_item_data[$k]['seller_profile'] = (!empty($order_item_data[$k]['seller_profile'])) ? base_url() . $order_item_data[$k]['seller_profile'] : '';
+                $order_item_data[$k]['seller_latitude'] = (isset($order_item_data[$k]['seller_latitude']) && !empty($order_item_data[$k]['seller_latitude'])) ? $order_item_data[$k]['seller_latitude'] : '';
+                $order_item_data[$k]['seller_longitude'] = (isset($order_item_data[$k]['seller_longitude']) && !empty($order_item_data[$k]['seller_longitude'])) ? $order_item_data[$k]['seller_longitude'] : '';
+                $order_item_data[$k]['seller_address'] = (isset($order_item_data[$k]['seller_address']) && !empty($order_item_data[$k]['seller_address'])) ? $order_item_data[$k]['seller_address'] : '';
+                $order_item_data[$k]['seller_mobile'] = (isset($order_item_data[$k]['seller_mobile']) && !empty($order_item_data[$k]['seller_mobile'])) ? $order_item_data[$k]['seller_mobile'] : '';
+
+                if (isset($seller_id) && $seller_id != null) {
+                    $order_item_data[$k]['otp'] = (get_seller_permission($order_item_data[$k]['seller_id'], "view_order_otp")) ? $order_item_data[$k]['otp'] : "0";
+                }
+                $order_item_data[$k]['pickup_location'] = isset($order_item_data[$k]['pickup_location']) && !empty($order_item_data[$k]['pickup_location']) && $order_item_data[$k]['pickup_location'] != 'NULL' ? $order_item_data[$k]['pickup_location'] : '';
+                $varaint_data = get_variants_values_by_id($order_item_data[$k]['product_variant_id']);
+                $order_item_data[$k]['varaint_ids'] = (!empty($varaint_data)) ? $varaint_data[0]['varaint_ids'] : '';
+                $order_item_data[$k]['variant_values'] = (!empty($varaint_data)) ? $varaint_data[0]['variant_values'] : '';
+                $order_item_data[$k]['attr_name'] = (!empty($varaint_data)) ? $varaint_data[0]['attr_name'] : '';
+                $order_item_data[$k]['product_rating'] = (!empty($order_item_data[$k]['product_rating'])) ? number_format($order_item_data[$k]['product_rating'], 1) : "0";
+                $order_item_data[$k]['name'] = (!empty($order_item_data[$k]['name'])) ? $order_item_data[$k]['name'] : $order_item_data[$k]['product_name'];
+                $order_item_data[$k]['variant_values'] = (!empty($order_item_data[$k]['variant_values'])) ? $order_item_data[$k]['variant_values'] : $order_item_data[$k]['variant_name'];
+                $order_item_data[$k]['user_rating'] = (!empty($order_item_data[$k]['user_rating'])) ? $order_item_data[$k]['user_rating'] : '0';
+                $order_item_data[$k]['user_rating_comment'] = (!empty($order_item_data[$k]['user_rating_comment'])) ? $order_item_data[$k]['user_rating_comment'] : '';
+                $order_item_data[$k]['status'] = json_decode($order_item_data[$k]['status']);
+                if (!in_array($order_item_data[$k]['active_status'], ['returned', 'cancelled'])) {
+                    $total_tax_percent = $total_tax_percent +  $order_item_data[$k]['tax_percent'];
+                    // $total_tax_amount  = $total_tax_amount + $order_item_data[$k]['tax_amount'];
+                    $total_tax_amount  =  $order_item_data[$k]['tax_amount'] * $order_item_data[$k]['quantity'];
+                }
+                $order_item_data[$k]['image_sm'] = (empty($order_item_data[$k]['image']) || file_exists(FCPATH . $order_item_data[$k]['image']) == FALSE) ? base_url(NO_IMAGE) : get_image_url($order_item_data[$k]['image'], 'thumb', 'sm');
+                $order_item_data[$k]['image_md'] = (empty($order_item_data[$k]['image']) || file_exists(FCPATH . $order_item_data[$k]['image']) == FALSE) ? base_url(NO_IMAGE) : get_image_url($order_item_data[$k]['image'], 'thumb', 'md');
+                $order_item_data[$k]['image'] = (empty($order_item_data[$k]['image']) || file_exists(FCPATH . $order_item_data[$k]['image']) == FALSE) ? base_url(NO_IMAGE) : get_image_url($order_item_data[$k]['image']);
+                $order_item_data[$k]['is_already_returned'] =  ($order_item_data[$k]['active_status'] == 'returned') ? '1' : '0';
+                $order_item_data[$k]['is_already_cancelled'] = ($order_item_data[$k]['active_status'] == 'cancelled') ? '1' : '0';
+                $return_request_key = array_search($order_item_data[$k]['id'], array_column($return_request, 'order_item_id'));
+                if ($return_request_key !== false) {
+                    $order_item_data[$k]['return_request_submitted'] = $return_request[$return_request_key]['status'];
+                    if ($order_item_data[$k]['return_request_submitted'] == '1') {
+                        $return_request_submitted_count += $order_item_data[$k]['return_request_submitted'];
+                    }
+                } else {
+                    $order_item_data[$k]['return_request_submitted'] = '';
+                    $return_request_submitted_count = null;
+                }
+                $order_item_data[$k]['courier_agency'] = (isset($order_item_data[$k]['courier_agency']) && !empty($order_item_data[$k]['courier_agency'])) ?  $order_item_data[$k]['courier_agency'] : "";
+                $order_item_data[$k]['tracking_id'] = (isset($order_item_data[$k]['tracking_id']) && !empty($order_item_data[$k]['tracking_id'])) ? $order_item_data[$k]['tracking_id'] : "";
+                $order_item_data[$k]['url'] = (isset($order_item_data[$k]['url']) && !empty($order_item_data[$k]['url'])) ? $order_item_data[$k]['url'] : "";
+                $order_item_data[$k]['shiprocket_order_tracking_url'] = (isset($order_item_data[$k]['awb_code']) && !empty($order_item_data[$k]['awb_code']) && $order_item_data[$k]['awb_code'] != '' && $order_item_data[$k]['awb_code'] != null) ? "https://shiprocket.co/tracking/" . $order_item_data[$k]['awb_code'] : "";
+                $order_item_data[$k]['deliver_by'] = (isset($order_item_data[$k]['delivery_boy_name']) && !empty($order_item_data[$k]['delivery_boy_name'])) ? $order_item_data[$k]['delivery_boy_name'] : "";
+                $order_item_data[$k]['delivery_boy_id'] = (isset($order_item_data[$k]['delivery_boy_id']) && !empty($order_item_data[$k]['delivery_boy_id'])) ? $order_item_data[$k]['delivery_boy_id'] : "";
+                $order_item_data[$k]['discounted_price'] = (isset($order_item_data[$k]['discounted_price']) && !empty($order_item_data[$k]['discounted_price'])) ? $order_item_data[$k]['discounted_price'] : "";
+                $order_item_data[$k]['delivery_boy_name'] = (isset($order_item_data[$k]['delivery_boy_name']) && !empty($order_item_data[$k]['delivery_boy_name'])) ? $order_item_data[$k]['delivery_boy_name'] : "";
+                if (($order_details[$i]['type'] == 'digital_product' && in_array(0, $download_allowed)) ||  ($order_details[$i]['type'] != 'digital_product' && in_array(0, $download_allowed))) {
+                    $order_details[$i]['download_allowed'] = '0';
+                    $order_item_data[$k]['download_link'] = '';
+                } else {
+                    $order_details[$i]['download_allowed'] = '1';
+                    $order_item_data[$k]['download_link'] = $order_item_data[$k]['download_link'];
+                }
+                $order_item_data[$k]['email'] = (isset($order_details[$i]['email']) && !empty($order_details[$i]['email']) ? $order_details[$i]['email'] : '');
+
+                $returnable_count += $order_item_data[$k]['is_returnable'];
+                $cancelable_count += $order_item_data[$k]['is_cancelable'];
+                $already_returned_count += $order_item_data[$k]['is_already_returned'];
+                $already_cancelled_count += $order_item_data[$k]['is_already_cancelled'];
+                $delivery_date = $order_item_data[$k]['status'][3][1];
+                $settings = get_settings('system_settings', true);
+                $timestemp = strtotime($delivery_date);
+                $today = date('Y-m-d');
+                $return_till = date('Y-m-d', strtotime($delivery_date . ' + ' . $settings['max_product_return_days'] . ' days'));
+                $order_item_data[$k]['is_returnable'] = ($today < $return_till) ? '1' : '0';
+            }
+        }
+
+        $order_details[$i]['delivery_time'] = (isset($order_details[$i]['delivery_time']) && !empty($order_details[$i]['delivery_time'])) ? $order_details[$i]['delivery_time'] : "";
+        $order_details[$i]['delivery_date'] = (isset($order_details[$i]['delivery_date']) && !empty($order_details[$i]['delivery_date'])) ? $order_details[$i]['delivery_date'] : "";
+        $order_details[$i]['is_returnable'] = ($returnable_count >= 1 && isset($delivery_date) && !empty($delivery_date) && $today < $return_till) ? '1' : '0';
+        $order_details[$i]['is_cancelable'] = ($cancelable_count >= 1) ? '1' : '0';
+        $order_details[$i]['is_already_returned'] = ($already_returned_count == count($order_item_data)) ? '1' : '0';
+        $order_details[$i]['is_already_cancelled'] = ($already_cancelled_count == count($order_item_data)) ? '1' : '0';
+        if ($return_request_submitted_count == null) {
+            $order_details[$i]['return_request_submitted'] = '';
+        } else {
+            $order_details[$i]['return_request_submitted'] = ($return_request_submitted_count == count($order_item_data)) ? '1' : '0';
+        }
+
+        if ((isset($delivery_boy_id) && $delivery_boy_id != null) || (isset($seller_id) && $seller_id != null)) {
+
+            $order_details[$i]['total'] = strval($item_subtotal);
+
+            $order_details[$i]['final_total'] = strval($item_subtotal - $total_tax_amount +  $order_details[$i]['delivery_charge']);
+            $order_details[$i]['total_payable'] = strval($item_subtotal +  $order_details[$i]['delivery_charge'] - $order_details[$i]['promo_discount'] -  $order_details[$i]['wallet_balance']);
+        } else {
+            $order_details[$i]['total'] = strval($order_details[$i]['total']);
+        }
+        $order_details[$i]['address'] = (isset($order_details[$i]['address']) && !empty($order_details[$i]['address'])) ? output_escaping($order_details[$i]['address']) : "";
+        $order_details[$i]['username'] = output_escaping($order_details[$i]['username']);
+        $order_details[$i]['country_code'] = (isset($order_details[$i]['country_code']) && !empty($order_details[$i]['country_code'])) ? $order_details[$i]['country_code'] : '';
+        $order_details[$i]['total_tax_percent'] = strval($total_tax_percent);
+        $order_details[$i]['total_tax_amount'] = strval($total_tax_amount);
+        if (isset($seller_id) && $seller_id != null) {
+            if ($download_invoice == true || $download_invoice == 1) {
+                $order_details[$i]['invoice_html'] =  get_seller_invoice_html($order_details[$i]['id'], $seller_id);
+            }
+        } else {
+            if ($download_invoice == true || $download_invoice == 1) {
+                $order_details[$i]['invoice_html'] =  get_invoice_html($order_details[$i]['id']);
+            }
+        }
+        if (!empty($order_item_data)) {
+            $order_details[$i]['order_items'] = $order_item_data;
+        } else {
+            $order_details[$i]['order_items'] =  [];
+        }
+    }
+
+    $order_data['total'] = $total;
+    $order_data['order_data'] = array_values($order_details);
+    return $order_data;
+}
+
+function fetch_orders_razorpay($order_id = NULL,$cod_type = 0, $user_id = NULL, $status = NULL, $delivery_boy_id = NULL, $limit = NULL, $offset = NULL, $sort = NULL, $order = NULL, $download_invoice = false, $start_date = null, $end_date = null, $search = null, $city_id = null, $area_id = null, $seller_id = null, $order_type = '', $from_seller = false)
+
+{
+
+    $t = &get_instance();
+    $where = [];
+
+    $count_res = $t->db->select(' COUNT(distinct o.id) as `total`')
+        ->join(' `users` u', 'u.id= o.user_id', 'left')
+        ->join(' `order_items` oi', 'o.id= oi.order_id', 'left')
+        ->join('product_variants pv', 'pv.id=oi.product_variant_id', 'left')
+        ->join('products p', 'pv.product_id=p.id', 'left')
+        ->join('order_tracking ot ', ' ot.order_item_id = oi.id', 'left')
+        ->join('addresses a', 'a.id=o.address_id', 'left');
+    if (isset($order_id) && $order_id != null) {
+        $where['o.id'] = $order_id;
+    }
+
+    if (isset($delivery_boy_id) && $delivery_boy_id != NULL) {
+        $where['oi.delivery_boy_id'] = $delivery_boy_id;
+    }
+
+    if (isset($user_id) && $user_id != null) {
+        $where['o.user_id'] = $user_id;
+    }
+    if (isset($city_id) && $city_id != null) {
+        $where['a.city_id'] = $city_id;
+    }
+    if (isset($area_id) && $area_id != null) {
+        $where['a.area_id'] = $area_id;
+    }
+    if (isset($seller_id) && $seller_id != null) {
+        $where['oi.seller_id'] = $seller_id;
+    }
+    if (isset($order_type) && $order_type != '' && $order_type == 'digital') {
+        $where['p.type'] = 'digital_product';
+    }
+    if (isset($order_type) && $order_type != '' && $order_type == 'simple') {
+        $where['p.type !='] = 'digital_product';
+    }
+
+
+    if (isset($status) &&  is_array($status) &&  count($status) > 0) {
+        $status = array_map('trim', $status);
+        $count_res->where_in('oi.active_status', $status);
+    }
+
+    if (isset($start_date) && $start_date != null && isset($end_date) && $end_date != null) {
+        $count_res->where(" DATE(o.date_added) >= DATE('" . $start_date . "') ");
+        $count_res->where(" DATE(o.date_added) <= DATE('" . $end_date . "') ");
+    }
+
+    if (isset($search) and $search != null) {
+
+        $filters = [
+            'u.username' => $search,
+            'u.email' => $search,
+            'o.id' => $search,
+            'o.mobile' => $search,
+            'o.address' => $search,
+            'o.payment_method' => $search,
+            'o.delivery_time' => $search,
+            'o.date_added' => $search,
+            'p.name' => $search,
+            'oi.active_status' => $search,
+        ];
+    }
+    if (isset($filters) && !empty($filters)) {
+        $count_res->group_Start();
+        $count_res->or_like($filters);
+        $count_res->group_End();
+    }
+
+
+    $count_res->where($where);
+
+    if (isset($seller_id) && $seller_id != null) {
+        $count_res->where("oi.active_status != 'awaiting'");
+    }
+
+    if ($sort == 'date_added') {
+        $sort = 'o.date_added';
+    }
+    $count_res->order_by($sort, $order);
+
+    $order_count = $count_res->get('`orders` o')->result_array();
+
+    $total = "0";
+    foreach ($order_count as $row) {
+        $total = $row['total'];
+    }
+
+    $search_res = $t->db->select(' o.*, u.username,u.country_code, p.name,p.type,p.download_allowed,p.pickup_location,a.name as order_recipient_person,pv.special_price,pv.price,oc.delivery_charge as seller_delivery_charge,oc.promo_discount as seller_promo_dicount,, pv.unit_set')
+        ->join(' `users` u', 'u.id= o.user_id', 'left')
+        ->join(' `order_items` oi', 'o.id= oi.order_id', 'left')
+        ->join('product_variants pv', 'pv.id=oi.product_variant_id', 'left')
+        ->join('addresses a', 'a.id=o.address_id', 'left')
+        ->join('order_charges oc', 'o.id=oc.order_id', 'left')
+        ->join('products p', 'pv.product_id=p.id', 'left');
+
+    // if (isset($seller_id) && $seller_id != null) {
+
+    //     $search_res->where("oc.seller_id", $seller_id);
+    // }
+    if (isset($order_id) && $order_id != null) {
+        $search_res->where("o.id", $order_id);
+    }
+    if (isset($user_id) && $user_id != null) {
+        $search_res->where("o.user_id", $user_id);
+    }
+    if (isset($delivery_boy_id) && $delivery_boy_id != NULL) {
+        $search_res->where('oi.delivery_boy_id', $delivery_boy_id);
+    }
+    if (isset($seller_id) && $seller_id != null) {
+        $search_res->group_Start();
+        // $where['oi.seller_id'] = $seller_id;
+        $search_res->where("oi.seller_id", $seller_id);
+        $search_res->or_where("oc.seller_id", $seller_id);
+        $search_res->group_End();
+    }
+
+    // if (isset($seller_id) && $seller_id != null) {
+    //     $where['oi.seller_id'] = $seller_id;
+    // }
+    if (isset($start_date) && $start_date != null && isset($end_date) && $end_date != null) {
+        $search_res->where(" DATE(o.date_added) >= DATE('" . $start_date . "') ");
+        $search_res->where(" DATE(o.date_added) <= DATE('" . $end_date . "') ");
+    }
+    if (isset($order_type) && $order_type != '' && $order_type == 'digital') {
+        $search_res->where("p.type = 'digital_product'");
+    }
+    if (isset($order_type) && $order_type != '' && $order_type == 'simple') {
+        $search_res->where("p.type != 'digital_product'");
+    }
+    if (isset($status) &&  is_array($status) &&  count($status) > 0) {
+        $status = array_map('trim', $status);
+        $count_res->where_in('oi.active_status', $status);
+    }
+
+    if (isset($filters) && !empty($filters)) {
+        $search_res->group_Start();
+        $search_res->or_like($filters);
+        $search_res->group_End();
+    }
+
+    if (empty($sort)) {
+        $sort = `o.date_added`;
+    }
+    $search_res->group_by('o.id');
+    $search_res->order_by($sort, $order);
+    if ($limit != null || $offset != null) {
+        $search_res->limit($limit, $offset);
+    }
+
+    $order_details = $search_res->get('`orders` o')->result_array();
+
+
+    for ($i = 0; $i < count($order_details); $i++) {
+
+        $pr_condition = ($user_id != NULL && !empty(trim($user_id)) && is_numeric($user_id)) ? " and pr.user_id = $user_id " : "";
+        $t->db->select('oi.*,p.id as product_id,p.is_cancelable,p.is_prices_inclusive_tax,p.cancelable_till,p.type,p.slug,p.download_allowed,p.download_link,sd.store_name,u.longitude as seller_longitude,u.mobile as seller_mobile,u.address as seller_address,u.latitude as seller_latitude,(select username from users where id=oi.delivery_boy_id) as delivery_boy_name ,sd.store_description,sd.rating as seller_rating,sd.logo as seller_profile,ot.courier_agency,ot.tracking_id,ot.awb_code,ot.url,u.username as seller_name,p.is_returnable,
+        pv.special_price,pv.price as main_price,p.image,p.name,p.pickup_location,pv.weight,p.rating as product_rating,p.type,pr.rating as user_rating, pr.images as user_rating_images, pr.comment as user_rating_comment,oi.status as status,
+        (Select count(id) from order_items where order_id = oi.order_id ) as order_counter ,
+        (Select count(active_status) from order_items where active_status ="cancelled" and order_id = oi.order_id ) as order_cancel_counter , (Select count(active_status) from order_items where active_status ="returned" and order_id = oi.order_id ) as order_return_counter,pv.unit_set  ')
+            ->join('product_variants pv', 'pv.id=oi.product_variant_id', 'left')
+            ->join('products p', 'pv.product_id=p.id', 'left')
+            ->join('product_rating pr', 'pv.product_id=pr.product_id ' . $pr_condition, 'left')
+            ->join('seller_data sd', 'sd.user_id=oi.seller_id')
+            ->join('order_tracking ot ', ' ot.order_item_id = oi.id', 'left')
+            ->join('users u', 'u.id=oi.seller_id');
+
+        $t->db->or_where_in('oi.order_id', $order_details[$i]['id']);
+        if (isset($seller_id) && $seller_id != null) {
+            $t->db->where('oi.seller_id=' . $seller_id);
+            $t->db->where("oi.active_status != 'awaiting'");
+        }
+        if (isset($order_type) && $order_type != '' && $order_type == 'digital') {
+            $t->db->where("p.type = 'digital_product'");
+        }
+        if (isset($order_type) && $order_type != '' && $order_type == 'simple') {
+            $t->db->where("p.type != 'digital_product'");
+        }
+        if (isset($delivery_boy_id) && $delivery_boy_id != null) {
+            $t->db->where('oi.delivery_boy_id=' . $delivery_boy_id);
+        }
+        // if(isset($from_seller) && $from_seller == true){
+        //     $t->db->where('oi.active_status !=' , 'cancelled');
+        //     $t->db->where('oi.active_status !=' , 'returned');
+        // }
+        if (isset($status) &&  is_array($status) &&  count($status) > 0) {
+            $status = array_map('trim', $status);
+            $count_res->where_in('oi.active_status', $status);
+        }
+
+        $t->db->group_by('oi.id');
+        $order_item_data = $t->db->get('order_items oi')->result_array();
+
+
+
+        $return_request = fetch_details('return_requests', ['user_id' => $user_id]);
+        if ($order_details[$i]['payment_method'] == "bank_transfer") {
+            $bank_transfer = fetch_details('order_bank_transfer', ['order_id' => $order_details[$i]['id']], 'attachments,id,status');
+            if (!empty($bank_transfer)) {
+                $bank_transfer = array_map(function ($attachment) {
+                    $temp['id'] = $attachment['id'];
+                    $temp['attachment'] = base_url($attachment['attachments']);
+                    $temp['banktransfer_status'] = $attachment['status'];
+                    return $temp;
+                }, $bank_transfer);
+            }
+        }
+        $order_details[$i]['latitude'] = (isset($order_details[$i]['latitude']) && !empty($order_details[$i]['latitude'])) ? $order_details[$i]['latitude'] : "";
+        $order_details[$i]['longitude'] = (isset($order_details[$i]['longitude']) && !empty($order_details[$i]['longitude'])) ? $order_details[$i]['longitude'] : "";
+        $order_details[$i]['order_recipient_person'] = (isset($order_details[$i]['order_recipient_person']) && !empty($order_details[$i]['order_recipient_person'])) ? $order_details[$i]['order_recipient_person'] : "";
+        $order_details[$i]['attachments'] = (isset($bank_transfer) && !empty($bank_transfer)) ? $bank_transfer : [];
+        $order_details[$i]['notes'] = (isset($order_details[$i]['notes']) && !empty($order_details[$i]['notes'])) ? $order_details[$i]['notes'] : "";
+        $order_details[$i]['payment_method'] = ($order_details[$i]['payment_method'] == 'bank_transfer') ? ucwords(str_replace('_', " ", $order_details[$i]['payment_method'])) : $order_details[$i]['payment_method'];
+        $order_details[$i]['courier_agency'] = "";
+        $order_details[$i]['tracking_id'] = "";
+        $order_details[$i]['url'] = "";
+
+        $city_id = fetch_details('addresses', ['id' => $order_details[$i]['address_id']], 'city_id')[0]['city_id'];
+        $order_details[$i]['is_shiprocket_order'] = (isset($city_id) && $city_id == 0) ? 1 : 0;
+
+        if (isset($seller_id) && !empty($seller_id)) {
+            if (isset($order_details[$i]['seller_delivery_charge'])) {
+                $order_details[$i]['delivery_charge'] = $order_details[$i]['seller_delivery_charge'];
+            } else {
+                $order_details[$i]['delivery_charge'] = $order_details[$i]['delivery_charge'];
+            }
+        } else {
+            $order_details[$i]['delivery_charge'] = $order_details[$i]['delivery_charge'];
+        }
+        if (isset($order_details[$i]['seller_promo_dicount'])) {
+            $order_details[$i]['promo_discount'] = $order_details[$i]['seller_promo_dicount'];
+        } else {
+            $order_details[$i]['promo_discount'] = $order_details[$i]['promo_discount'];
+        }
+
+        $returnable_count = 0;
+        $cancelable_count = 0;
+        $already_returned_count = 0;
+        $already_cancelled_count = 0;
+        $return_request_submitted_count = 0;
+        $total_tax_percent = $total_tax_amount = $item_subtotal = 0;
+        $download_allowed = array();
+        for ($k = 0; $k < count($order_item_data); $k++) {
+
+
+
+            array_push($download_allowed, $order_item_data[$k]['download_allowed']);
+            // $download_allowed = array_values(array_unique(array_column($order_item_data[$k], "download_allowed")));
+
+
+            if (isset($order_item_data[$k]['quantity']) && $order_item_data[$k]['quantity'] != 0) {
+                $price = $order_item_data[$k]['special_price'] != '' && $order_item_data[$k]['special_price'] != null && $order_item_data[$k]['special_price'] > 0 && $order_item_data[$k]['special_price'] < $order_item_data[$k]['main_price'] ? $order_item_data[$k]['special_price'] : $order_item_data[$k]['main_price'];
+                $amount = $order_item_data[$k]['quantity'] * $price;
+            }
+            if (!empty($order_item_data)) {
+
+                $user_rating_images = json_decode($order_item_data[$k]['user_rating_images'], true);
+                $order_item_data[$k]['user_rating_images'] = array();
+                if (!empty($user_rating_images)) {
+                    for ($f = 0; $f < count($user_rating_images); $f++) {
+                        $order_item_data[$k]['user_rating_images'][] = base_url($user_rating_images[$f]);
+                    }
+                }
+                // $price_tax_amount = $price * ($order_item_data[$k]['tax_percent'] / 100);
+                if (isset($order_item_data[$k]['is_prices_inclusive_tax']) && $order_item_data[$k]['is_prices_inclusive_tax'] == 1) {
+                    $price_tax_amount  = $price - ($price * (100 / (100 + $order_item_data[$k]['tax_percent'])));
+                } else {
+                    $price_tax_amount = $price * ($order_item_data[$k]['tax_percent'] / 100);
+                }
+                
+                if (!empty($order_details[$i]['unit_set']) && $order_details[$i]['unit_set'] > 0) {
+                if($order_item_data[$k]['quantity'] > $order_details[$i]['unit_set']){
+                $divied_qty = $order_item_data[$k]['quantity'] / $order_details[$i]['unit_set'];
+                }else{
+                $divied_qty = $order_details[$i]['unit_set'] / $order_item_data[$k]['quantity'];
+                }
+                $productSetInfo = $t->db->select('minimum_quantity, maximum_quantity, selling_price_set')
+                ->where('product_id', $order_details[$i]['product_id'])
+                ->where('minimum_quantity <=', $divied_qty)
+                ->where('maximum_quantity >=', $divied_qty)
+                ->get('product_set')
+                ->row_array();
+
+                $minimum_unit_set = $productSetInfo['minimum_quantity'] * $order_details[$i]['unit_set'];
+                $maximum_unit_set = $productSetInfo['maximum_quantity'] * $order_details[$i]['unit_set'];
+               
+                } else {
+        
+                    $productSetInfo = $t->db->select('minimum_quantity, maximum_quantity, selling_price_set')
+                    ->where('product_id', $order_details[$i]['product_id'])
+                    ->where('minimum_quantity <=', $order_item_data[$k]['quantity'])
+                    ->where('maximum_quantity >=',$order_item_data[$k]['quantity'])
+                    ->get('product_set')
+                    ->row_array();
+        
+                    $minimum_unit_set = $productSetInfo['minimum_quantity'];
+                    $maximum_unit_set = $productSetInfo['maximum_quantity'];
+                }
+                $tax_search_res = $t->db->where('id', 1)->get('taxes')->result_array();
+                $advance = $tax_search_res->percentage;
+                $advance = 10;
+                if ($productSetInfo && $order_item_data[$k]['quantity'] >= $minimum_unit_set && $order_item_data[$k]['quantity'] <= $maximum_unit_set) {
+                    if(isset($cod_type) && $cod_type != null && $cod_type == 2){
+                        $item_subtotal += ((floatval($productSetInfo['selling_price_set']) * $order_item_data[$k]['quantity'])*$advance)/100;    
+                    }else{
+                        $item_subtotal += floatval($productSetInfo['selling_price_set']) * $order_item_data[$k]['quantity'];    
+                    }
+                } else {
+                    if (floatval($order_item_data[$k]['special_price']) > 0) {
+                        if(isset($cod_type) && $cod_type != null && $cod_type == 2){
+                            $item_subtotal += ((floatval($order_item_data[$k]['special_price']) * $order_item_data[$k]['quantity'])*$advance)/100;    
+                        }
+                        else{
+                            $item_subtotal += floatval($order_item_data[$k]['special_price']) * $order_item_data[$k]['quantity'];    
+                        }
+                    } else {
+                        if(isset($cod_type) && $cod_type != null && $cod_type == 2){
+                            $item_subtotal += ((floatval($order_item_data[$k]['price']) * $order_item_data[$k]['quantity'])*$advance)/100;    
+                        }
+                        else{
+                            $item_subtotal += floatval($order_item_data[$k]['price']) * $order_item_data[$k]['quantity'];    
+                        }
+                        }
+                }
+                
+                $order_item_data[$k]['tax_amount'] = isset($price_tax_amount) && !empty($price_tax_amount) ?  (float)number_format($price_tax_amount, 2) : 0.00;
+                $order_item_data[$k]['net_amount'] = $order_item_data[$k]['price'] - $order_item_data[$k]['tax_amount'];
+                // $item_subtotal += $order_item_data[$k]['sub_total'];
                 $order_item_data[$k]['seller_name'] = (!empty($order_item_data[$k]['seller_name'])) ? $order_item_data[$k]['seller_name'] : '';
                 $order_item_data[$k]['store_description'] = (!empty($order_item_data[$k]['store_description'])) ? $order_item_data[$k]['store_description'] : '';
                 $order_item_data[$k]['seller_rating'] = (!empty($order_item_data[$k]['seller_rating'])) ? number_format($order_item_data[$k]['seller_rating'], 1) : "0";

@@ -269,7 +269,47 @@ class Order_model extends CI_Model
             $gross_total = 0;
             $cart_data = [];
             for ($i = 0; $i < count($product_variant); $i++) {
-                $pv_price[$i] = ($product_variant[$i]['special_price'] > 0 && $product_variant[$i]['special_price'] != null) ? $product_variant[$i]['special_price'] : $product_variant[$i]['price'];
+
+         if (!empty($product_variant[$i]['unit_set']) && $product_variant[$i]['unit_set'] > 0) {
+                
+                if($quantity[$i] > $product_variant[$i]['unit_set']){
+                $divied_qty = $quantity[$i] / $product_variant[$i]['unit_set'];
+                }else{
+                $divied_qty = $product_variant[$i]['unit_set'] / $quantity[$i];
+                }
+            
+                $productSetInfo = $this->db->select('minimum_quantity, maximum_quantity, selling_price_set')
+                ->where('product_id', $product_variant[$i]['product_id'])
+                ->where('minimum_quantity <=', $divied_qty)
+                ->where('maximum_quantity >=', $divied_qty)
+                ->get('product_set')
+                ->row_array();
+
+                $minimum_unit_set = $productSetInfo['minimum_quantity'] ? $productSetInfo['minimum_quantity']*$product_variant[$i]['unit_set'] : 0;
+                $maximum_unit_set = $productSetInfo['maximum_quantity'] ?$productSetInfo['maximum_quantity']*$product_variant[$i]['unit_set'] : 0;
+         } else {
+              $productSetInfo = $this->db->select('minimum_quantity, maximum_quantity, selling_price_set')
+                ->where('product_id', $product_variant[$i]['product_id'])
+                ->where('minimum_quantity <=', $quantity[$i])
+                ->where('maximum_quantity >=', $quantity[$i])
+                ->get('product_set')
+                ->row_array();
+
+                $minimum_unit_set = $productSetInfo['minimum_quantity'] ?? 0;
+                $maximum_unit_set = $productSetInfo['maximum_quantity'] ?? 0;
+         }
+                if ($productSetInfo && $quantity[$i] >=  $minimum_unit_set && $quantity[$i] <= $maximum_unit_set) {
+                    $pv_price[$i] = $productSetInfo['selling_price_set'] ;
+                    } else {
+                    if (isset($product_variant[$i]['special_price']) && $product_variant[$i]['special_price'] != '' && $product_variant[$i]['special_price'] != null && $product_variant[$i]['special_price'] > 0 && $product_variant[$i]['special_price'] < $product_variant[$i]['price'] ? $product_variant[$i]['special_price'] : $product_variant[$i]['price']) {
+                        $pv_price[$i] =  $product_variant[$i]['special_price'];
+                    }
+                    else{
+                        $pv_price[$i] =  $product_variant[$i]['price'];
+                    }
+                }
+
+                // $pv_price[$i] = ($product_variant[$i]['special_price'] > 0 && $product_variant[$i]['special_price'] != null) ? $product_variant[$i]['special_price'] : $product_variant[$i]['price'];
                 $tax_percentage[$i] = (isset($product_variant[$i]['tax_percentage']) && intval($product_variant[$i]['tax_percentage']) > 0 && $product_variant[$i]['tax_percentage'] != null) ? $product_variant[$i]['tax_percentage'] : '0';
                 if ((isset($product_variant[$i]['is_prices_inclusive_tax']) && $product_variant[$i]['is_prices_inclusive_tax'] == 0) || (!isset($product_variant[$i]['is_prices_inclusive_tax'])) && $tax_percentage[$i] > 0) {
                     $tax_amount[$i] = $pv_price[$i] * ($tax_percentage[$i] / 100);
@@ -277,6 +317,7 @@ class Order_model extends CI_Model
                 }
 
                 $subtotal[$i] = ($pv_price[$i])  * $quantity[$i];
+
                 $pro_name[$i] = $product_variant[$i]['product_name'];
                 $variant_info = get_variants_values_by_id($product_variant[$i]['id']);
                 $product_variant[$i]['variant_name'] = (isset($variant_info[0]['variant_values']) && !empty($variant_info[0]['variant_values'])) ? $variant_info[0]['variant_values'] : "";
